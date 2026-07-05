@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Neocloud Intelligence Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<style>
+  :root {
+    --bg:#0b0f14; --panel:#121a24; --panel-2:#0e151d; --line:#223040; --line-soft:#1a2533;
+    --text:#eaf1f8; --muted:#8ea2b8; --muted-2:#5f7388;
+    --accent:#4ea1ff; --accent-2:#7cc4ff;
+    --green:#34d399; --amber:#fbbf24; --blue:#60a5fa; --red:#f87171; --purple:#a78bfa;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; }
+  #map { position:absolute; inset:0; background:#0b0f14; }
+
+  #topbar { position:absolute; z-index:1100; top:0; left:0; right:0; height:52px;
+    display:flex; align-items:center; gap:14px; padding:0 18px;
+    background:linear-gradient(180deg,rgba(11,15,20,.96),rgba(11,15,20,.78));
+    border-bottom:1px solid var(--line); backdrop-filter:blur(8px); }
+  #topbar .brand { display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px; font-size:15px; }
+  #topbar .brand .dot { width:10px; height:10px; border-radius:50%; background:var(--accent);
+    box-shadow:0 0 0 4px rgba(78,161,255,.18); }
+  #topbar .tag { font-size:11px; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:2px 9px; }
+  #topbar .spacer { flex:1; }
+  #topbar .kpi { display:flex; gap:18px; align-items:center; }
+  #topbar .kpi .k { text-align:right; line-height:1.15; }
+  #topbar .kpi .k b { font-size:14px; font-variant-numeric:tabular-nums; display:block; }
+  #topbar .kpi .k span { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+  @media (max-width:900px){ #topbar .kpi{ display:none; } }
+
+  .panel { position:absolute; z-index:1000; background:rgba(18,26,36,.95); border:1px solid var(--line);
+    border-radius:14px; box-shadow:0 10px 34px rgba(0,0,0,.5); backdrop-filter:blur(8px); }
+
+  #controls { top:64px; left:14px; width:300px; max-height:calc(100% - 100px); overflow:auto; padding:16px; }
+  #controls::-webkit-scrollbar{ width:8px; } #controls::-webkit-scrollbar-thumb{ background:var(--line); border-radius:8px; }
+  .group { margin:14px 0; }
+  .group:first-child { margin-top:4px; }
+  .group h2 { font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 8px;
+    display:flex; align-items:center; gap:8px; }
+  .group h2::after { content:""; flex:1; height:1px; background:var(--line-soft); }
+  label.row { display:flex; align-items:center; gap:9px; font-size:13px; padding:4px 0; cursor:pointer; user-select:none; }
+  label.row input { accent-color:var(--accent); width:15px; height:15px; }
+  label.row .count { margin-left:auto; font-size:11px; color:var(--muted-2); font-variant-numeric:tabular-nums; }
+  .swatch { width:11px; height:11px; border-radius:50%; display:inline-block; border:1px solid rgba(255,255,255,.4); flex-shrink:0; }
+  select, input[type=search] { width:100%; background:var(--panel-2); color:var(--text); border:1px solid var(--line);
+    border-radius:9px; padding:8px 10px; font-size:13px; outline:none; }
+  select:focus, input[type=search]:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(78,161,255,.15); }
+  .legend-note { font-size:10.5px; color:var(--muted-2); margin-top:10px; line-height:1.5; }
+  .reset { width:100%; margin-top:6px; background:transparent; color:var(--accent); border:1px solid var(--line);
+    border-radius:9px; padding:8px; font-size:12.5px; cursor:pointer; }
+  .reset:hover { background:rgba(78,161,255,.1); }
+  input[type=range] { width:100%; accent-color:var(--accent); }
+  .range-row { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:2px; }
+
+  #stats { bottom:14px; left:14px; width:300px; padding:14px 16px; max-height:280px; overflow:auto; }
+  .stat { display:flex; justify-content:space-between; align-items:baseline; font-size:13px; padding:4px 0;
+    border-bottom:1px dashed var(--line-soft); }
+  .stat:last-of-type { border-bottom:0; }
+  .stat b { font-variant-numeric:tabular-nums; }
+  .stat small { color:var(--muted); font-size:11px; }
+
+  #drawer, #leaderboard { position:absolute; z-index:1200; top:64px; right:14px; width:360px; max-height:calc(100% - 78px);
+    overflow:auto; padding:0; transform:translateX(390px); opacity:0; transition:transform .22s ease, opacity .22s ease;
+    pointer-events:none; }
+  #drawer.open, #leaderboard.open { transform:translateX(0); opacity:1; pointer-events:auto; }
+  #drawer .dh, #leaderboard .dh { position:sticky; top:0; background:linear-gradient(180deg,rgba(18,26,36,.99),rgba(18,26,36,.92));
+    padding:16px 18px 12px; border-bottom:1px solid var(--line); border-radius:14px 14px 0 0; z-index:2; }
+  #drawer .dh h3, #leaderboard .dh h3 { margin:0 0 8px; font-size:15.5px; line-height:1.3; padding-right:22px; }
+  #drawer .close, #leaderboard .close { position:absolute; top:12px; right:12px; width:26px; height:26px; border-radius:7px;
+    background:var(--panel-2); border:1px solid var(--line); color:var(--muted); cursor:pointer; font-size:15px; line-height:1; }
+  #drawer .close:hover, #leaderboard .close:hover { color:var(--text); border-color:var(--accent); }
+  #drawer .body, #leaderboard .body { padding:14px 18px 20px; }
+  .pill { display:inline-flex; align-items:center; gap:6px; font-size:10.5px; font-weight:600; padding:3px 9px;
+    border-radius:999px; margin:0 6px 6px 0; background:var(--panel-2); border:1px solid var(--line); }
+  .pill .swatch { width:8px; height:8px; }
+  .sec { margin:16px 0 6px; font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+    display:flex; align-items:center; gap:8px; }
+  .sec::after { content:""; flex:1; height:1px; background:var(--line-soft); }
+  .kv { display:flex; justify-content:space-between; gap:14px; font-size:12.5px; padding:4px 0; line-height:1.4; }
+  .kv .k { color:var(--muted); white-space:nowrap; }
+  .kv .v { text-align:right; }
+  .chiplist { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+  .chiplist .t { font-size:11.5px; background:var(--panel-2); border:1px solid var(--line); border-radius:7px; padding:3px 8px; }
+  .metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:6px; }
+  .metric { background:var(--panel-2); border:1px solid var(--line); border-radius:10px; padding:9px 11px; }
+  .metric span { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; display:block; }
+  .metric b { font-size:15px; font-variant-numeric:tabular-nums; }
+  .site-row { padding:8px 0; border-bottom:1px dashed var(--line-soft); font-size:12.5px; }
+  .site-row:last-child { border-bottom:0; }
+  .site-row .nm { font-weight:600; }
+  .site-row .note { color:var(--muted); font-size:11.5px; margin-top:2px; }
+  .customer-row { padding:7px 0; border-bottom:1px dashed var(--line-soft); font-size:12.5px; }
+  .customer-row:last-child { border-bottom:0; }
+  .riskbar-wrap { margin-top:4px; }
+  .riskbar-lbl { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-bottom:3px; }
+  .riskbar { height:8px; border-radius:5px; background:var(--panel-2); overflow:hidden; }
+  .riskbar > span { display:block; height:100%; }
+  .riskscore-big { display:flex; align-items:center; gap:14px; margin-top:6px; }
+  .riskscore-big .num { font-size:32px; font-weight:800; font-variant-numeric:tabular-nums; line-height:1; }
+  .riskscore-big .lbl { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+  .src-list { font-size:10.5px; color:var(--muted-2); margin-top:6px; line-height:1.6; word-break:break-all; }
+  .src-list a { color:var(--muted-2); }
+
+  .lb-row { display:grid; grid-template-columns:20px 1fr auto; gap:9px; align-items:center; padding:9px 9px;
+    border-radius:9px; cursor:pointer; border:1px solid transparent; }
+  .lb-row:hover { background:var(--panel-2); border-color:var(--line); }
+  .lb-row .rk { font-size:11px; color:var(--muted-2); text-align:right; font-variant-numeric:tabular-nums; }
+  .lb-row .nm { font-size:12.5px; line-height:1.3; }
+  .lb-row .nm .cat { display:inline-block; font-size:9.5px; padding:1px 6px; border-radius:999px; margin-top:3px;
+    background:var(--panel-2); border:1px solid var(--line); color:var(--muted); }
+  .lb-row .val { text-align:right; font-variant-numeric:tabular-nums; }
+  .lb-row .val b { font-size:13px; } .lb-row .val span { display:block; font-size:10px; color:var(--muted); }
+  .lb-bar { height:4px; border-radius:3px; margin-top:4px; background:var(--accent); }
+  .lb-tabs { display:flex; gap:6px; margin-bottom:10px; }
+  .lb-tab { flex:1; text-align:center; font-size:11px; padding:6px 4px; border-radius:8px; border:1px solid var(--line);
+    background:var(--panel-2); color:var(--muted); cursor:pointer; }
+  .lb-tab.active { color:var(--text); border-color:var(--accent); background:rgba(78,161,255,.12); }
+
+  #mapLegend { position:absolute; z-index:1000; right:14px; bottom:14px; width:206px; padding:10px 12px; font-size:11px; }
+  #mapLegend h3 { font-size:11px; margin:0 0 6px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+  #mapLegend .row2 { display:flex; align-items:center; gap:7px; padding:2px 0; }
+  @media (max-width:900px){ #mapLegend{ display:none !important; } }
+
+  #loading { z-index:2000; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; padding:20px 26px; }
+
+  #panelToggle { display:none; position:absolute; z-index:1300; top:60px; left:12px;
+    background:rgba(18,26,36,.96); color:var(--text); border:1px solid var(--line);
+    border-radius:10px; padding:8px 12px; font-size:13px; font-weight:600; cursor:pointer;
+    box-shadow:0 6px 20px rgba(0,0,0,.45); }
+
+  @media (max-width:900px) {
+    #topbar { height:46px; padding:0 12px; }
+    #topbar .brand { font-size:13px; }
+    #topbar .tag { display:none; }
+    #panelToggle { display:block; }
+    .leaflet-bottom.leaflet-right { top:54px; bottom:auto; }
+    #controls { top:104px; left:8px; right:8px; width:auto; max-height:60%; }
+    #controls.collapsed { display:none !important; }
+    #stats { left:8px; right:8px; bottom:8px; width:auto; max-height:40%; }
+    #drawer, #leaderboard { top:auto; left:8px; right:8px; bottom:8px; width:auto; max-height:78%;
+      transform:translateY(120%); }
+    #drawer.open, #leaderboard.open { transform:translateY(0); }
+    .metric-grid { grid-template-columns:1fr 1fr; }
+  }
+
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip { background:#10171f; color:var(--text); border:1px solid var(--line); }
+  .leaflet-popup-content-wrapper { border-radius:12px; }
+  .leaflet-popup-content { margin:11px 13px; font-size:12.5px; line-height:1.5; min-width:190px; }
+  .leaflet-popup-content h4 { margin:0 0 5px; font-size:13.5px; }
+  .leaflet-popup-content .mini { color:var(--muted); font-size:11px; }
+  .leaflet-popup-content .more { color:var(--accent); font-size:11px; margin-top:6px; cursor:pointer; }
+  .leaflet-container a.leaflet-popup-close-button { color:var(--muted); }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<div id="topbar">
+  <div class="brand"><span class="dot"></span> Neocloud Intelligence Map</div>
+  <span class="tag">public data, curated</span>
+  <div class="spacer"></div>
+  <div class="kpi">
+    <div class="k"><b id="kpi-companies">—</b><span>Companies</span></div>
+    <div class="k"><b id="kpi-sites">—</b><span>Sites shown</span></div>
+    <div class="k"><b id="kpi-gpu">—</b><span>GPUs tracked</span></div>
+    <div class="k"><b id="kpi-backlog">—</b><span>Contracted backlog</span></div>
+  </div>
+</div>
+
+<button id="panelToggle">☰ Filters</button>
+<div id="mapLegend" class="panel"></div>
+<div id="loading" class="panel">Loading neocloud intelligence…</div>
+
+<div id="controls" class="panel" style="display:none">
+  <div class="group">
+    <h2>Company type</h2>
+    <label class="row"><input type="checkbox" class="f-cat" value="gpu_neocloud" checked><span class="swatch" style="background:var(--accent)"></span> GPU-owning neocloud <span class="count" data-cat="gpu_neocloud"></span></label>
+    <label class="row"><input type="checkbox" class="f-cat" value="landlord" checked><span class="swatch" style="background:var(--purple)"></span> Data-center landlord <span class="count" data-cat="landlord"></span></label>
+    <div class="legend-note">Landlords (Applied Digital, Core Scientific) own the building &amp; power, not the GPUs — the tenant does.</div>
+  </div>
+
+  <div class="group">
+    <h2>Chip / GPU vendor</h2>
+    <select id="chipFilter">
+      <option value="">All chips</option>
+    </select>
+  </div>
+
+  <div class="group">
+    <h2>Company</h2>
+    <select id="companyFilter"><option value="">All companies</option></select>
+    <button class="reset" id="openLeaderboard" style="margin-top:8px">▤ Open leaderboard</button>
+  </div>
+
+  <div class="group">
+    <h2>Size markers by</h2>
+    <select id="sizeBy">
+      <option value="risk_score">Neocloud Risk Score</option>
+      <option value="gpu_count_est">GPU count (est.)</option>
+      <option value="backlog_usd">Contracted backlog (USD)</option>
+      <option value="revenue_usd">Revenue (USD)</option>
+    </select>
+  </div>
+
+  <div class="group">
+    <h2>Color markers by</h2>
+    <select id="colorBy">
+      <option value="risk_score">Neocloud Risk Score</option>
+      <option value="category">Company type</option>
+      <option value="chip_vendor">Chip vendor</option>
+    </select>
+  </div>
+
+  <div class="group">
+    <h2>Min Neocloud Risk Score</h2>
+    <input type="range" id="minRisk" min="0" max="100" value="0" step="1">
+    <div class="range-row"><span>0 (safest)</span><span id="minRiskLbl">0</span><span>100 (riskiest)</span></div>
+    <div class="legend-note">Composite of customer concentration, leverage/debt, contract-vs-chip-depreciation mismatch, and chip-generation freshness. See methodology in the leaderboard panel.</div>
+  </div>
+
+  <button class="reset" id="resetFilters">Reset filters</button>
+</div>
+
+<div id="stats" class="panel"></div>
+
+<div id="drawer" class="panel"></div>
+<div id="leaderboard" class="panel"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+const RISK_COLOR = v => v>=65 ? '#f87171' : v>=50 ? '#fbbf24' : v>=35 ? '#60a5fa' : '#34d399';
+const CAT_COLOR = { gpu_neocloud: '#4ea1ff', landlord: '#a78bfa' };
+const CHIP_COLOR = { Nvidia: '#76b900', AMD: '#ed1c24', 'N/A (landlord)': '#8ea2b8' };
+
+function fmtUSD(n) {
+  if (n == null) return '—';
+  const abs = Math.abs(n);
+  if (abs >= 1e9) return '$' + (n/1e9).toFixed(1) + 'B';
+  if (abs >= 1e6) return '$' + (n/1e6).toFixed(0) + 'M';
+  return '$' + n.toLocaleString();
+}
+function fmtNum(n) {
+  if (n == null) return '—';
+  return n.toLocaleString();
+}
+
+let DATA = null;
+let markers = [];
+let map;
+
+const state = { cats: new Set(['gpu_neocloud','landlord']), chip: '', company: '', sizeBy: 'risk_score', colorBy: 'risk_score', minRisk: 0 };
+
+async function boot() {
+  const resp = await fetch('data/neoclouds.json');
+  DATA = await resp.json();
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('controls').style.display = 'block';
+
+  map = L.map('map', { zoomControl:true, worldCopyJump:true }).setView([30, -40], 3);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CARTO', subdomains:'abcd', maxZoom:19
+  }).addTo(map);
+
+  populateChipFilter();
+  populateCompanyFilter();
+  wireControls();
+  renderLegend();
+  renderAll();
+}
+
+function allSites() {
+  const sites = [];
+  for (const c of DATA.companies) {
+    for (const s of (c.sites||[])) sites.push({ company: c, site: s });
+  }
+  return sites;
+}
+
+function populateChipFilter() {
+  const chips = new Set();
+  DATA.companies.forEach(c => (c.chips||[]).forEach(ch => chips.add(ch)));
+  const sel = document.getElementById('chipFilter');
+  [...chips].sort().forEach(ch => {
+    const o = document.createElement('option'); o.value = ch; o.textContent = ch; sel.appendChild(o);
+  });
+}
+function populateCompanyFilter() {
+  const sel = document.getElementById('companyFilter');
+  [...DATA.companies].sort((a,b)=>a.name.localeCompare(b.name)).forEach(c => {
+    const o = document.createElement('option'); o.value = c.id; o.textContent = c.name; sel.appendChild(o);
+  });
+}
+
+function wireControls() {
+  document.querySelectorAll('.f-cat').forEach(cb => cb.addEventListener('change', () => {
+    state.cats = new Set([...document.querySelectorAll('.f-cat:checked')].map(x=>x.value));
+    renderAll();
+  }));
+  document.getElementById('chipFilter').addEventListener('change', e => { state.chip = e.target.value; renderAll(); });
+  document.getElementById('companyFilter').addEventListener('change', e => { state.company = e.target.value; renderAll(); });
+  document.getElementById('sizeBy').addEventListener('change', e => { state.sizeBy = e.target.value; renderAll(); });
+  document.getElementById('colorBy').addEventListener('change', e => { state.colorBy = e.target.value; renderAll(); renderLegend(); });
+  document.getElementById('minRisk').addEventListener('input', e => {
+    state.minRisk = +e.target.value; document.getElementById('minRiskLbl').textContent = e.target.value; renderAll();
+  });
+  document.getElementById('resetFilters').addEventListener('click', () => {
+    state.cats = new Set(['gpu_neocloud','landlord']); state.chip=''; state.company=''; state.minRisk=0;
+    document.querySelectorAll('.f-cat').forEach(cb=>cb.checked=true);
+    document.getElementById('chipFilter').value=''; document.getElementById('companyFilter').value='';
+    document.getElementById('minRisk').value=0; document.getElementById('minRiskLbl').textContent='0';
+    renderAll();
+  });
+  document.getElementById('openLeaderboard').addEventListener('click', openLeaderboard);
+  document.getElementById('panelToggle').addEventListener('click', () => {
+    document.getElementById('controls').classList.toggle('collapsed');
+  });
+  document.addEventListener('keydown', e => { if (e.key==='Escape') { closeDrawer(); closeLeaderboard(); } });
+}
+
+function passesFilter(company) {
+  if (!state.cats.has(company.category)) return false;
+  if (state.chip && !(company.chips||[]).includes(state.chip)) return false;
+  if (state.company && company.id !== state.company) return false;
+  if (company.risk_score != null && company.risk_score < state.minRisk) return false;
+  return true;
+}
+
+function sizeFor(company) {
+  const v = company[state.sizeBy];
+  if (v == null) return 8;
+  let scaled;
+  if (state.sizeBy === 'risk_score') scaled = 6 + (v/100)*16;
+  else if (state.sizeBy === 'gpu_count_est') scaled = 6 + Math.sqrt(v/2000);
+  else scaled = 6 + Math.sqrt(v/2e8);
+  return Math.max(6, Math.min(30, scaled));
+}
+function colorFor(company) {
+  if (state.colorBy === 'risk_score') return company.risk_score!=null ? RISK_COLOR(company.risk_score) : '#5f7388';
+  if (state.colorBy === 'category') return CAT_COLOR[company.category] || '#5f7388';
+  if (state.colorBy === 'chip_vendor') return CHIP_COLOR[company.chip_vendor] || '#5f7388';
+  return '#4ea1ff';
+}
+
+function renderAll() {
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+  let siteCount = 0, gpuTotal = 0, backlogTotal = 0;
+  const seenCompanies = new Set();
+
+  for (const c of DATA.companies) {
+    if (!passesFilter(c)) continue;
+    seenCompanies.add(c.id);
+    if (c.gpu_count_est) gpuTotal += c.gpu_count_est;
+    if (c.backlog_usd) backlogTotal += c.backlog_usd;
+
+    const color = colorFor(c);
+    const radius = sizeFor(c);
+    for (const s of (c.sites||[])) {
+      siteCount++;
+      const marker = L.circleMarker([s.lat, s.lng], {
+        radius, color:'#0b0f14', weight:1.5, fillColor: color, fillOpacity:0.85
+      }).addTo(map);
+      marker.bindPopup(popupHtml(c, s));
+      marker.on('click', () => openDrawer(c.id));
+      markers.push(marker);
+    }
+  }
+
+  document.getElementById('kpi-companies').textContent = seenCompanies.size;
+  document.getElementById('kpi-sites').textContent = siteCount;
+  document.getElementById('kpi-gpu').textContent = gpuTotal ? fmtNum(gpuTotal) : '—';
+  document.getElementById('kpi-backlog').textContent = backlogTotal ? fmtUSD(backlogTotal) : '—';
+
+  document.querySelectorAll('[data-cat]').forEach(el => {
+    const cat = el.getAttribute('data-cat');
+    el.textContent = DATA.companies.filter(c=>c.category===cat).length;
+  });
+
+  renderStats(seenCompanies);
+}
+
+function renderStats(seenCompanies) {
+  const shown = DATA.companies.filter(c => seenCompanies.has(c.id));
+  const avgRisk = shown.length ? (shown.reduce((s,c)=>s+(c.risk_score||0),0)/shown.length).toFixed(1) : '—';
+  const el = document.getElementById('stats');
+  el.innerHTML = `
+    <div class="sec">Current filter</div>
+    <div class="stat"><span>Companies shown</span><b>${shown.length}</b></div>
+    <div class="stat"><span>Avg. Neocloud Risk Score</span><b style="color:${RISK_COLOR(avgRisk)}">${avgRisk}</b></div>
+    <div class="stat"><span>Total GPUs tracked (est.)</span><b>${fmtNum(shown.reduce((s,c)=>s+(c.gpu_count_est||0),0))}</b></div>
+    <div class="stat"><span>Total contracted backlog</span><b>${fmtUSD(shown.reduce((s,c)=>s+(c.backlog_usd||0),0))}</b></div>
+    <div class="legend-note">${DATA.disclaimer}</div>
+  `;
+}
+
+function renderLegend() {
+  const el = document.getElementById('mapLegend');
+  let rows = '';
+  if (state.colorBy === 'risk_score') {
+    rows = ['#34d399 Low (<35)', '#60a5fa Moderate (35-49)', '#fbbf24 Elevated (50-64)', '#f87171 High (65+)']
+      .map(s => { const [c,...rest]=s.split(' '); return `<div class="row2"><span class="swatch" style="background:${c}"></span>${rest.join(' ')}</div>`; }).join('');
+  } else if (state.colorBy === 'category') {
+    rows = `<div class="row2"><span class="swatch" style="background:${CAT_COLOR.gpu_neocloud}"></span>GPU-owning neocloud</div>
+            <div class="row2"><span class="swatch" style="background:${CAT_COLOR.landlord}"></span>Data-center landlord</div>`;
+  } else {
+    rows = `<div class="row2"><span class="swatch" style="background:${CHIP_COLOR.Nvidia}"></span>Nvidia</div>
+            <div class="row2"><span class="swatch" style="background:${CHIP_COLOR.AMD}"></span>AMD</div>
+            <div class="row2"><span class="swatch" style="background:${CHIP_COLOR['N/A (landlord)']}"></span>N/A (landlord)</div>`;
+  }
+  el.innerHTML = `<h3>Marker color</h3>${rows}<div class="legend-note" style="margin-top:8px">Size = ${document.getElementById('sizeBy').options[document.getElementById('sizeBy').selectedIndex].text}</div>`;
+}
+
+function popupHtml(c, s) {
+  return `<h4>${s.name}</h4>
+    <div class="mini">${c.name} ${c.risk_score!=null ? `· Risk ${c.risk_score}` : ''}</div>
+    ${s.note ? `<div class="mini" style="margin-top:4px">${s.note}</div>` : ''}
+    <div class="more" onclick="openDrawer('${c.id}')">View company profile →</div>`;
+}
+
+function riskRow(label, value) {
+  const color = RISK_COLOR(value);
+  return `<div class="riskbar-wrap">
+    <div class="riskbar-lbl"><span>${label}</span><span>${value}</span></div>
+    <div class="riskbar"><span style="width:${value}%; background:${color}"></span></div>
+  </div>`;
+}
+
+function openDrawer(id) {
+  const c = DATA.companies.find(x => x.id === id);
+  if (!c) return;
+  closeLeaderboard();
+  const catLabel = c.category === 'landlord' ? 'Data-center landlord' : 'GPU-owning neocloud';
+  const rf = c.risk_factors || {};
+  const customers = (c.customers||[]).map(cu => `
+    <div class="customer-row">
+      <div><b>${cu.name}</b></div>
+      ${cu.share_pct ? `<div class="mini" style="color:var(--muted)">${cu.share_pct}% of revenue${cu.share_year?` (${cu.share_year})`:''}</div>` : ''}
+      ${cu.contract_usd ? `<div class="mini" style="color:var(--muted)">${fmtUSD(cu.contract_usd)}${cu.contract_years?` over ${cu.contract_years}yr`:''}</div>` : ''}
+      ${cu.note ? `<div class="mini" style="color:var(--muted-2)">${cu.note}</div>` : ''}
+    </div>`).join('') || '<div class="mini">Not disclosed</div>';
+
+  const sites = (c.sites||[]).map(s => `
+    <div class="site-row">
+      <div class="nm">${s.name}</div>
+      ${s.note ? `<div class="note">${s.note}</div>` : ''}
+    </div>`).join('');
+
+  const chips = (c.chips||[]).map(ch => `<span class="t">${ch}</span>`).join('') || '<span class="t">N/A</span>';
+  const sources = (c.sources||[]).map(u => `<div><a href="${u}" target="_blank" rel="noopener">${u}</a></div>`).join('');
+
+  document.getElementById('drawer').innerHTML = `
+    <div class="dh">
+      <button class="close" onclick="closeDrawer()">✕</button>
+      <h3>${c.name}</h3>
+      <span class="pill"><span class="swatch" style="background:${CAT_COLOR[c.category]}"></span>${catLabel}</span>
+      <span class="pill">${c.public ? (c.ticker||'Public') : 'Private'}</span>
+      <span class="pill">${c.chip_vendor}</span>
+    </div>
+    <div class="body">
+      <div class="kv"><span class="k">HQ</span><span class="v">${c.hq}</span></div>
+      <div class="kv"><span class="k">Founded</span><span class="v">${c.founded||'—'}</span></div>
+
+      <div class="sec">Financials (public data)</div>
+      <div class="metric-grid">
+        <div class="metric"><span>Revenue</span><b>${fmtUSD(c.revenue_usd)}</b></div>
+        <div class="metric"><span>Contracted backlog</span><b>${fmtUSD(c.backlog_usd)}</b></div>
+        <div class="metric"><span>Disclosed debt</span><b>${fmtUSD(c.debt_usd)}</b></div>
+        <div class="metric"><span>Funding raised</span><b>${fmtUSD(c.funding_total_usd)}</b></div>
+      </div>
+      ${c.revenue_note ? `<div class="legend-note">${c.revenue_note}</div>` : ''}
+      ${c.debt_note ? `<div class="legend-note">${c.debt_note}</div>` : ''}
+
+      <div class="sec">Chips &amp; GPU ownership</div>
+      <div class="chiplist">${chips}</div>
+      <div class="kv" style="margin-top:8px"><span class="k">GPU count (est.)</span><span class="v">${fmtNum(c.gpu_count_est)}</span></div>
+      <div class="kv"><span class="k">Who owns the GPUs</span><span class="v">${c.gpu_owner||'—'}</span></div>
+      ${c.gpu_owner_detail ? `<div class="legend-note">${c.gpu_owner_detail}</div>` : ''}
+
+      <div class="sec">Anchor customers &amp; contract terms</div>
+      ${customers}
+
+      <div class="sec">Neocloud Risk Score</div>
+      <div class="riskscore-big">
+        <div class="num" style="color:${c.risk_score!=null?RISK_COLOR(c.risk_score):'inherit'}">${c.risk_score!=null?c.risk_score:'—'}</div>
+        <div class="lbl">0 = low risk<br>100 = high risk</div>
+      </div>
+      ${riskRow('Customer concentration', rf.customer_concentration)}
+      ${riskRow('Leverage / debt reliance', rf.leverage)}
+      ${riskRow('Contract-vs-chip mismatch', rf.contract_mismatch)}
+      ${riskRow('Chip-generation freshness risk', rf.chip_freshness)}
+      ${c.risk_notes ? `<div class="legend-note" style="margin-top:8px">${c.risk_notes}</div>` : ''}
+
+      <div class="sec">Sites (${(c.sites||[]).length})</div>
+      ${sites}
+
+      <div class="sec">Sources</div>
+      <div class="src-list">${sources}</div>
+    </div>
+  `;
+  document.getElementById('drawer').classList.add('open');
+}
+function closeDrawer() { document.getElementById('drawer').classList.remove('open'); }
+
+function openLeaderboard(metric) {
+  closeDrawer();
+  renderLeaderboard(metric || 'risk_score');
+  document.getElementById('leaderboard').classList.add('open');
+}
+function closeLeaderboard() { document.getElementById('leaderboard').classList.remove('open'); }
+
+function renderLeaderboard(metric) {
+  const metrics = {
+    risk_score: { label: 'Risk score', fmt: v => v, max: 100 },
+    revenue_usd: { label: 'Revenue', fmt: fmtUSD, max: null },
+    backlog_usd: { label: 'Backlog', fmt: fmtUSD, max: null },
+    gpu_count_est: { label: 'GPUs', fmt: fmtNum, max: null }
+  };
+  const m = metrics[metric];
+  const rows = [...DATA.companies].filter(c => c[metric] != null).sort((a,b)=> b[metric]-a[metric]);
+  const max = m.max || Math.max(...rows.map(r=>r[metric]), 1);
+
+  const tabs = Object.keys(metrics).map(k =>
+    `<div class="lb-tab ${k===metric?'active':''}" onclick="renderLeaderboard('${k}')">${metrics[k].label}</div>`).join('');
+
+  const body = rows.map((c,i) => `
+    <div class="lb-row" onclick="openDrawer('${c.id}')">
+      <div class="rk">${i+1}</div>
+      <div class="nm">${c.name}<div><span class="cat">${c.category==='landlord'?'Landlord':'Neocloud'}</span></div></div>
+      <div class="val"><b style="${metric==='risk_score'?`color:${RISK_COLOR(c[metric])}`:''}">${m.fmt(c[metric])}</b></div>
+    </div>
+    <div class="lb-bar" style="width:${Math.max(4,(c[metric]/max)*100)}%; background:${metric==='risk_score'?RISK_COLOR(c[metric]):'var(--accent)'}"></div>
+  `).join('');
+
+  document.getElementById('leaderboard').innerHTML = `
+    <div class="dh">
+      <button class="close" onclick="closeLeaderboard()">✕</button>
+      <h3>Neocloud leaderboard</h3>
+      <div class="lb-tabs">${tabs}</div>
+    </div>
+    <div class="body">
+      ${body}
+      <div class="sec">Methodology: Neocloud Risk Score</div>
+      <div class="legend-note">
+        Weighted composite (0-100, higher = riskier): customer concentration (30%), leverage/debt reliance (25%),
+        contract-length-vs-chip-depreciation mismatch (25%), chip-generation freshness (20%).
+        Landlord-model companies carry no direct chip exposure, so their score is driven almost entirely by tenant
+        concentration — a deliberate design choice to surface that a "safe" infrastructure landlord bet is really a
+        bet on one tenant's staying power. See README for full methodology and per-company notes in each profile.
+      </div>
+    </div>
+  `;
+}
+
+boot();
+</script>
+</body>
+</html>

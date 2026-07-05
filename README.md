@@ -1,0 +1,132 @@
+# Neocloud Intelligence Map
+
+An interactive map of **neocloud** GPU compute providers — the CoreWeave /
+Lambda / Crusoe / Nebius wave of companies renting out Nvidia/AMD GPU
+capacity to AI labs and enterprises — plus the **data-center landlords**
+(Applied Digital, Core Scientific) that build the buildings and power those
+GPUs without owning them.
+
+For each company the map tracks, from public sources:
+
+- **Revenue** (reported or run-rate) and **contracted backlog**
+- **Chips** — which Nvidia/AMD GPU generation(s) they run
+- **Data-center sites** — where their GPU capacity actually sits
+- **Who owns the GPUs** — self-owned, debt-financed, JV-owned, vendor
+  lease-back, or (for landlords) tenant-owned
+- **Anchor customers and contract length** — e.g. CoreWeave-OpenAI (~5yr,
+  $22.4B), Nebius-Meta (5yr, $27B), Applied Digital-CoreWeave (~15yr, ~$11B)
+- **Neocloud Risk Score** (this map's original contribution — see below)
+
+Click any site to open a full company profile drawer. Use **"Open
+leaderboard"** to rank all companies by risk, revenue, backlog, or GPU count.
+
+## Quick start
+
+No third-party packages required — just Python 3.8+.
+
+```bash
+python3 app.py
+```
+
+This builds `data/neoclouds.json` from the curated dataset and serves the map
+at `http://127.0.0.1:8000/index.html`.
+
+```bash
+python3 app.py --no-browser     # don't auto-open a browser
+python3 app.py --port 9000      # pick a port
+python3 app.py --build-only     # just (re)build data/neoclouds.json and exit
+```
+
+## The Neocloud Risk Score (value-add)
+
+The headline number in every AI-infrastructure conversation right now is
+*"how much of this GPU buildout is on solid financial footing?"* — the
+[circular-financing](https://tomtunguz.com/nvidia_nortel_vendor_financing_comparison/)
+debate (Nvidia investing in the same companies that buy its chips and lease
+compute back), the
+[GPU-depreciation debate](https://www.techi.com/nvidia-stock-gpu-depreciation-blackwell-rubin/)
+(is an H100 a 6-year asset or a 2-3 year one?), and customer-concentration
+risk (CoreWeave was >60% Microsoft in 2024).
+
+This map turns that into a single, transparent, per-company **0-100 score**
+(higher = riskier), computed from four weighted factors defined in
+`data/neoclouds_curated.json → risk_methodology`:
+
+| Factor | Weight | What it captures |
+|---|---|---|
+| Customer concentration | 30% | Share of revenue/backlog tied to one or two anchor customers |
+| Leverage / debt reliance | 25% | Reliance on debt, SPVs, or circular vendor-financing vs. equity |
+| Contract-vs-chip mismatch | 25% | Gap between debt tenor, contract tenor, and GPU refresh cycles |
+| Chip-generation freshness | 20% | Exposure to Hopper-class (H100/H200) obsolescence vs. Blackwell/MI350-class |
+
+**Landlord-model** companies (Applied Digital, Core Scientific — they own
+the shell and power, not the GPUs) are scored on the same rubric for
+comparability, but carry a neutral chip-freshness score since they have no
+direct chip exposure. The result is a deliberate finding of this map: their
+risk score is driven almost entirely by **tenant concentration** — a
+"safe" long-term real-estate lease to CoreWeave is really a concentrated bet
+on one tenant's staying power, not a chip bet.
+
+As of this build, the distribution runs from Together AI / Nebius (~42-44,
+diversified or equity-funded) up to Northern Data (~73, revenue down 34% YoY
+with tripled losses while being acquired at a fraction of invested capital)
+and CoreWeave/Crusoe (~68-69, heaviest disclosed debt loads). Edit the
+weights or per-company `risk_factors` in the curated JSON and re-run
+`python3 app.py --build-only` to recompute.
+
+*(This score is an illustrative, editable model for exploring the sector's
+structure — not investment advice.)*
+
+## Companies tracked
+
+**GPU-owning neoclouds:** CoreWeave, Lambda, Crusoe Energy, Nebius Group,
+Together AI, IREN Limited, Nscale, Voltage Park, FluidStack, Northern Data /
+Taiga Cloud, TensorWave.
+
+**Data-center landlords (host GPUs they don't own):** Applied Digital, Core
+Scientific.
+
+## Data sources & accuracy
+
+All figures are compiled from company press releases, investor-relations
+pages, SEC/EDGAR filings (10-K/6-K/8-K), and press reporting (CNBC,
+TechCrunch, Data Center Dynamics, The Next Platform, Forbes, Reuters-sourced
+outlets, etc). Each company record in `data/neoclouds_curated.json` carries
+a `sources` array with the specific links used.
+
+> ⚠️ Revenue, debt, GPU-count, contract, and risk figures are **best-effort
+> public estimates** compiled for visualization and education. This is one
+> of the fastest-moving corners of the economy — a company's revenue run-rate
+> or debt load can be stale within weeks. Verify against primary sources
+> before relying on any number here. Site coordinates are metro/campus-level
+> approximations, not exact addresses.
+
+### Curated record schema
+
+```jsonc
+{
+  "id": "coreweave", "name": "...", "category": "gpu_neocloud|landlord",
+  "hq": "...", "founded": 2017, "public": true, "ticker": "...",
+  "chip_vendor": "Nvidia|AMD|N/A (landlord)", "chips": ["H100", "GB200 NVL72"],
+  "gpu_count_est": 250000,
+  "gpu_owner": "...", "gpu_owner_detail": "...",
+  "revenue_usd": 5131000000, "revenue_year": 2025, "revenue_note": "...",
+  "backlog_usd": 66800000000, "debt_usd": 21600000000, "debt_note": "...",
+  "funding_total_usd": null, "valuation_usd": null,
+  "customers": [{"name": "OpenAI", "contract_usd": 22400000000, "contract_years": 5, "note": "..."}],
+  "contract_years_weighted": 5,
+  "risk_factors": {"customer_concentration": 75, "leverage": 90, "contract_mismatch": 65, "chip_freshness": 40},
+  "risk_notes": "...",
+  "sources": ["https://..."],
+  "sites": [{"name": "Kenilworth, NJ", "city": "Kenilworth", "state": "NJ", "country": "US", "lat": 40.68, "lng": -74.29, "note": "..."}]
+}
+```
+
+## Files
+
+| File | Purpose |
+|---|---|
+| `app.py` | Computes risk scores, builds `data/neoclouds.json`, serves the map |
+| `index.html` | Interactive Leaflet map UI, profile drawer, leaderboard |
+| `data/neoclouds_curated.json` | Editable curated dataset + risk methodology (source of truth) |
+| `data/neoclouds.json` | Generated file the map reads (risk scores computed) |
