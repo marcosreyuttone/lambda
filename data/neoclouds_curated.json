@@ -6,10 +6,10 @@
     "name": "Neocloud Risk Score",
     "scale": "0-100, higher = riskier",
     "weights": {
-      "customer_concentration": 0.30,
+      "customer_concentration": 0.3,
       "leverage": 0.25,
       "contract_mismatch": 0.25,
-      "chip_freshness": 0.20
+      "chip_freshness": 0.2
     },
     "factor_definitions": {
       "customer_concentration": "Share of revenue/backlog tied to one or two anchor customers. A single customer walking away (or renegotiating) can gut the business.",
@@ -29,7 +29,11 @@
       "public": true,
       "ticker": "NASDAQ: CRWV",
       "chip_vendor": "Nvidia",
-      "chips": ["H100", "H200", "GB200 NVL72"],
+      "chips": [
+        "H100",
+        "H200",
+        "GB200 NVL72"
+      ],
       "gpu_count_est": 250000,
       "gpu_owner": "Self (debt-financed)",
       "gpu_owner_detail": "CoreWeave buys and owns the GPUs, financed largely with GPU-collateralized debt (SPVs backed by Magnetar, Blackstone, and others) rather than equity.",
@@ -40,12 +44,31 @@
       "debt_usd": 21600000000,
       "debt_note": "$21.6B total indebtedness disclosed in FY2025 10-K, plus a further $8.5B delayed-draw term loan (Mar 2026) tied to a single customer contract.",
       "customers": [
-        {"name": "Microsoft", "share_pct": 60, "share_year": 2024, "note": "Microsoft was >60% of 2024 revenue."},
-        {"name": "OpenAI", "contract_usd": 22400000000, "contract_years": 5, "note": "Combined March + September 2025 deals, ~5-year term."},
-        {"name": "Meta", "contract_usd": 14200000000, "note": "2025 compute deal."}
+        {
+          "name": "Microsoft",
+          "share_pct": 60,
+          "share_year": 2024,
+          "note": "Microsoft was >60% of 2024 revenue."
+        },
+        {
+          "name": "OpenAI",
+          "contract_usd": 22400000000,
+          "contract_years": 5,
+          "note": "Combined March + September 2025 deals, ~5-year term."
+        },
+        {
+          "name": "Meta",
+          "contract_usd": 14200000000,
+          "note": "2025 compute deal."
+        }
       ],
       "contract_years_weighted": 5,
-      "risk_factors": {"customer_concentration": 75, "leverage": 90, "contract_mismatch": 65, "chip_freshness": 40},
+      "risk_factors": {
+        "customer_concentration": 75,
+        "leverage": 90,
+        "contract_mismatch": 65,
+        "chip_freshness": 40
+      },
       "risk_notes": "Aggressively diversifying away from Microsoft (OpenAI, Meta, Nvidia deals) but still carries the heaviest disclosed debt load ($21.6B+) of any neocloud, funded via GPU-collateralized SPVs.",
       "sources": [
         "https://investors.coreweave.com",
@@ -54,17 +77,152 @@
         "https://www.nextplatform.com/cloud/2026/04/09/coreweave-takes-as-much-financial-engineering-as-it-does-datacenter-design/5215794"
       ],
       "sites": [
-        {"name": "Kenilworth, NJ (\"NEST\")", "city": "Kenilworth", "state": "NJ", "country": "US", "lat": 40.6796, "lng": -74.2907, "note": "Flagship converted 280k sq ft facility, ~$1.2B buildout."},
-        {"name": "Plano, TX", "city": "Plano", "state": "TX", "country": "US", "lat": 33.0198, "lng": -96.6989, "note": "$1.6B facility, operational since late 2023."},
-        {"name": "Weehawken, NJ", "city": "Weehawken", "state": "NJ", "country": "US", "lat": 40.7695, "lng": -74.0104},
-        {"name": "Chicago, IL", "city": "Chicago", "state": "IL", "country": "US", "lat": 41.8781, "lng": -87.6298},
-        {"name": "Las Vegas, NV", "city": "Las Vegas", "state": "NV", "country": "US", "lat": 36.1699, "lng": -115.1398},
-        {"name": "Chester, VA", "city": "Chester", "state": "VA", "country": "US", "lat": 37.3546, "lng": -77.4258},
-        {"name": "Hillsboro, OR", "city": "Hillsboro", "state": "OR", "country": "US", "lat": 45.5229, "lng": -122.9898},
-        {"name": "Douglasville, GA", "city": "Douglasville", "state": "GA", "country": "US", "lat": 33.7515, "lng": -84.7477},
-        {"name": "London, UK", "city": "London", "state": "", "country": "UK", "lat": 51.5072, "lng": -0.1276},
-        {"name": "Ellendale, ND (leased from Applied Digital)", "city": "Ellendale", "state": "ND", "country": "US", "lat": 46.0135, "lng": -98.5237, "note": "500MW across two Applied Digital leases (~$11B, ~15yr)."},
-        {"name": "Denton / Muskogee HPC campuses (leased from Core Scientific)", "city": "Denton", "state": "TX", "country": "US", "lat": 33.2148, "lng": -97.1331, "note": "Part of ~590MW / 12-year, up to $10.4B Core Scientific colocation program."}
+        {
+          "name": "Kenilworth, NJ (\"NEST\")",
+          "city": "Kenilworth",
+          "state": "NJ",
+          "country": "US",
+          "lat": 40.6796,
+          "lng": -74.2907,
+          "note": "Flagship converted 280k sq ft facility, ~$1.2B buildout."
+        },
+        {
+          "name": "Plano, TX",
+          "city": "Plano",
+          "state": "TX",
+          "country": "US",
+          "lat": 33.0198,
+          "lng": -96.6989,
+          "note": "$1.6B facility, operational since late 2023."
+        },
+        {
+          "name": "Weehawken, NJ",
+          "city": "Weehawken",
+          "state": "NJ",
+          "country": "US",
+          "lat": 40.7695,
+          "lng": -74.0104
+        },
+        {
+          "name": "Chicago, IL",
+          "city": "Chicago",
+          "state": "IL",
+          "country": "US",
+          "lat": 41.8781,
+          "lng": -87.6298
+        },
+        {
+          "name": "Las Vegas, NV",
+          "city": "Las Vegas",
+          "state": "NV",
+          "country": "US",
+          "lat": 36.1699,
+          "lng": -115.1398
+        },
+        {
+          "name": "Chester, VA",
+          "city": "Chester",
+          "state": "VA",
+          "country": "US",
+          "lat": 37.3546,
+          "lng": -77.4258
+        },
+        {
+          "name": "Hillsboro, OR",
+          "city": "Hillsboro",
+          "state": "OR",
+          "country": "US",
+          "lat": 45.5229,
+          "lng": -122.9898
+        },
+        {
+          "name": "Douglasville, GA",
+          "city": "Douglasville",
+          "state": "GA",
+          "country": "US",
+          "lat": 33.7515,
+          "lng": -84.7477
+        },
+        {
+          "name": "London, UK",
+          "city": "London",
+          "state": "",
+          "country": "UK",
+          "lat": 51.5072,
+          "lng": -0.1276
+        },
+        {
+          "name": "Ellendale, ND (leased from Applied Digital)",
+          "city": "Ellendale",
+          "state": "ND",
+          "country": "US",
+          "lat": 46.0135,
+          "lng": -98.5237,
+          "note": "500MW across two Applied Digital leases (~$11B, ~15yr)."
+        },
+        {
+          "name": "Denton / Muskogee HPC campuses (leased from Core Scientific)",
+          "city": "Denton",
+          "state": "TX",
+          "country": "US",
+          "lat": 33.2148,
+          "lng": -97.1331,
+          "note": "Part of ~590MW / 12-year, up to $10.4B Core Scientific colocation program."
+        }
+      ],
+      "sec_cik": "0001769628",
+      "ticker_yahoo": "CRWV",
+      "bonds": [
+        {
+          "instrument": "9.250% Senior Notes",
+          "coupon": 9.25,
+          "maturity": 2030,
+          "amount_usd": 2000000000,
+          "type": "senior",
+          "secured": false,
+          "note": "High-yield senior unsecured notes."
+        },
+        {
+          "instrument": "9.000% Senior Notes",
+          "coupon": 9.0,
+          "maturity": 2031,
+          "amount_usd": 1750000000,
+          "type": "senior",
+          "secured": false,
+          "note": "Closed Jul 2025."
+        },
+        {
+          "instrument": "9.750% Senior Notes",
+          "coupon": 9.75,
+          "maturity": 2031,
+          "amount_usd": 2750000000,
+          "type": "senior",
+          "secured": false,
+          "note": "$1.75B (Apr 2026) + $1.0B tack-on; matures Oct 1, 2031."
+        },
+        {
+          "instrument": "1.750% Convertible Senior Notes",
+          "coupon": 1.75,
+          "maturity": 2031,
+          "amount_usd": 2587500000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Priced Dec 2025 incl. greenshoe. Low cash coupon, equity upside."
+        }
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 6.16
+        },
+        {
+          "chip": "H200",
+          "usd_per_hr": 6.31
+        },
+        {
+          "chip": "GB200 NVL72",
+          "usd_per_hr": null
+        }
       ]
     },
     {
@@ -76,7 +234,12 @@
       "public": false,
       "ticker": "Pre-IPO (targeting H2 2026)",
       "chip_vendor": "Nvidia",
-      "chips": ["A100", "H100", "B200", "GB300 NVL72"],
+      "chips": [
+        "A100",
+        "H100",
+        "B200",
+        "GB300 NVL72"
+      ],
       "gpu_count_est": null,
       "gpu_owner": "Mixed: self-owned + Nvidia lease-back",
       "gpu_owner_detail": "Owns most of its fleet, but in Sep 2025 Nvidia signed a $1.5B deal to lease back 18,000 GPUs from Lambda over 4 years -- a circular financing structure (supplier as tenant).",
@@ -89,11 +252,24 @@
       "debt_usd": null,
       "debt_note": "Primarily equity-funded to date ($480M Series D Feb 2025 @ ~$4B val.; $1.5B Series E Nov 2025); Nvidia GPU lease-back adds a debt-like off-balance-sheet obligation.",
       "customers": [
-        {"name": "Microsoft", "note": "Multi-year, multi-billion-dollar deal (Nov 2025) for tens of thousands of GPUs incl. GB300 NVL72."},
-        {"name": "Nvidia", "contract_usd": 1500000000, "contract_years": 4, "note": "Nvidia leases back 18,000 GPUs from Lambda over 4 years."}
+        {
+          "name": "Microsoft",
+          "note": "Multi-year, multi-billion-dollar deal (Nov 2025) for tens of thousands of GPUs incl. GB300 NVL72."
+        },
+        {
+          "name": "Nvidia",
+          "contract_usd": 1500000000,
+          "contract_years": 4,
+          "note": "Nvidia leases back 18,000 GPUs from Lambda over 4 years."
+        }
       ],
       "contract_years_weighted": 4,
-      "risk_factors": {"customer_concentration": 55, "leverage": 55, "contract_mismatch": 50, "chip_freshness": 30},
+      "risk_factors": {
+        "customer_concentration": 55,
+        "leverage": 55,
+        "contract_mismatch": 50,
+        "chip_freshness": 30
+      },
       "risk_notes": "Diversified customer base with a fast-growing Microsoft/Nvidia anchor; among the first to production-scale GB300 NVL72, so obsolescence risk is comparatively low.",
       "sources": [
         "https://sacra.com/c/lambda-labs/",
@@ -101,10 +277,53 @@
         "https://www.rainmakersecurities.com/company-profiles/lambda-labs-pre-ipo"
       ],
       "sites": [
-        {"name": "San Francisco, CA (HQ + colo)", "city": "San Francisco", "state": "CA", "country": "US", "lat": 37.7749, "lng": -122.4194},
-        {"name": "Allen, TX", "city": "Allen", "state": "TX", "country": "US", "lat": 33.1032, "lng": -96.6706},
-        {"name": "Columbus, OH", "city": "Columbus", "state": "OH", "country": "US", "lat": 39.9612, "lng": -82.9988},
-        {"name": "Kansas City, MO", "city": "Kansas City", "state": "MO", "country": "US", "lat": 39.0997, "lng": -94.5786, "note": "New 'AI Factory', 24MW scaling to 100MW+, targeted early 2026."}
+        {
+          "name": "San Francisco, CA (HQ + colo)",
+          "city": "San Francisco",
+          "state": "CA",
+          "country": "US",
+          "lat": 37.7749,
+          "lng": -122.4194
+        },
+        {
+          "name": "Allen, TX",
+          "city": "Allen",
+          "state": "TX",
+          "country": "US",
+          "lat": 33.1032,
+          "lng": -96.6706
+        },
+        {
+          "name": "Columbus, OH",
+          "city": "Columbus",
+          "state": "OH",
+          "country": "US",
+          "lat": 39.9612,
+          "lng": -82.9988
+        },
+        {
+          "name": "Kansas City, MO",
+          "city": "Kansas City",
+          "state": "MO",
+          "country": "US",
+          "lat": 39.0997,
+          "lng": -94.5786,
+          "note": "New 'AI Factory', 24MW scaling to 100MW+, targeted early 2026."
+        }
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.99
+        },
+        {
+          "chip": "B200",
+          "usd_per_hr": 5.5
+        },
+        {
+          "chip": "GB300 NVL72",
+          "usd_per_hr": null
+        }
       ]
     },
     {
@@ -116,7 +335,9 @@
       "public": false,
       "ticker": "Private",
       "chip_vendor": "Nvidia",
-      "chips": ["GB200 NVL72"],
+      "chips": [
+        "GB200 NVL72"
+      ],
       "gpu_count_est": 400000,
       "gpu_owner": "Joint venture (Crusoe / Blue Owl Capital / Primary Digital Infrastructure)",
       "gpu_owner_detail": "Abilene 'Stargate' campus is funded and owned through a JV structure; Crusoe operates the site for OpenAI/Oracle/SoftBank's Stargate program.",
@@ -128,10 +349,18 @@
       "debt_usd": 11600000000,
       "debt_note": "$11.6B in additional debt+equity secured May 2025 (total project capital ~$15B) via the Blue Owl / Primary Digital Infrastructure JV; separate $750M Brookfield credit line (Jun 2025).",
       "customers": [
-        {"name": "OpenAI / Oracle / SoftBank (Stargate)", "note": "Abilene is the flagship Stargate site; 8 data halls, up to 50,000 GB200 nodes each, 1.2GW total capacity."}
+        {
+          "name": "OpenAI / Oracle / SoftBank (Stargate)",
+          "note": "Abilene is the flagship Stargate site; 8 data halls, up to 50,000 GB200 nodes each, 1.2GW total capacity."
+        }
       ],
       "contract_years_weighted": null,
-      "risk_factors": {"customer_concentration": 90, "leverage": 85, "contract_mismatch": 60, "chip_freshness": 25},
+      "risk_factors": {
+        "customer_concentration": 90,
+        "leverage": 85,
+        "contract_mismatch": 60,
+        "chip_freshness": 25
+      },
       "risk_notes": "Extremely concentrated on a single mega-campus tied to one program (Stargate); funded almost entirely with real-asset debt/JV leverage rather than equity.",
       "sources": [
         "https://www.datacenterdynamics.com/en/news/crusoe-secures-116bn-in-debt-and-equity-for-openais-stargate-data-center-campus-in-abilene-texas/",
@@ -139,7 +368,21 @@
         "https://www.crusoe.ai/resources/newsroom/crusoe-blue-owl-capital-and-primary-digital-infrastructure-enter-joint-venture"
       ],
       "sites": [
-        {"name": "Abilene, TX (Stargate flagship campus)", "city": "Abilene", "state": "TX", "country": "US", "lat": 32.4487, "lng": -99.7331, "note": "~1.2GW planned, 8 data halls."}
+        {
+          "name": "Abilene, TX (Stargate flagship campus)",
+          "city": "Abilene",
+          "state": "TX",
+          "country": "US",
+          "lat": 32.4487,
+          "lng": -99.7331,
+          "note": "~1.2GW planned, 8 data halls."
+        }
+      ],
+      "pricing": [
+        {
+          "chip": "GB200 NVL72",
+          "usd_per_hr": null
+        }
       ]
     },
     {
@@ -151,7 +394,11 @@
       "public": true,
       "ticker": "NASDAQ: NBIS",
       "chip_vendor": "Nvidia",
-      "chips": ["H100", "H200", "GB300"],
+      "chips": [
+        "H100",
+        "H200",
+        "GB300"
+      ],
       "gpu_count_est": 100000,
       "gpu_owner": "Self (equity-funded)",
       "gpu_owner_detail": "Owns its GPU fleet, funded mainly with cash/equity from the 2024 Yandex divestiture rather than heavy debt.",
@@ -162,11 +409,26 @@
       "debt_usd": null,
       "debt_note": "Comparatively equity-strong balance sheet vs. peers; less reliant on GPU-collateralized debt.",
       "customers": [
-        {"name": "Meta", "contract_usd": 27000000000, "contract_years": 5, "note": "5-year AI capacity reservation, signed 2025."},
-        {"name": "Microsoft", "contract_usd": 19400000000, "contract_years": 5, "note": "5-year GPU services deal, deployed at Vineland, NJ; base value $17.4B, up to $19.4B with expansion."}
+        {
+          "name": "Meta",
+          "contract_usd": 27000000000,
+          "contract_years": 5,
+          "note": "5-year AI capacity reservation, signed 2025."
+        },
+        {
+          "name": "Microsoft",
+          "contract_usd": 19400000000,
+          "contract_years": 5,
+          "note": "5-year GPU services deal, deployed at Vineland, NJ; base value $17.4B, up to $19.4B with expansion."
+        }
       ],
       "contract_years_weighted": 5,
-      "risk_factors": {"customer_concentration": 70, "leverage": 45, "contract_mismatch": 35, "chip_freshness": 15},
+      "risk_factors": {
+        "customer_concentration": 70,
+        "leverage": 45,
+        "contract_mismatch": 35,
+        "chip_freshness": 15
+      },
       "risk_notes": "Backlog is dominated by two hyperscaler mega-deals (Meta + Microsoft, $46B combined), but contracts are long (5yr), well-matched to newest-gen GB300 silicon, and funded without heavy debt.",
       "sources": [
         "https://www.sec.gov/Archives/edgar/data/0001513845/000110465925088312/tm2525580d1_6k.htm",
@@ -174,8 +436,65 @@
         "https://www.forbes.com/sites/tiriasresearch/2025/09/30/massive-leap-for-ai-neoclouds-with-deal-between-nebius-and-microsoft/"
       ],
       "sites": [
-        {"name": "Vineland, NJ", "city": "Vineland", "state": "NJ", "country": "US", "lat": 39.4863, "lng": -75.0259, "note": "New campus built for the Microsoft deal, deploying 2025-2026."},
-        {"name": "Mäntsälä, Finland", "city": "Mäntsälä", "state": "", "country": "FI", "lat": 60.6323, "lng": 25.3210, "note": "Original Yandex-heritage data center."}
+        {
+          "name": "Vineland, NJ",
+          "city": "Vineland",
+          "state": "NJ",
+          "country": "US",
+          "lat": 39.4863,
+          "lng": -75.0259,
+          "note": "New campus built for the Microsoft deal, deploying 2025-2026."
+        },
+        {
+          "name": "M\u00e4nts\u00e4l\u00e4, Finland",
+          "city": "M\u00e4nts\u00e4l\u00e4",
+          "state": "",
+          "country": "FI",
+          "lat": 60.6323,
+          "lng": 25.321,
+          "note": "Original Yandex-heritage data center."
+        }
+      ],
+      "sec_cik": "0001513845",
+      "ticker_yahoo": "NBIS",
+      "bonds": [
+        {
+          "instrument": "Convertible Senior Notes (Series 1)",
+          "coupon": 0.0,
+          "maturity": 2030,
+          "amount_usd": 2750000000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Earlier 2025 convertible raise (upsized to $2.75B)."
+        },
+        {
+          "instrument": "1.250% Convertible Senior Notes",
+          "coupon": 1.25,
+          "maturity": 2031,
+          "amount_usd": 2250000000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Part of $4.0B two-tranche deal, Mar 2026."
+        },
+        {
+          "instrument": "2.625% Convertible Senior Notes",
+          "coupon": 2.625,
+          "maturity": 2033,
+          "amount_usd": 1750000000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Part of $4.0B two-tranche deal, Mar 2026."
+        }
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.95
+        },
+        {
+          "chip": "H200",
+          "usd_per_hr": 3.5
+        }
       ]
     },
     {
@@ -187,7 +506,12 @@
       "public": false,
       "ticker": "Private",
       "chip_vendor": "Nvidia",
-      "chips": ["A100", "H100", "H200", "GB200 NVL72"],
+      "chips": [
+        "A100",
+        "H100",
+        "H200",
+        "GB200 NVL72"
+      ],
       "gpu_count_est": null,
       "gpu_owner": "Mixed: self + JV (Hypertec)",
       "gpu_owner_detail": "Together owns clusters directly and also co-builds capacity in JV with colocation partners (e.g. Hypertec, 36,000-GPU GB200 NVL72 cluster).",
@@ -199,17 +523,50 @@
       "valuation_usd": 3300000000,
       "debt_usd": null,
       "customers": [
-        {"name": "Diversified AI labs / enterprises", "note": "No single disclosed anchor customer at CoreWeave/Nebius scale."}
+        {
+          "name": "Diversified AI labs / enterprises",
+          "note": "No single disclosed anchor customer at CoreWeave/Nebius scale."
+        }
       ],
       "contract_years_weighted": null,
-      "risk_factors": {"customer_concentration": 45, "leverage": 40, "contract_mismatch": 45, "chip_freshness": 35},
+      "risk_factors": {
+        "customer_concentration": 45,
+        "leverage": 40,
+        "contract_mismatch": 45,
+        "chip_freshness": 35
+      },
       "risk_notes": "Mostly VC-equity funded with a diversified customer base; lower disclosed leverage than debt-heavy peers, but also far less transparency on revenue and contract backlog.",
       "sources": [
         "https://www.datacenterdynamics.com/en/news/ai-cloud-firm-together-ai-raises-305m-in-series-b-funding-round/"
       ],
       "sites": [
-        {"name": "San Francisco, CA (HQ)", "city": "San Francisco", "state": "CA", "country": "US", "lat": 37.77, "lng": -122.41},
-        {"name": "GB200 NVL72 cluster (Hypertec JV, N. America)", "city": "Montreal (approx.)", "state": "", "country": "CA", "lat": 45.5019, "lng": -73.5674, "note": "Approximate -- exact site undisclosed."}
+        {
+          "name": "San Francisco, CA (HQ)",
+          "city": "San Francisco",
+          "state": "CA",
+          "country": "US",
+          "lat": 37.77,
+          "lng": -122.41
+        },
+        {
+          "name": "GB200 NVL72 cluster (Hypertec JV, N. America)",
+          "city": "Montreal (approx.)",
+          "state": "",
+          "country": "CA",
+          "lat": 45.5019,
+          "lng": -73.5674,
+          "note": "Approximate -- exact site undisclosed."
+        }
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.39
+        },
+        {
+          "chip": "H200",
+          "usd_per_hr": 3.15
+        }
       ]
     },
     {
@@ -221,7 +578,10 @@
       "public": true,
       "ticker": "NASDAQ: IREN",
       "chip_vendor": "Nvidia",
-      "chips": ["H100", "B300"],
+      "chips": [
+        "H100",
+        "B300"
+      ],
       "gpu_count_est": 150000,
       "gpu_owner": "Self",
       "gpu_owner_detail": "Former bitcoin miner (Iris Energy) pivoting owned power infrastructure into owned AI Cloud GPU fleet.",
@@ -232,18 +592,102 @@
       "debt_usd": null,
       "debt_note": "Nvidia holds a 5-year right to buy up to 30M IREN shares at $70 (up to $2.1B) as part of the deal -- a circular equity/vendor-financing tie-in.",
       "customers": [
-        {"name": "Nvidia (AI Cloud contract)", "contract_usd": 3400000000, "contract_years": 5, "note": "Blackwell B300 deployment, 60MW air-cooled, Childress, TX."}
+        {
+          "name": "Nvidia (AI Cloud contract)",
+          "contract_usd": 3400000000,
+          "contract_years": 5,
+          "note": "Blackwell B300 deployment, 60MW air-cooled, Childress, TX."
+        }
       ],
       "contract_years_weighted": 5,
-      "risk_factors": {"customer_concentration": 80, "leverage": 70, "contract_mismatch": 55, "chip_freshness": 20},
+      "risk_factors": {
+        "customer_concentration": 80,
+        "leverage": 70,
+        "contract_mismatch": 55,
+        "chip_freshness": 20
+      },
       "risk_notes": "Newly transformed from a bitcoin miner; the Nvidia deal is transformative but concentrates a large share of forward ARR in one 5-year contract, with Nvidia itself as counterparty and prospective shareholder.",
       "sources": [
         "https://www.globenewswire.com/news-release/2026/05/07/3290760/0/en/iren-secures-3-4bn-ai-cloud-contract-with-nvidia.html",
         "https://finance.yahoo.com/sectors/technology/articles/nvidia-partnership-help-iren-reach-151300855.html"
       ],
       "sites": [
-        {"name": "Childress, TX", "city": "Childress", "state": "TX", "country": "US", "lat": 34.4262, "lng": -100.2059, "note": "60MW air-cooled Nvidia Blackwell deployment."},
-        {"name": "Mackenzie / Prince George, BC", "city": "Mackenzie", "state": "BC", "country": "CA", "lat": 55.3372, "lng": -123.5136}
+        {
+          "name": "Childress, TX",
+          "city": "Childress",
+          "state": "TX",
+          "country": "US",
+          "lat": 34.4262,
+          "lng": -100.2059,
+          "note": "60MW air-cooled Nvidia Blackwell deployment."
+        },
+        {
+          "name": "Mackenzie / Prince George, BC",
+          "city": "Mackenzie",
+          "state": "BC",
+          "country": "CA",
+          "lat": 55.3372,
+          "lng": -123.5136
+        }
+      ],
+      "sec_cik": "0001878848",
+      "ticker_yahoo": "IREN",
+      "bonds": [
+        {
+          "instrument": "0.00% Convertible Senior Notes",
+          "coupon": 0.0,
+          "maturity": 2031,
+          "amount_usd": 875000000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Priced Oct 2025, zero cash coupon."
+        },
+        {
+          "instrument": "0.25% Convertible Senior Notes",
+          "coupon": 0.25,
+          "maturity": 2032,
+          "amount_usd": 1000000000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Dec 2025."
+        },
+        {
+          "instrument": "1.00% Convertible Senior Notes",
+          "coupon": 1.0,
+          "maturity": 2033,
+          "amount_usd": 1000000000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Dec 2025."
+        },
+        {
+          "instrument": "3.50% Convertible Senior Notes",
+          "coupon": 3.5,
+          "maturity": 2029,
+          "amount_usd": 316600000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Legacy notes, largely repurchased in 2025 refinancing."
+        },
+        {
+          "instrument": "3.25% Convertible Senior Notes",
+          "coupon": 3.25,
+          "maturity": 2030,
+          "amount_usd": 227700000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Legacy notes, largely repurchased in 2025 refinancing."
+        }
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 1.9
+        },
+        {
+          "chip": "B300",
+          "usd_per_hr": null
+        }
       ]
     },
     {
@@ -255,7 +699,9 @@
       "public": false,
       "ticker": "Private",
       "chip_vendor": "Nvidia",
-      "chips": ["GB300"],
+      "chips": [
+        "GB300"
+      ],
       "gpu_count_est": 190000,
       "gpu_owner": "Self / JV with Microsoft as anchor tenant",
       "gpu_owner_detail": "Builds and owns GPU infrastructure across UK/EU 'sovereign AI' sites with Microsoft as anchor tenant/customer.",
@@ -267,20 +713,61 @@
       "debt_usd": null,
       "debt_note": "$1.7B raised to date (Series B $1.1B + pre-Series C SAFE $433M, 2025); construction of ~104,000+52,000+23,000+12,600 GPU sites implies substantial future debt/JV capital still to be raised.",
       "customers": [
-        {"name": "Microsoft (anchor)", "contract_usd": 14000000000, "note": "Deployments: Texas 104,000 GB300 GPUs (240MW, Q3 2026); Narvik, Norway 52,000 GPUs; Loughton, UK 23,040 GPUs (50-90MW, Q1 2027); Sines, Portugal 12,600 GPUs (Q1 2026)."}
+        {
+          "name": "Microsoft (anchor)",
+          "contract_usd": 14000000000,
+          "note": "Deployments: Texas 104,000 GB300 GPUs (240MW, Q3 2026); Narvik, Norway 52,000 GPUs; Loughton, UK 23,040 GPUs (50-90MW, Q1 2027); Sines, Portugal 12,600 GPUs (Q1 2026)."
+        }
       ],
       "contract_years_weighted": null,
-      "risk_factors": {"customer_concentration": 85, "leverage": 60, "contract_mismatch": 50, "chip_freshness": 15},
+      "risk_factors": {
+        "customer_concentration": 85,
+        "leverage": 60,
+        "contract_mismatch": 50,
+        "chip_freshness": 15
+      },
       "risk_notes": "Fast-scaling 'sovereign AI' builder almost entirely anchored to Microsoft; execution/delivery risk across 4 simultaneous international builds is as material as financial risk.",
       "sources": [
         "https://acquinox.capital/insights/ai-hardware-and-semiconductor-innovation/n-scale-europe-s-billion-dollar-bet-on-ai-sovereignty",
         "https://www.nscale.com/press-releases/nscale-uk-ai-infrastructure-announcement"
       ],
       "sites": [
-        {"name": "Texas (240MW)", "city": "", "state": "TX", "country": "US", "lat": 31.9686, "lng": -99.9018, "note": "104,000 GB300 GPUs, Q3 2026, approximate location."},
-        {"name": "Narvik, Norway", "city": "Narvik", "state": "", "country": "NO", "lat": 68.4385, "lng": 17.4272, "note": "52,000 GPUs."},
-        {"name": "Loughton, UK", "city": "Loughton", "state": "", "country": "UK", "lat": 51.6423, "lng": 0.0648, "note": "23,040 GB300 GPUs, 50-90MW, Q1 2027."},
-        {"name": "Sines, Portugal", "city": "Sines", "state": "", "country": "PT", "lat": 37.9563, "lng": -8.8697, "note": "12,600 GPUs, Q1 2026."}
+        {
+          "name": "Texas (240MW)",
+          "city": "",
+          "state": "TX",
+          "country": "US",
+          "lat": 31.9686,
+          "lng": -99.9018,
+          "note": "104,000 GB300 GPUs, Q3 2026, approximate location."
+        },
+        {
+          "name": "Narvik, Norway",
+          "city": "Narvik",
+          "state": "",
+          "country": "NO",
+          "lat": 68.4385,
+          "lng": 17.4272,
+          "note": "52,000 GPUs."
+        },
+        {
+          "name": "Loughton, UK",
+          "city": "Loughton",
+          "state": "",
+          "country": "UK",
+          "lat": 51.6423,
+          "lng": 0.0648,
+          "note": "23,040 GB300 GPUs, 50-90MW, Q1 2027."
+        },
+        {
+          "name": "Sines, Portugal",
+          "city": "Sines",
+          "state": "",
+          "country": "PT",
+          "lat": 37.9563,
+          "lng": -8.8697,
+          "note": "12,600 GPUs, Q1 2026."
+        }
       ]
     },
     {
@@ -292,7 +779,9 @@
       "public": false,
       "ticker": "Private",
       "chip_vendor": "Nvidia",
-      "chips": ["H100"],
+      "chips": [
+        "H100"
+      ],
       "gpu_count_est": 24000,
       "gpu_owner": "Self",
       "gpu_owner_detail": "Owns its H100 fleet outright, colocated in third-party Tier 3+ data centers.",
@@ -301,17 +790,38 @@
       "funding_total_usd": null,
       "debt_usd": null,
       "customers": [
-        {"name": "Marketplace / on-demand + bare metal", "note": "Acquired GPU marketplace TensorDock (Mar 2025); merged with Lightning AI to bundle infrastructure + dev platform."}
+        {
+          "name": "Marketplace / on-demand + bare metal",
+          "note": "Acquired GPU marketplace TensorDock (Mar 2025); merged with Lightning AI to bundle infrastructure + dev platform."
+        }
       ],
       "contract_years_weighted": null,
-      "risk_factors": {"customer_concentration": 50, "leverage": 50, "contract_mismatch": 55, "chip_freshness": 75},
+      "risk_factors": {
+        "customer_concentration": 50,
+        "leverage": 50,
+        "contract_mismatch": 55,
+        "chip_freshness": 75
+      },
       "risk_notes": "Fleet is entirely prior-generation H100 with no confirmed Blackwell deployment, and revenue is largely short-term/on-demand rental -- a fleet-obsolescence-heavy risk profile relative to contract coverage.",
       "sources": [
         "https://www.datacenterdynamics.com/en/news/gpuaas-provider-voltage-park-merges-with-cloud-platform-lightning-ai/",
         "https://shadeform.com/directory/clouds/voltagepark"
       ],
       "sites": [
-        {"name": "San Francisco, CA (HQ + colo network)", "city": "San Francisco", "state": "CA", "country": "US", "lat": 37.76, "lng": -122.43}
+        {
+          "name": "San Francisco, CA (HQ + colo network)",
+          "city": "San Francisco",
+          "state": "CA",
+          "country": "US",
+          "lat": 37.76,
+          "lng": -122.43
+        }
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 1.99
+        }
       ]
     },
     {
@@ -323,7 +833,10 @@
       "public": false,
       "ticker": "Private",
       "chip_vendor": "Nvidia",
-      "chips": ["H100", "H200"],
+      "chips": [
+        "H100",
+        "H200"
+      ],
       "gpu_count_est": 100000,
       "gpu_owner": "Self, hosted in TeraWulf-owned data centers",
       "gpu_owner_detail": "Owns/operates the GPU fleet; the surrounding data-center power/shell infrastructure is leased long-term from bitcoin-miner-turned-HPC-host TeraWulf.",
@@ -333,17 +846,68 @@
       "debt_usd": null,
       "debt_note": "TeraWulf hosting deal is financially backstopped by a Google guarantee -- Google is not a direct FluidStack investor but its credit support was required to get the financing done, a further circular-financing signal in the sector.",
       "customers": [
-        {"name": "Meta, Mistral, Character.AI, Poolside, Black Forest Labs", "note": "Marquee AI-lab customer roster."},
-        {"name": "TeraWulf hosting agreements", "contract_usd": 6700000000, "contract_years": 10, "note": "Two 10-year hosting agreements totaling $6.7B, starting 2026, Google-guaranteed."}
+        {
+          "name": "Meta, Mistral, Character.AI, Poolside, Black Forest Labs",
+          "note": "Marquee AI-lab customer roster."
+        },
+        {
+          "name": "TeraWulf hosting agreements",
+          "contract_usd": 6700000000,
+          "contract_years": 10,
+          "note": "Two 10-year hosting agreements totaling $6.7B, starting 2026, Google-guaranteed."
+        }
       ],
       "contract_years_weighted": 10,
-      "risk_factors": {"customer_concentration": 60, "leverage": 55, "contract_mismatch": 30, "chip_freshness": 45},
+      "risk_factors": {
+        "customer_concentration": 60,
+        "leverage": 55,
+        "contract_mismatch": 30,
+        "chip_freshness": 45
+      },
       "risk_notes": "Very long (10yr) hosting contracts reduce refinancing risk, but the need for a third party's (Google) credit guarantee to close the financing is itself a risk signal worth watching.",
       "sources": [
         "https://sacra.com/c/fluidstack/"
       ],
       "sites": [
-        {"name": "Lake Mariner, NY (TeraWulf campus)", "city": "Barker", "state": "NY", "country": "US", "lat": 43.3459, "lng": -78.5497, "note": "Approximate -- flagship TeraWulf HPC hosting site."}
+        {
+          "name": "Lake Mariner, NY (TeraWulf campus)",
+          "city": "Barker",
+          "state": "NY",
+          "country": "US",
+          "lat": 43.3459,
+          "lng": -78.5497,
+          "note": "Approximate -- flagship TeraWulf HPC hosting site."
+        }
+      ],
+      "bonds": [
+        {
+          "instrument": "TeraWulf 1.00% Convertible Notes (host)",
+          "coupon": 1.0,
+          "maturity": 2030,
+          "amount_usd": 500000000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Issued by host TeraWulf (WULF), not FluidStack directly."
+        },
+        {
+          "instrument": "TeraWulf 0.00% Convertible Notes (host)",
+          "coupon": 0.0,
+          "maturity": 2032,
+          "amount_usd": 1025000000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Issued by host TeraWulf (WULF); Google-backstopped hosting underpins repayment."
+        }
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.49
+        },
+        {
+          "chip": "H200",
+          "usd_per_hr": 3.29
+        }
       ]
     },
     {
@@ -355,7 +919,10 @@
       "public": true,
       "ticker": "ETR: NB2",
       "chip_vendor": "Nvidia",
-      "chips": ["H100", "H200"],
+      "chips": [
+        "H100",
+        "H200"
+      ],
       "gpu_count_est": 22500,
       "gpu_owner": "Self",
       "gpu_owner_detail": "Owns its GPU fleet through the Taiga Cloud business; separately operates Ardent Data Centers (~250MW across 10 sites planned by 2027).",
@@ -364,18 +931,35 @@
       "revenue_note": "FY2025 revenue EUR80.04M, down 33.9% YoY; FY2025 net loss EUR390.17M (+206% YoY).",
       "debt_usd": null,
       "customers": [
-        {"name": "Core42", "note": "Aug 2025 deal for 10,000 GPUs via Taiga Cloud."}
+        {
+          "name": "Core42",
+          "note": "Aug 2025 deal for 10,000 GPUs via Taiga Cloud."
+        }
       ],
       "contract_years_weighted": null,
-      "risk_factors": {"customer_concentration": 55, "leverage": 90, "contract_mismatch": 70, "chip_freshness": 80},
+      "risk_factors": {
+        "customer_concentration": 55,
+        "leverage": 90,
+        "contract_mismatch": 70,
+        "chip_freshness": 80
+      },
       "risk_notes": "The clearest current example of neocloud financial distress: revenue fell YoY while losses tripled, and the company agreed to be acquired by Rumble for ~$767M (announced Jan 2026) -- a fraction of the capital deployed into its GPU buildout. Fleet is legacy Hopper-class with no confirmed Blackwell path.",
       "sources": [
         "https://ir.northerndata.de/hubfs/Annual%20Report%202025/NDAG%20Group%20-%20Annual%20Report%20-%202025%20-%20English.pdf",
         "https://en.wikipedia.org/wiki/Northern_Data"
       ],
       "sites": [
-        {"name": "Frankfurt, DE (HQ)", "city": "Frankfurt", "state": "", "country": "DE", "lat": 50.1109, "lng": 8.6821}
-      ]
+        {
+          "name": "Frankfurt, DE (HQ)",
+          "city": "Frankfurt",
+          "state": "",
+          "country": "DE",
+          "lat": 50.1109,
+          "lng": 8.6821
+        }
+      ],
+      "sec_cik": null,
+      "ticker_yahoo": "NB2.DE"
     },
     {
       "id": "tensorwave",
@@ -386,7 +970,11 @@
       "public": false,
       "ticker": "Private",
       "chip_vendor": "AMD",
-      "chips": ["MI300X", "MI325X", "MI355X"],
+      "chips": [
+        "MI300X",
+        "MI325X",
+        "MI355X"
+      ],
       "gpu_count_est": 8192,
       "gpu_owner": "Self",
       "gpu_owner_detail": "Owns its AMD Instinct fleet; AMD Ventures and Magnetar are both investors in and (via MI-series purchase commitments) beneficiaries of TensorWave's scale-up -- a circular financing pattern similar to Nvidia's with its neoclouds.",
@@ -397,19 +985,58 @@
       "valuation_usd": 1550000000,
       "debt_usd": null,
       "customers": [
-        {"name": "Diversified AI/enterprise workloads", "note": "No single disclosed anchor customer at hyperscaler scale; growth pitch is AMD-alternative pricing/availability."}
+        {
+          "name": "Diversified AI/enterprise workloads",
+          "note": "No single disclosed anchor customer at hyperscaler scale; growth pitch is AMD-alternative pricing/availability."
+        }
       ],
       "contract_years_weighted": null,
-      "risk_factors": {"customer_concentration": 60, "leverage": 70, "contract_mismatch": 55, "chip_freshness": 50},
+      "risk_factors": {
+        "customer_concentration": 60,
+        "leverage": 70,
+        "contract_mismatch": 55,
+        "chip_freshness": 50
+      },
       "risk_notes": "Secured 2GW+ of long-term data-center capacity ahead of confirmed contracted demand of that scale -- a buildout-ahead-of-revenue pattern common across the sector's smaller challengers.",
       "sources": [
         "https://www.businesswire.com/news/home/20260610650010/en/TensorWave-Raises-$350-Million-Series-B-at-$1.55B-Valuation-to-Expand-Global-AMD-Powered-AI-Infrastructure",
         "https://www.nextplatform.com/compute/2025/05/16/how-is-neocloud-tensorwave-paying-for-its-fairly-large-amd-cluster/1633111"
       ],
       "sites": [
-        {"name": "Pennsylvania (approx.)", "city": "", "state": "PA", "country": "US", "lat": 40.9699, "lng": -77.7278},
-        {"name": "Arizona (approx.)", "city": "", "state": "AZ", "country": "US", "lat": 34.0489, "lng": -111.0937},
-        {"name": "Florida (approx.)", "city": "", "state": "FL", "country": "US", "lat": 27.7663, "lng": -81.6868}
+        {
+          "name": "Pennsylvania (approx.)",
+          "city": "",
+          "state": "PA",
+          "country": "US",
+          "lat": 40.9699,
+          "lng": -77.7278
+        },
+        {
+          "name": "Arizona (approx.)",
+          "city": "",
+          "state": "AZ",
+          "country": "US",
+          "lat": 34.0489,
+          "lng": -111.0937
+        },
+        {
+          "name": "Florida (approx.)",
+          "city": "",
+          "state": "FL",
+          "country": "US",
+          "lat": 27.7663,
+          "lng": -81.6868
+        }
+      ],
+      "pricing": [
+        {
+          "chip": "MI300X",
+          "usd_per_hr": 2.8
+        },
+        {
+          "chip": "MI325X",
+          "usd_per_hr": 3.5
+        }
       ]
     },
     {
@@ -431,17 +1058,48 @@
       "backlog_usd": 11000000000,
       "debt_usd": null,
       "customers": [
-        {"name": "CoreWeave", "contract_usd": 11000000000, "contract_years": 15, "note": "250MW (Jun 2025) + 150MW (Aug 2025) at Polaris Forge / Ellendale, ND; ~$7B then ~$11B total."}
+        {
+          "name": "CoreWeave",
+          "contract_usd": 11000000000,
+          "contract_years": 15,
+          "note": "250MW (Jun 2025) + 150MW (Aug 2025) at Polaris Forge / Ellendale, ND; ~$7B then ~$11B total."
+        }
       ],
       "contract_years_weighted": 15,
-      "risk_factors": {"customer_concentration": 90, "leverage": 55, "contract_mismatch": 20, "chip_freshness": 40},
+      "risk_factors": {
+        "customer_concentration": 90,
+        "leverage": 55,
+        "contract_mismatch": 20,
+        "chip_freshness": 40
+      },
       "risk_notes": "A textbook 'GPU landlord': 15-year triple-net-style leases push all chip-obsolescence risk onto the tenant (CoreWeave), so Applied Digital's own risk is overwhelmingly a bet on one tenant's staying power, not on chip generations.",
       "sources": [
         "https://ir.applieddigital.com/news-events/press-releases/detail/128/applied-digital-finalizes-additional-150mw-lease-with",
         "https://www.theregister.com/2025/06/02/coreweave_applied_digital_nd/"
       ],
       "sites": [
-        {"name": "Ellendale / Polaris Forge, ND", "city": "Ellendale", "state": "ND", "country": "US", "lat": 46.0135, "lng": -98.5237, "note": "250MW + 150MW leased to CoreWeave; option on a further 150MW."}
+        {
+          "name": "Ellendale / Polaris Forge, ND",
+          "city": "Ellendale",
+          "state": "ND",
+          "country": "US",
+          "lat": 46.0135,
+          "lng": -98.5237,
+          "note": "250MW + 150MW leased to CoreWeave; option on a further 150MW."
+        }
+      ],
+      "sec_cik": "0001144879",
+      "ticker_yahoo": "APLD",
+      "bonds": [
+        {
+          "instrument": "2.75% Convertible Notes",
+          "coupon": 2.75,
+          "maturity": 2030,
+          "amount_usd": 450000000,
+          "type": "convertible",
+          "secured": false,
+          "note": "$375M + $75M option, Oct 2024. Plus large project-level data-center debt not shown here."
+        }
       ]
     },
     {
@@ -463,19 +1121,407 @@
       "backlog_usd": 10000000000,
       "debt_usd": null,
       "customers": [
-        {"name": "CoreWeave", "contract_usd": 10000000000, "contract_years": 12, "note": "Series of 12-year take-or-pay contracts starting Jun 2024, now ~590MW across 6 sites (~800MW gross capacity)."}
+        {
+          "name": "CoreWeave",
+          "contract_usd": 10000000000,
+          "contract_years": 12,
+          "note": "Series of 12-year take-or-pay contracts starting Jun 2024, now ~590MW across 6 sites (~800MW gross capacity)."
+        }
       ],
       "contract_years_weighted": 12,
-      "risk_factors": {"customer_concentration": 95, "leverage": 45, "contract_mismatch": 15, "chip_freshness": 40},
+      "risk_factors": {
+        "customer_concentration": 95,
+        "leverage": 45,
+        "contract_mismatch": 15,
+        "chip_freshness": 40
+      },
       "risk_notes": "Former bitcoin miner now almost entirely dependent on a single HPC tenant (CoreWeave rejected Core Scientific's own 2024 acquisition offer, then became its largest customer); 12-year take-or-pay terms and GPU-exclusive liens make this a pure tenant-concentration bet.",
       "sources": [
         "https://investors.corescientific.com/news-events/press-releases/detail/74/core-scientific-to-provide-approximately-200-mw-of-infrastructure-to-host-coreweaves-high-performance-computing-services-capturing-significant-ai-compute-opportunity",
         "https://www.datacenterdynamics.com/en/news/gpu-cloud-provider-coreweave-makes-1-billion-offer-for-cryptomine-firm-core-scientific-following-200mw-hosting-agreement/"
       ],
       "sites": [
-        {"name": "Denton, TX", "city": "Denton", "state": "TX", "country": "US", "lat": 33.2148, "lng": -97.1331},
-        {"name": "Muskogee, OK (approx.)", "city": "Muskogee", "state": "OK", "country": "US", "lat": 35.7479, "lng": -95.3697}
+        {
+          "name": "Denton, TX",
+          "city": "Denton",
+          "state": "TX",
+          "country": "US",
+          "lat": 33.2148,
+          "lng": -97.1331
+        },
+        {
+          "name": "Muskogee, OK (approx.)",
+          "city": "Muskogee",
+          "state": "OK",
+          "country": "US",
+          "lat": 35.7479,
+          "lng": -95.3697
+        }
+      ],
+      "sec_cik": "0001839341",
+      "ticker_yahoo": "CORZ",
+      "bonds": [
+        {
+          "instrument": "3.00% Convertible Senior Notes",
+          "coupon": 3.0,
+          "maturity": 2029,
+          "amount_usd": 460000000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Aug 2024, post-restructuring."
+        },
+        {
+          "instrument": "0.00% Convertible Senior Notes",
+          "coupon": 0.0,
+          "maturity": 2031,
+          "amount_usd": 550000000,
+          "type": "convertible",
+          "secured": false,
+          "note": "Dec 2024, ~$22.49 conversion price."
+        }
       ]
     }
-  ]
+  ],
+  "pricing_reference": {
+    "note": "On-demand list $/GPU-hour, best-effort from provider pricing pages (May-Jun 2026). Reserved/committed rates run materially lower; H100 spot has fallen to ~$1-3/hr from $8-10 in 2024. AWS/Azure list H100 at ~$6.9/$12.3 for comparison. Null = not publicly list-priced.",
+    "hyperscaler_h100_per_hr": {
+      "AWS": 6.88,
+      "Azure": 12.29
+    },
+    "hardware_amortization_est_per_hr": {
+      "note": "Rough owner-economics: a ~$30k H100 depreciated over N years at ~85% utilization implies a floor cost/GPU-hr. Illustrative only.",
+      "H100_2yr": 2.01,
+      "H100_3yr": 1.34,
+      "H100_6yr": 0.67
+    }
+  },
+  "financing_graph": {
+    "nodes": [
+      {
+        "id": "nvidia",
+        "label": "Nvidia",
+        "kind": "chip",
+        "lat": 37.371,
+        "lng": -121.997,
+        "place": "Santa Clara, CA"
+      },
+      {
+        "id": "amd",
+        "label": "AMD",
+        "kind": "chip",
+        "lat": 37.402,
+        "lng": -121.958,
+        "place": "Santa Clara, CA"
+      },
+      {
+        "id": "microsoft",
+        "label": "Microsoft",
+        "kind": "hyperscaler",
+        "lat": 47.64,
+        "lng": -122.13,
+        "place": "Redmond, WA"
+      },
+      {
+        "id": "openai",
+        "label": "OpenAI",
+        "kind": "lab",
+        "lat": 37.762,
+        "lng": -122.415,
+        "place": "San Francisco, CA"
+      },
+      {
+        "id": "meta",
+        "label": "Meta",
+        "kind": "hyperscaler",
+        "lat": 37.485,
+        "lng": -122.148,
+        "place": "Menlo Park, CA"
+      },
+      {
+        "id": "oracle",
+        "label": "Oracle",
+        "kind": "hyperscaler",
+        "lat": 30.559,
+        "lng": -97.7,
+        "place": "Austin, TX"
+      },
+      {
+        "id": "google",
+        "label": "Google",
+        "kind": "hyperscaler",
+        "lat": 37.422,
+        "lng": -122.084,
+        "place": "Mountain View, CA"
+      },
+      {
+        "id": "softbank",
+        "label": "SoftBank",
+        "kind": "financier",
+        "lat": 35.667,
+        "lng": 139.741,
+        "place": "Tokyo, JP"
+      },
+      {
+        "id": "blackstone",
+        "label": "Blackstone",
+        "kind": "financier",
+        "lat": 40.763,
+        "lng": -73.972,
+        "place": "New York, NY"
+      },
+      {
+        "id": "magnetar",
+        "label": "Magnetar",
+        "kind": "financier",
+        "lat": 42.052,
+        "lng": -87.687,
+        "place": "Evanston, IL"
+      },
+      {
+        "id": "blueowl",
+        "label": "Blue Owl",
+        "kind": "financier",
+        "lat": 40.759,
+        "lng": -73.978,
+        "place": "New York, NY"
+      },
+      {
+        "id": "brookfield",
+        "label": "Brookfield",
+        "kind": "financier",
+        "lat": 43.648,
+        "lng": -79.381,
+        "place": "Toronto, CA"
+      }
+    ],
+    "edges": [
+      {
+        "src": "nvidia",
+        "dst": "coreweave",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "lambda",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "crusoe",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "nebius",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "iren",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "nscale",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "together-ai",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "voltage-park",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "fluidstack",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "northern-data",
+        "kind": "chips"
+      },
+      {
+        "src": "amd",
+        "dst": "tensorwave",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "lambda",
+        "kind": "invests",
+        "note": "$1.5B GPU lease-back over 4yr"
+      },
+      {
+        "src": "nvidia",
+        "dst": "iren",
+        "kind": "invests",
+        "note": "Right to buy up to 30M shares ($2.1B)"
+      },
+      {
+        "src": "nvidia",
+        "dst": "nebius",
+        "kind": "invests",
+        "note": "Nvidia is an investor in Nebius"
+      },
+      {
+        "src": "amd",
+        "dst": "tensorwave",
+        "kind": "invests",
+        "note": "AMD Ventures co-led Series A/B"
+      },
+      {
+        "src": "microsoft",
+        "dst": "coreweave",
+        "kind": "compute",
+        "note": ">60% of 2024 revenue"
+      },
+      {
+        "src": "openai",
+        "dst": "coreweave",
+        "kind": "compute",
+        "note": "~$22.4B / ~5yr"
+      },
+      {
+        "src": "meta",
+        "dst": "coreweave",
+        "kind": "compute",
+        "note": "$14.2B"
+      },
+      {
+        "src": "microsoft",
+        "dst": "nebius",
+        "kind": "compute",
+        "note": "$17.4-19.4B / 5yr"
+      },
+      {
+        "src": "meta",
+        "dst": "nebius",
+        "kind": "compute",
+        "note": "$27B / 5yr"
+      },
+      {
+        "src": "microsoft",
+        "dst": "lambda",
+        "kind": "compute",
+        "note": "Multi-year, multi-$B"
+      },
+      {
+        "src": "nvidia",
+        "dst": "lambda",
+        "kind": "compute",
+        "note": "Nvidia leases GPUs back (is also a customer)"
+      },
+      {
+        "src": "nvidia",
+        "dst": "iren",
+        "kind": "compute",
+        "note": "$3.4B / 5yr AI Cloud"
+      },
+      {
+        "src": "microsoft",
+        "dst": "nscale",
+        "kind": "compute",
+        "note": "~$14B anchor"
+      },
+      {
+        "src": "openai",
+        "dst": "crusoe",
+        "kind": "compute",
+        "note": "Stargate (via Oracle)"
+      },
+      {
+        "src": "oracle",
+        "dst": "crusoe",
+        "kind": "compute",
+        "note": "Stargate lease"
+      },
+      {
+        "src": "meta",
+        "dst": "fluidstack",
+        "kind": "compute"
+      },
+      {
+        "src": "applied-digital",
+        "dst": "coreweave",
+        "kind": "lease",
+        "note": "~$11B / ~15yr, Ellendale ND"
+      },
+      {
+        "src": "core-scientific",
+        "dst": "coreweave",
+        "kind": "lease",
+        "note": "~$10B / 12yr, ~590MW"
+      },
+      {
+        "src": "blueowl",
+        "dst": "crusoe",
+        "kind": "lends",
+        "note": "$15B JV (w/ Primary Digital)"
+      },
+      {
+        "src": "brookfield",
+        "dst": "crusoe",
+        "kind": "lends",
+        "note": "$750M credit line"
+      },
+      {
+        "src": "softbank",
+        "dst": "crusoe",
+        "kind": "lends",
+        "note": "Stargate backer"
+      },
+      {
+        "src": "magnetar",
+        "dst": "coreweave",
+        "kind": "lends",
+        "note": "GPU-collateralized SPV debt"
+      },
+      {
+        "src": "blackstone",
+        "dst": "coreweave",
+        "kind": "lends",
+        "note": "Debt financing"
+      },
+      {
+        "src": "magnetar",
+        "dst": "tensorwave",
+        "kind": "lends",
+        "note": "Series A/B lead"
+      },
+      {
+        "src": "google",
+        "dst": "fluidstack",
+        "kind": "lends",
+        "note": "Guarantees TeraWulf hosting ($6.7B)"
+      }
+    ],
+    "edge_kinds": {
+      "chips": {
+        "label": "Supplies GPUs",
+        "color": "#76b900"
+      },
+      "invests": {
+        "label": "Invests in / vendor-finances",
+        "color": "#f472b6"
+      },
+      "compute": {
+        "label": "Buys compute from",
+        "color": "#4ea1ff"
+      },
+      "lease": {
+        "label": "Hosts / leases DC to",
+        "color": "#a78bfa"
+      },
+      "lends": {
+        "label": "Lends / guarantees",
+        "color": "#fbbf24"
+      }
+    },
+    "note": "Directed edges src -> dst. This is the 'circular financing' web the sector is debated over: chip vendors invest in the neoclouds that buy their chips and in some cases lease compute back, while private credit funds the GPU purchases against the same GPUs as collateral. Curated from public announcements."
+  }
 }

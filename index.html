@@ -64,17 +64,17 @@
   .stat b { font-variant-numeric:tabular-nums; }
   .stat small { color:var(--muted); font-size:11px; }
 
-  #drawer, #leaderboard { position:absolute; z-index:1200; top:64px; right:14px; width:360px; max-height:calc(100% - 78px);
+  #drawer, #leaderboard, #debtwall { position:absolute; z-index:1200; top:64px; right:14px; width:360px; max-height:calc(100% - 78px);
     overflow:auto; padding:0; transform:translateX(390px); opacity:0; transition:transform .22s ease, opacity .22s ease;
     pointer-events:none; }
-  #drawer.open, #leaderboard.open { transform:translateX(0); opacity:1; pointer-events:auto; }
-  #drawer .dh, #leaderboard .dh { position:sticky; top:0; background:linear-gradient(180deg,rgba(18,26,36,.99),rgba(18,26,36,.92));
+  #drawer.open, #leaderboard.open, #debtwall.open { transform:translateX(0); opacity:1; pointer-events:auto; }
+  #drawer .dh, #leaderboard .dh, #debtwall .dh { position:sticky; top:0; background:linear-gradient(180deg,rgba(18,26,36,.99),rgba(18,26,36,.92));
     padding:16px 18px 12px; border-bottom:1px solid var(--line); border-radius:14px 14px 0 0; z-index:2; }
-  #drawer .dh h3, #leaderboard .dh h3 { margin:0 0 8px; font-size:15.5px; line-height:1.3; padding-right:22px; }
-  #drawer .close, #leaderboard .close { position:absolute; top:12px; right:12px; width:26px; height:26px; border-radius:7px;
+  #drawer .dh h3, #leaderboard .dh h3, #debtwall .dh h3 { margin:0 0 8px; font-size:15.5px; line-height:1.3; padding-right:22px; }
+  #drawer .close, #leaderboard .close, #debtwall .close { position:absolute; top:12px; right:12px; width:26px; height:26px; border-radius:7px;
     background:var(--panel-2); border:1px solid var(--line); color:var(--muted); cursor:pointer; font-size:15px; line-height:1; }
-  #drawer .close:hover, #leaderboard .close:hover { color:var(--text); border-color:var(--accent); }
-  #drawer .body, #leaderboard .body { padding:14px 18px 20px; }
+  #drawer .close:hover, #leaderboard .close:hover, #debtwall .close:hover { color:var(--text); border-color:var(--accent); }
+  #drawer .body, #leaderboard .body, #debtwall .body { padding:14px 18px 20px; }
   .pill { display:inline-flex; align-items:center; gap:6px; font-size:10.5px; font-weight:600; padding:3px 9px;
     border-radius:999px; margin:0 6px 6px 0; background:var(--panel-2); border:1px solid var(--line); }
   .pill .swatch { width:8px; height:8px; }
@@ -126,6 +126,45 @@
   #mapLegend .row2 { display:flex; align-items:center; gap:7px; padding:2px 0; }
   @media (max-width:900px){ #mapLegend{ display:none !important; } }
 
+  #flowsLegend { right:230px; bottom:14px; width:210px; padding:10px 12px; font-size:11px; z-index:1000; }
+  #flowsLegend h3 { font-size:11px; margin:0 0 6px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+  #flowsLegend .row2 { display:flex; align-items:center; gap:7px; padding:2px 0; }
+  #flowsLegend .ln { display:inline-block; width:20px; height:3px; border-radius:2px; flex-shrink:0; }
+  @media (max-width:900px){ #flowsLegend{ display:none !important; } }
+
+  /* financing-graph node label markers */
+  .flow-node { background:rgba(14,21,29,.92); border:1px solid var(--line); border-radius:7px;
+    padding:2px 7px; font-size:10.5px; font-weight:600; color:var(--text); white-space:nowrap;
+    box-shadow:0 3px 10px rgba(0,0,0,.5); }
+  .flow-node .kd { font-size:8.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+
+  /* tables in drawer */
+  .tbl { width:100%; border-collapse:collapse; font-size:11.5px; margin-top:4px; }
+  .tbl th { text-align:left; color:var(--muted); font-weight:600; font-size:10px; text-transform:uppercase;
+    letter-spacing:.04em; padding:4px 6px 4px 0; border-bottom:1px solid var(--line); }
+  .tbl td { padding:5px 6px 5px 0; border-bottom:1px dashed var(--line-soft); font-variant-numeric:tabular-nums; }
+  .tbl td.r, .tbl th.r { text-align:right; }
+  .tag2 { font-size:9.5px; padding:1px 6px; border-radius:999px; border:1px solid var(--line); color:var(--muted); }
+  .marg { display:flex; align-items:center; gap:8px; margin:5px 0; }
+  .marg .ml { width:96px; font-size:11px; color:var(--muted); flex-shrink:0; }
+  .marg .mb { flex:1; height:8px; border-radius:5px; background:var(--panel-2); overflow:hidden; position:relative; }
+  .marg .mb > span { position:absolute; top:0; bottom:0; }
+  .marg .mv { width:52px; text-align:right; font-size:11.5px; font-variant-numeric:tabular-nums; flex-shrink:0; }
+  .quote { display:flex; align-items:baseline; gap:10px; margin-top:4px; }
+  .quote .px { font-size:22px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .quote .ch { font-size:12.5px; font-weight:600; }
+  .wk52 { margin-top:8px; }
+  .wk52 .track { height:6px; border-radius:4px; background:linear-gradient(90deg,#f87171,#fbbf24,#34d399); position:relative; }
+  .wk52 .mk { position:absolute; top:-3px; width:3px; height:12px; background:#eaf1f8; border-radius:2px; }
+  .wk52 .ends { display:flex; justify-content:space-between; font-size:10px; color:var(--muted); margin-top:3px; }
+
+  /* debt maturity wall bars */
+  .dw-row { display:grid; grid-template-columns:44px 1fr auto; gap:9px; align-items:center; padding:6px 0; }
+  .dw-row .yr { font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .dw-bar { height:16px; border-radius:4px; display:flex; overflow:hidden; background:var(--panel-2); }
+  .dw-bar > span { height:100%; }
+  .dw-row .amt { font-size:11.5px; font-variant-numeric:tabular-nums; text-align:right; }
+
   #loading { z-index:2000; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; padding:20px 26px; }
 
   #panelToggle { display:none; position:absolute; z-index:1300; top:60px; left:12px;
@@ -142,9 +181,9 @@
     #controls { top:104px; left:8px; right:8px; width:auto; max-height:60%; }
     #controls.collapsed { display:none !important; }
     #stats { left:8px; right:8px; bottom:8px; width:auto; max-height:40%; }
-    #drawer, #leaderboard { top:auto; left:8px; right:8px; bottom:8px; width:auto; max-height:78%;
+    #drawer, #leaderboard, #debtwall { top:auto; left:8px; right:8px; bottom:8px; width:auto; max-height:78%;
       transform:translateY(120%); }
-    #drawer.open, #leaderboard.open { transform:translateY(0); }
+    #drawer.open, #leaderboard.open, #debtwall.open { transform:translateY(0); }
     .metric-grid { grid-template-columns:1fr 1fr; }
   }
 
@@ -223,13 +262,23 @@
     <div class="legend-note">Composite of customer concentration, leverage/debt, contract-vs-chip-depreciation mismatch, and chip-generation freshness. See methodology in the leaderboard panel.</div>
   </div>
 
+  <div class="group">
+    <h2>Money &amp; compute flows</h2>
+    <label class="row"><input type="checkbox" id="L-flows"><span class="swatch" style="background:linear-gradient(90deg,#76b900,#4ea1ff,#f472b6)"></span> Show financing graph</label>
+    <div class="legend-note">The "circular financing" web: who supplies the chips, buys the compute, hosts the GPUs, and lends the money.</div>
+    <button class="reset" id="openDebtWall" style="margin-top:8px">▤ Debt &amp; bond maturity wall</button>
+  </div>
+
   <button class="reset" id="resetFilters">Reset filters</button>
 </div>
+
+<div id="flowsLegend" class="panel" style="display:none"></div>
 
 <div id="stats" class="panel"></div>
 
 <div id="drawer" class="panel"></div>
 <div id="leaderboard" class="panel"></div>
+<div id="debtwall" class="panel"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -253,8 +302,11 @@ function fmtNum(n) {
 let DATA = null;
 let markers = [];
 let map;
+let flowsLayer = null;
 
-const state = { cats: new Set(['gpu_neocloud','landlord']), chip: '', company: '', sizeBy: 'risk_score', colorBy: 'risk_score', minRisk: 0 };
+const state = { cats: new Set(['gpu_neocloud','landlord']), chip: '', company: '', sizeBy: 'risk_score', colorBy: 'risk_score', minRisk: 0, flows: false };
+
+function fmtPct(n, dp=1) { return n==null ? '—' : (n>0?'+':'') + n.toFixed(dp) + '%'; }
 
 async function boot() {
   const resp = await fetch('data/neoclouds.json');
@@ -310,17 +362,20 @@ function wireControls() {
     state.minRisk = +e.target.value; document.getElementById('minRiskLbl').textContent = e.target.value; renderAll();
   });
   document.getElementById('resetFilters').addEventListener('click', () => {
-    state.cats = new Set(['gpu_neocloud','landlord']); state.chip=''; state.company=''; state.minRisk=0;
+    state.cats = new Set(['gpu_neocloud','landlord']); state.chip=''; state.company=''; state.minRisk=0; state.flows=false;
     document.querySelectorAll('.f-cat').forEach(cb=>cb.checked=true);
     document.getElementById('chipFilter').value=''; document.getElementById('companyFilter').value='';
     document.getElementById('minRisk').value=0; document.getElementById('minRiskLbl').textContent='0';
-    renderAll();
+    document.getElementById('L-flows').checked=false;
+    renderFlows(); renderAll();
   });
   document.getElementById('openLeaderboard').addEventListener('click', openLeaderboard);
+  document.getElementById('L-flows').addEventListener('change', e => { state.flows = e.target.checked; renderFlows(); });
+  document.getElementById('openDebtWall').addEventListener('click', openDebtWall);
   document.getElementById('panelToggle').addEventListener('click', () => {
     document.getElementById('controls').classList.toggle('collapsed');
   });
-  document.addEventListener('keydown', e => { if (e.key==='Escape') { closeDrawer(); closeLeaderboard(); } });
+  document.addEventListener('keydown', e => { if (e.key==='Escape') { closeDrawer(); closeLeaderboard(); closeDebtWall(); } });
 }
 
 function passesFilter(company) {
@@ -345,6 +400,44 @@ function colorFor(company) {
   if (state.colorBy === 'category') return CAT_COLOR[company.category] || '#5f7388';
   if (state.colorBy === 'chip_vendor') return CHIP_COLOR[company.chip_vendor] || '#5f7388';
   return '#4ea1ff';
+}
+
+// ---- Financing / compute-flow graph layer ----
+function anchorFor(id) {
+  const c = DATA.companies.find(x => x.id === id);
+  if (c && c.sites && c.sites.length) return { lat: c.sites[0].lat, lng: c.sites[0].lng, label: c.name };
+  const g = (DATA.financing_graph && DATA.financing_graph.nodes || []).find(n => n.id === id);
+  if (g) return { lat: g.lat, lng: g.lng, label: g.label };
+  return null;
+}
+function renderFlows() {
+  if (flowsLayer) { map.removeLayer(flowsLayer); flowsLayer = null; }
+  const legend = document.getElementById('flowsLegend');
+  const fg = DATA.financing_graph;
+  if (!state.flows || !fg) { legend.style.display = 'none'; return; }
+  flowsLayer = L.layerGroup();
+  const kinds = fg.edge_kinds || {};
+  for (const e of fg.edges) {
+    const a = anchorFor(e.src), b = anchorFor(e.dst);
+    if (!a || !b) continue;
+    const col = (kinds[e.kind] || {}).color || '#8ea2b8';
+    const line = L.polyline([[a.lat,a.lng],[b.lat,b.lng]], {
+      color: col, weight: 1.6, opacity: 0.55, dashArray: e.kind==='invests' ? '4,4' : null
+    });
+    line.bindPopup(`<h4>${a.label} → ${b.label}</h4><div class="mini">${(kinds[e.kind]||{}).label||e.kind}${e.note?': '+e.note:''}</div>`);
+    flowsLayer.addLayer(line);
+  }
+  // counterparty node markers (non-company nodes)
+  for (const n of fg.nodes) {
+    const icon = L.divIcon({ className:'', html:`<div class="flow-node"><span class="kd">${n.kind}</span><br>${n.label}</div>`, iconSize:null });
+    flowsLayer.addLayer(L.marker([n.lat,n.lng], { icon, interactive:false }));
+  }
+  flowsLayer.addTo(map);
+  // legend
+  legend.innerHTML = '<h3>Flow type</h3>' + Object.entries(kinds).map(([k,v]) =>
+    `<div class="row2"><span class="ln" style="background:${v.color}${k==='invests'?';background:repeating-linear-gradient(90deg,'+v.color+' 0 4px,transparent 4px 8px)':''}"></span>${v.label}</div>`
+  ).join('') + `<div class="legend-note" style="margin-top:7px">Squares = chip vendors, buyers, hosts &amp; financiers. Click a line for the deal.</div>`;
+  legend.style.display = 'block';
 }
 
 function renderAll() {
@@ -431,10 +524,99 @@ function riskRow(label, value) {
   </div>`;
 }
 
+function marginBar(label, pct) {
+  if (pct == null) return '';
+  const clamped = Math.max(-100, Math.min(100, pct));
+  const half = Math.abs(clamped)/100*50;
+  const pos = clamped >= 0;
+  const color = pos ? '#34d399' : '#f87171';
+  const fill = pos ? `left:50%; width:${half}%; background:${color}` : `right:50%; width:${half}%; background:${color}`;
+  return `<div class="marg"><div class="ml">${label}</div><div class="mb"><span style="left:50%;width:1px;background:var(--line)"></span><span style="${fill}"></span></div><div class="mv" style="color:${color}">${fmtPct(pct)}</div></div>`;
+}
+function liveFinancialsSection(c) {
+  const lf = c.live_financials, q = c.live_quote;
+  if (!lf && !q) return '';
+  let html = `<div class="sec">Live financials &amp; margin <span class="tag2">SEC EDGAR + Yahoo</span></div>`;
+  if (q && q.price != null) {
+    const chColor = (q.change_pct||0) >= 0 ? '#34d399' : '#f87171';
+    html += `<div class="quote"><div class="px">$${q.price}</div><div class="ch" style="color:${chColor}">${fmtPct(q.change_pct,2)}</div><div class="mini" style="color:var(--muted)">${q.symbol} · today</div></div>`;
+    if (q.week52_low!=null && q.week52_high!=null) {
+      const rng = q.week52_high - q.week52_low;
+      const pos = rng>0 ? Math.max(0,Math.min(100,(q.price-q.week52_low)/rng*100)) : 50;
+      html += `<div class="wk52"><div class="track"><div class="mk" style="left:${pos}%"></div></div><div class="ends"><span>$${q.week52_low} 52w low</span><span>52w high $${q.week52_high}</span></div></div>`;
+    }
+  }
+  if (lf) {
+    const a = lf.annual || {}, b = lf.balance || {};
+    const per = a.period_end || (lf.latest_quarter && lf.latest_quarter.period_end);
+    html += `<div class="mini" style="color:var(--muted);margin:10px 0 2px">Latest annual filing${per?': '+per:''}</div>`;
+    if (a.revenue!=null) html += `<div class="kv"><span class="k">Revenue</span><span class="v">${fmtUSD(a.revenue)}</span></div>`;
+    html += marginBar('Gross margin', a.gross_margin_pct);
+    html += marginBar('Operating', a.operating_margin_pct);
+    html += marginBar('Net margin', a.net_margin_pct);
+    if (b && (b.ppe_net!=null || b.total_debt!=null || b.cash!=null)) {
+      html += `<div class="metric-grid" style="margin-top:8px">
+        <div class="metric"><span>PP&amp;E (GPU book)</span><b>${fmtUSD(b.ppe_net)}</b></div>
+        <div class="metric"><span>Total debt</span><b>${fmtUSD(b.total_debt)}</b></div>
+        <div class="metric"><span>Cash</span><b>${fmtUSD(b.cash)}</b></div>
+        <div class="metric"><span>As of</span><b style="font-size:12px">${b.period_end||'—'}</b></div>
+      </div>`;
+    }
+    html += `<div class="legend-note">Live from SEC XBRL filings on each build. Net PP&amp;E is the closest public proxy for GPU/data-center book value. The margin shape is the whole neocloud debate: strong gross margin, but thin-or-negative net margin once GPU depreciation and interest are subtracted.</div>`;
+  }
+  return html;
+}
+function bondsSection(c) {
+  if (!c.bonds || !c.bonds.length) return '';
+  const rows = c.bonds.map(b => {
+    const sp = b.coupon_vs_benchmark_bps;
+    const spTxt = sp==null ? '—' : (sp>0?'+':'')+sp+' bps';
+    const spCol = sp==null ? 'var(--muted)' : sp>300 ? '#f87171' : sp>0 ? '#fbbf24' : '#34d399';
+    return `<tr>
+      <td>${b.instrument}<div class="mini" style="color:var(--muted-2)">${b.type}${b.secured?' · secured':''}</div></td>
+      <td class="r">${b.coupon}%</td><td class="r">${b.maturity}</td>
+      <td class="r">${fmtUSD(b.amount_usd)}</td>
+      <td class="r" style="color:${spCol}">${spTxt}</td></tr>`;
+  }).join('');
+  const total = c.bonds.reduce((s,b)=>s+(b.amount_usd||0),0);
+  const bench = c.bonds.find(b=>b.benchmark_yield_pct!=null);
+  return `<div class="sec">Bonds &amp; notes <span class="tag2">${fmtUSD(total)} principal</span></div>
+    <div style="overflow-x:auto"><table class="tbl">
+      <thead><tr><th>Instrument</th><th class="r">Cpn</th><th class="r">Mat.</th><th class="r">Amt</th><th class="r">vs&nbsp;UST</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+    <div class="legend-note">"vs UST" = cash coupon minus the maturity-matched US&nbsp;Treasury yield${bench?` (live benchmark ~${bench.benchmark_yield_pct}%)`:''}. For senior notes this approximates the credit spread; convertibles carry near-zero coupons and price mostly on equity conversion, so a negative gap is expected — not cheap funding.</div>`;
+}
+function pricingSection(c) {
+  if (!c.pricing || !c.pricing.length) return '';
+  const ref = DATA.pricing_reference || {};
+  const rows = c.pricing.map(p => `<tr><td>${p.chip}</td><td class="r">${p.usd_per_hr!=null?'$'+p.usd_per_hr.toFixed(2)+'/hr':'not list-priced'}</td></tr>`).join('');
+  let refTxt = '';
+  if (ref.hyperscaler_h100_per_hr) refTxt += `Hyperscaler H100 for scale: AWS $${ref.hyperscaler_h100_per_hr.AWS}/hr, Azure $${ref.hyperscaler_h100_per_hr.Azure}/hr. `;
+  const amo = ref.hardware_amortization_est_per_hr;
+  if (amo) refTxt += `Rough owner floor for an H100: ~$${amo.H100_2yr}/hr (2yr life) to ~$${amo.H100_6yr}/hr (6yr life). `;
+  return `<div class="sec">GPU rental price &amp; unit economics</div>
+    <table class="tbl"><thead><tr><th>Chip</th><th class="r">On-demand list</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="legend-note">${refTxt}${ref.note||''}</div>`;
+}
+function flowsSection(c) {
+  const fg = DATA.financing_graph; if (!fg) return '';
+  const kinds = fg.edge_kinds||{};
+  const rel = fg.edges.filter(e => e.src===c.id || e.dst===c.id);
+  if (!rel.length) return '';
+  const nm = id => { const co=DATA.companies.find(x=>x.id===id); if(co) return co.name; const n=fg.nodes.find(x=>x.id===id); return n?n.label:id; };
+  const rows = rel.map(e => {
+    const other = e.src===c.id ? nm(e.dst) : nm(e.src);
+    const dir = e.src===c.id ? '→' : '←';
+    const k = kinds[e.kind]||{};
+    return `<div class="customer-row"><span class="swatch" style="background:${k.color};width:8px;height:8px;margin-right:6px"></span><b>${k.label||e.kind}</b> ${dir} ${other}${e.note?`<div class="mini" style="color:var(--muted-2)">${e.note}</div>`:''}</div>`;
+  }).join('');
+  return `<div class="sec">Financing &amp; compute flows</div>${rows}<div class="legend-note">Toggle "Show financing graph" in the left panel to see the whole web on the map.</div>`;
+}
+
 function openDrawer(id) {
   const c = DATA.companies.find(x => x.id === id);
   if (!c) return;
-  closeLeaderboard();
+  closeLeaderboard(); closeDebtWall();
   const catLabel = c.category === 'landlord' ? 'Data-center landlord' : 'GPU-owning neocloud';
   const rf = c.risk_factors || {};
   const customers = (c.customers||[]).map(cu => `
@@ -476,14 +658,22 @@ function openDrawer(id) {
       ${c.revenue_note ? `<div class="legend-note">${c.revenue_note}</div>` : ''}
       ${c.debt_note ? `<div class="legend-note">${c.debt_note}</div>` : ''}
 
+      ${liveFinancialsSection(c)}
+
       <div class="sec">Chips &amp; GPU ownership</div>
       <div class="chiplist">${chips}</div>
       <div class="kv" style="margin-top:8px"><span class="k">GPU count (est.)</span><span class="v">${fmtNum(c.gpu_count_est)}</span></div>
       <div class="kv"><span class="k">Who owns the GPUs</span><span class="v">${c.gpu_owner||'—'}</span></div>
       ${c.gpu_owner_detail ? `<div class="legend-note">${c.gpu_owner_detail}</div>` : ''}
 
+      ${pricingSection(c)}
+
       <div class="sec">Anchor customers &amp; contract terms</div>
       ${customers}
+
+      ${bondsSection(c)}
+
+      ${flowsSection(c)}
 
       <div class="sec">Neocloud Risk Score</div>
       <div class="riskscore-big">
@@ -555,6 +745,62 @@ function renderLeaderboard(metric) {
       </div>
     </div>
   `;
+}
+
+// ---- Debt & bond maturity wall ----
+function openDebtWall() { closeDrawer(); closeLeaderboard(); renderDebtWall(); document.getElementById('debtwall').classList.add('open'); }
+function closeDebtWall() { document.getElementById('debtwall').classList.remove('open'); }
+function renderDebtWall() {
+  // aggregate every tracked bond by maturity year, split by issuer
+  const byYear = {};
+  let grand = 0;
+  const issuerColor = {};
+  const palette = ['#4ea1ff','#a78bfa','#34d399','#fbbf24','#f472b6','#22d3ee','#f87171','#76b900'];
+  let ci = 0;
+  for (const c of DATA.companies) {
+    if (!c.bonds || !c.bonds.length) continue;
+    issuerColor[c.id] = palette[ci++ % palette.length];
+    for (const b of c.bonds) {
+      const y = b.maturity; if (y==null) continue;
+      (byYear[y] = byYear[y] || []).push({ issuer:c.name, id:c.id, amt:b.amount_usd||0, coupon:b.coupon, instrument:b.instrument });
+      grand += b.amount_usd||0;
+    }
+  }
+  const years = Object.keys(byYear).map(Number).sort((a,b)=>a-b);
+  const yearTotals = years.map(y => byYear[y].reduce((s,x)=>s+x.amt,0));
+  const maxY = Math.max(...yearTotals, 1);
+
+  const bars = years.map((y,i) => {
+    const items = byYear[y].sort((a,b)=>b.amt-a.amt);
+    const tot = yearTotals[i];
+    const segs = items.map(it => `<span style="width:${(it.amt/tot)*100}%; background:${issuerColor[it.id]}" title="${it.issuer} ${it.instrument} ${fmtUSD(it.amt)}"></span>`).join('');
+    return `<div class="dw-row"><div class="yr">${y}</div>
+      <div class="dw-bar" style="width:${Math.max(6,(tot/maxY)*100)}%">${segs}</div>
+      <div class="amt">${fmtUSD(tot)}</div></div>`;
+  }).join('');
+
+  const legend = Object.keys(issuerColor).map(id => {
+    const c = DATA.companies.find(x=>x.id===id);
+    return `<span class="pill" style="cursor:pointer" onclick="openDrawer('${id}')"><span class="swatch" style="background:${issuerColor[id]};width:8px;height:8px"></span>${c.name}</span>`;
+  }).join('');
+
+  // coupon spread context from treasury
+  const t = DATA.treasury;
+  const tctx = t ? `US Treasury benchmark (${t.as_of}): 2Y ${t.curve['2']}% · 5Y ${t.curve['5']}% · 10Y ${t.curve['10']}% · 30Y ${t.curve['30']}%.` : '';
+
+  document.getElementById('debtwall').innerHTML = `
+    <div class="dh"><button class="close" onclick="closeDebtWall()">✕</button>
+      <h3>Debt &amp; bond maturity wall</h3>
+      <div class="mini" style="color:var(--muted)">${fmtUSD(grand)} of tracked public notes, by maturity year</div>
+    </div>
+    <div class="body">
+      ${bars}
+      <div class="sec">Issuers</div>
+      <div>${legend}</div>
+      <div class="sec">Rate context</div>
+      <div class="legend-note">${tctx} Neocloud senior notes (e.g. CoreWeave 9.0–9.75%) price hundreds of bps wide of Treasuries — genuine high-yield credit. The convertibles (Nebius, IREN, Core Scientific, Applied Digital, TeraWulf) carry near-zero cash coupons and defer the real cost into equity dilution on conversion. Bunching of maturities in 2030–2033 is the sector's refinancing wall to watch.</div>
+      <div class="legend-note">${(DATA.financing_graph&&DATA.financing_graph.note)||''}</div>
+    </div>`;
 }
 
 boot();
