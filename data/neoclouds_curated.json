@@ -17,7 +17,7 @@
       "contract_mismatch": "Gap between the tenor of debt/financing backing the GPUs and the tenor of the revenue contracts covering them. Short contracts stacked on long-dated debt = refinancing risk; long contracts that lock in one chip generation = obsolescence lock-in risk. For pure data-center landlords (no GPU ownership), this instead reflects lease structure -- long triple-net-style leases transfer the GPU refresh risk entirely to the GPU-owning tenant.",
       "chip_freshness": "How exposed the fleet is to obsolescence. Majority-Hopper (H100/H200) or older AMD fleets score higher risk than fleets already on Blackwell/GB200-300/MI350-class silicon -- the crux of the Burry-style 'GPUs depreciate over 2-3 years, not 5-6' debate."
     },
-    "note": "Landlord-model companies (own the building/power, not the GPUs) are scored on the same rubric for comparability, but their chip_freshness factor is neutral (40) since they carry no direct chip-obsolescence exposure -- their risk is almost entirely tenant-concentration risk, which the score is designed to surface."
+    "note": "Every company scored is a GPU neocloud (owns the GPUs). The score is model-agnostic: whether a neocloud owns its data centers or leases colocation, chip_freshness still reflects its own fleet's obsolescence exposure. The separate 'data-center owner' field names who owns the building/power at each site."
   },
   "companies": [
     {
@@ -85,7 +85,8 @@
           "lat": 40.6796,
           "lng": -74.2907,
           "note": "Flagship converted 280k sq ft facility, ~$1.2B buildout.",
-          "power_mw": 36
+          "power_mw": 36,
+          "dc_owner": "Leased & retrofit (CoreWeave)"
         },
         {
           "name": "Plano, TX",
@@ -95,7 +96,8 @@
           "lat": 33.0198,
           "lng": -96.6989,
           "note": "$1.6B facility, operational since late 2023.",
-          "power_mw": 100
+          "power_mw": 100,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "Weehawken, NJ",
@@ -103,7 +105,8 @@
           "state": "NJ",
           "country": "US",
           "lat": 40.7695,
-          "lng": -74.0104
+          "lng": -74.0104,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "Chicago, IL",
@@ -111,7 +114,8 @@
           "state": "IL",
           "country": "US",
           "lat": 41.8781,
-          "lng": -87.6298
+          "lng": -87.6298,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "Las Vegas, NV",
@@ -119,7 +123,8 @@
           "state": "NV",
           "country": "US",
           "lat": 36.1699,
-          "lng": -115.1398
+          "lng": -115.1398,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "Chester, VA",
@@ -127,7 +132,8 @@
           "state": "VA",
           "country": "US",
           "lat": 37.3546,
-          "lng": -77.4258
+          "lng": -77.4258,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "Hillsboro, OR",
@@ -135,7 +141,8 @@
           "state": "OR",
           "country": "US",
           "lat": 45.5229,
-          "lng": -122.9898
+          "lng": -122.9898,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "Douglasville, GA",
@@ -143,7 +150,8 @@
           "state": "GA",
           "country": "US",
           "lat": 33.7515,
-          "lng": -84.7477
+          "lng": -84.7477,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "London, UK",
@@ -151,7 +159,8 @@
           "state": "",
           "country": "UK",
           "lat": 51.5072,
-          "lng": -0.1276
+          "lng": -0.1276,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "Ellendale, ND (leased from Applied Digital)",
@@ -161,7 +170,8 @@
           "lat": 46.0135,
           "lng": -98.5237,
           "note": "500MW across two Applied Digital leases (~$11B, ~15yr).",
-          "power_mw": 500
+          "power_mw": 500,
+          "dc_owner": "Applied Digital"
         },
         {
           "name": "Denton / Muskogee HPC campuses (leased from Core Scientific)",
@@ -171,7 +181,8 @@
           "lat": 33.2148,
           "lng": -97.1331,
           "note": "Part of ~590MW / 12-year, up to $10.4B Core Scientific colocation program.",
-          "power_mw": 200
+          "power_mw": 200,
+          "dc_owner": "Core Scientific"
         }
       ],
       "sec_cik": "0001769628",
@@ -228,7 +239,8 @@
           "usd_per_hr": null
         }
       ],
-      "power_mw_total": 836
+      "power_mw_total": 836,
+      "dc_model": "colo"
     },
     {
       "id": "lambda",
@@ -288,7 +300,8 @@
           "state": "CA",
           "country": "US",
           "lat": 37.7749,
-          "lng": -122.4194
+          "lng": -122.4194,
+          "dc_owner": "ECL / colocation"
         },
         {
           "name": "Allen, TX",
@@ -296,7 +309,8 @@
           "state": "TX",
           "country": "US",
           "lat": 33.1032,
-          "lng": -96.6706
+          "lng": -96.6706,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "Columbus, OH",
@@ -304,7 +318,8 @@
           "state": "OH",
           "country": "US",
           "lat": 39.9612,
-          "lng": -82.9988
+          "lng": -82.9988,
+          "dc_owner": "Cologix (COL4)"
         },
         {
           "name": "Kansas City, MO",
@@ -314,7 +329,8 @@
           "lat": 39.0997,
           "lng": -94.5786,
           "note": "New 'AI Factory', 24MW scaling to 100MW+, targeted early 2026.",
-          "power_mw": 24
+          "power_mw": 24,
+          "dc_owner": "Lambda (AI Factory, developing)"
         }
       ],
       "pricing": [
@@ -331,7 +347,8 @@
           "usd_per_hr": null
         }
       ],
-      "power_mw_total": 24
+      "power_mw_total": 24,
+      "dc_model": "colo"
     },
     {
       "id": "crusoe",
@@ -383,7 +400,8 @@
           "lat": 32.4487,
           "lng": -99.7331,
           "note": "~1.2GW planned, 8 data halls.",
-          "power_mw": 1200
+          "power_mw": 1200,
+          "dc_owner": "Crusoe / Blue Owl JV (self-developed)"
         }
       ],
       "pricing": [
@@ -392,7 +410,8 @@
           "usd_per_hr": null
         }
       ],
-      "power_mw_total": 1200
+      "power_mw_total": 1200,
+      "dc_model": "owns"
     },
     {
       "id": "nebius",
@@ -411,9 +430,9 @@
       "gpu_count_est": 100000,
       "gpu_owner": "Self (equity-funded)",
       "gpu_owner_detail": "Owns its GPU fleet, funded mainly with cash/equity from the 2024 Yandex divestiture rather than heavy debt.",
-      "revenue_usd": 399000000,
+      "revenue_usd": 1600000000,
       "revenue_year": 2026,
-      "revenue_note": "Q1 2026 revenue $399M, +684% YoY. FY2024 full-year revenue was $117.5M (+462% YoY).",
+      "revenue_note": "Q1 2026 revenue $399M (+684% YoY) = ~$1.6B annualized run-rate; FY2024 was $117.5M. Company guides toward multi-$B ARR as the Meta/Microsoft capacity comes online.",
       "backlog_usd": 46000000000,
       "debt_usd": null,
       "debt_note": "Comparatively equity-strong balance sheet vs. peers; less reliant on GPU-collateralized debt.",
@@ -453,7 +472,8 @@
           "lat": 39.4863,
           "lng": -75.0259,
           "note": "New campus built for the Microsoft deal, deploying 2025-2026.",
-          "power_mw": 300
+          "power_mw": 300,
+          "dc_owner": "Nebius (self-built)"
         },
         {
           "name": "M\u00e4nts\u00e4l\u00e4, Finland",
@@ -463,7 +483,8 @@
           "lat": 60.6323,
           "lng": 25.321,
           "note": "Original Yandex-heritage data center.",
-          "power_mw": 75
+          "power_mw": 75,
+          "dc_owner": "Nebius (self-built)"
         }
       ],
       "sec_cik": "0001513845",
@@ -507,7 +528,8 @@
           "usd_per_hr": 3.5
         }
       ],
-      "power_mw_total": 375
+      "power_mw_total": 375,
+      "dc_model": "owns"
     },
     {
       "id": "together-ai",
@@ -558,7 +580,8 @@
           "state": "CA",
           "country": "US",
           "lat": 37.77,
-          "lng": -122.41
+          "lng": -122.41,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "GB200 NVL72 cluster (Hypertec JV, N. America)",
@@ -567,7 +590,8 @@
           "country": "CA",
           "lat": 45.5019,
           "lng": -73.5674,
-          "note": "Approximate -- exact site undisclosed."
+          "note": "Approximate -- exact site undisclosed.",
+          "dc_owner": "Colocation (leased)"
         }
       ],
       "pricing": [
@@ -579,7 +603,8 @@
           "chip": "H200",
           "usd_per_hr": 3.15
         }
-      ]
+      ],
+      "dc_model": "colo"
     },
     {
       "id": "iren",
@@ -597,9 +622,9 @@
       "gpu_count_est": 150000,
       "gpu_owner": "Self",
       "gpu_owner_detail": "Former bitcoin miner (Iris Energy) pivoting owned power infrastructure into owned AI Cloud GPU fleet.",
-      "revenue_usd": 700000000,
-      "revenue_year": 2026,
-      "revenue_note": "The 5-year, $3.4B Nvidia AI Cloud contract alone is expected to contribute ~$700M ARR; total AI Cloud ARR target $3.7B by end-2026.",
+      "revenue_usd": 501000000,
+      "revenue_year": 2025,
+      "revenue_note": "FY2025 revenue ~$501M (bitcoin mining + AI Cloud, per SEC filings). Separately, the 5-yr $3.4B Nvidia AI Cloud deal underpins a targeted ~$3.7B AI Cloud ARR by end-2026 (see backlog).",
       "backlog_usd": 3400000000,
       "debt_usd": null,
       "debt_note": "Nvidia holds a 5-year right to buy up to 30M IREN shares at $70 (up to $2.1B) as part of the deal -- a circular equity/vendor-financing tie-in.",
@@ -632,7 +657,8 @@
           "lat": 34.4262,
           "lng": -100.2059,
           "note": "60MW air-cooled Nvidia Blackwell deployment.",
-          "power_mw": 60
+          "power_mw": 60,
+          "dc_owner": "IREN (self-owned)"
         },
         {
           "name": "Mackenzie / Prince George, BC",
@@ -641,7 +667,8 @@
           "country": "CA",
           "lat": 55.3372,
           "lng": -123.5136,
-          "power_mw": 80
+          "power_mw": 80,
+          "dc_owner": "IREN (self-owned)"
         }
       ],
       "sec_cik": "0001878848",
@@ -703,7 +730,8 @@
           "usd_per_hr": null
         }
       ],
-      "power_mw_total": 140
+      "power_mw_total": 140,
+      "dc_model": "owns"
     },
     {
       "id": "nscale",
@@ -755,7 +783,8 @@
           "lat": 31.9686,
           "lng": -99.9018,
           "note": "104,000 GB300 GPUs, Q3 2026, approximate location.",
-          "power_mw": 240
+          "power_mw": 240,
+          "dc_owner": "Nscale (self-built)"
         },
         {
           "name": "Narvik, Norway",
@@ -765,7 +794,8 @@
           "lat": 68.4385,
           "lng": 17.4272,
           "note": "52,000 GPUs.",
-          "power_mw": 120
+          "power_mw": 120,
+          "dc_owner": "Nscale (self-built)"
         },
         {
           "name": "Loughton, UK",
@@ -775,7 +805,8 @@
           "lat": 51.6423,
           "lng": 0.0648,
           "note": "23,040 GB300 GPUs, 50-90MW, Q1 2027.",
-          "power_mw": 70
+          "power_mw": 70,
+          "dc_owner": "Nscale (self-built)"
         },
         {
           "name": "Sines, Portugal",
@@ -785,10 +816,12 @@
           "lat": 37.9563,
           "lng": -8.8697,
           "note": "12,600 GPUs, Q1 2026.",
-          "power_mw": 40
+          "power_mw": 40,
+          "dc_owner": "Nscale (self-built)"
         }
       ],
-      "power_mw_total": 470
+      "power_mw_total": 470,
+      "dc_model": "owns"
     },
     {
       "id": "voltage-park",
@@ -834,7 +867,8 @@
           "state": "CA",
           "country": "US",
           "lat": 37.76,
-          "lng": -122.43
+          "lng": -122.43,
+          "dc_owner": "Centeris / colocation"
         }
       ],
       "pricing": [
@@ -842,7 +876,8 @@
           "chip": "H100",
           "usd_per_hr": 1.99
         }
-      ]
+      ],
+      "dc_model": "colo"
     },
     {
       "id": "fluidstack",
@@ -897,7 +932,8 @@
           "lat": 43.3459,
           "lng": -78.5497,
           "note": "Approximate -- flagship TeraWulf HPC hosting site.",
-          "power_mw": 200
+          "power_mw": 200,
+          "dc_owner": "TeraWulf (host)"
         }
       ],
       "bonds": [
@@ -930,7 +966,8 @@
           "usd_per_hr": 3.29
         }
       ],
-      "power_mw_total": 200
+      "power_mw_total": 200,
+      "dc_model": "colo"
     },
     {
       "id": "northern-data",
@@ -977,11 +1014,13 @@
           "state": "",
           "country": "DE",
           "lat": 50.1109,
-          "lng": 8.6821
+          "lng": 8.6821,
+          "dc_owner": "Northern Data / Ardent (self-owned)"
         }
       ],
       "sec_cik": null,
-      "ticker_yahoo": "NB2.DE"
+      "ticker_yahoo": "NB2.DE",
+      "dc_model": "owns"
     },
     {
       "id": "tensorwave",
@@ -1031,7 +1070,8 @@
           "state": "PA",
           "country": "US",
           "lat": 40.9699,
-          "lng": -77.7278
+          "lng": -77.7278,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "Arizona (approx.)",
@@ -1039,7 +1079,8 @@
           "state": "AZ",
           "country": "US",
           "lat": 34.0489,
-          "lng": -111.0937
+          "lng": -111.0937,
+          "dc_owner": "Colocation (leased)"
         },
         {
           "name": "Florida (approx.)",
@@ -1047,7 +1088,8 @@
           "state": "FL",
           "country": "US",
           "lat": 27.7663,
-          "lng": -81.6868
+          "lng": -81.6868,
+          "dc_owner": "Colocation (leased)"
         }
       ],
       "pricing": [
@@ -1059,154 +1101,352 @@
           "chip": "MI325X",
           "usd_per_hr": 3.5
         }
+      ],
+      "dc_model": "colo"
+    },
+    {
+      "id": "vultr",
+      "name": "Vultr",
+      "category": "gpu_neocloud",
+      "dc_model": "colo",
+      "hq": "West Palm Beach, FL, US",
+      "founded": 2014,
+      "public": false,
+      "ticker": "Private",
+      "chip_vendor": "Nvidia + AMD",
+      "chips": [
+        "H100",
+        "H200",
+        "GH200",
+        "MI300X",
+        "MI325X"
+      ],
+      "gpu_count_est": null,
+      "gpu_owner": "Self",
+      "gpu_owner_detail": "Owns its GPU fleet across 32 global colocation regions. Self-funded for a decade until a Dec 2024 round; AMD Ventures co-invested, giving an alternative-silicon angle.",
+      "revenue_usd": null,
+      "revenue_year": null,
+      "revenue_note": "Revenue undisclosed (private). Positioned as an 'alternative hyperscaler' with 32 worldwide regions.",
+      "backlog_usd": null,
+      "funding_total_usd": 333000000,
+      "valuation_usd": 3500000000,
+      "debt_usd": null,
+      "customers": [
+        {
+          "name": "Diversified enterprise / cloud",
+          "note": "Broad self-serve + enterprise base; AMD Ventures strategic investor."
+        }
+      ],
+      "contract_years_weighted": null,
+      "risk_factors": {
+        "customer_concentration": 35,
+        "leverage": 40,
+        "contract_mismatch": 45,
+        "chip_freshness": 40
+      },
+      "risk_notes": "Decade-old, long self-funded cloud with a broad global colo footprint, diversified customers and low disclosed leverage; among the lower-risk neoclouds.",
+      "sources": [
+        "https://www.cnbc.com/2024/12/18/amd-invests-in-gpu-cloud-provider-vultr-at-3point5-billion-valuation.html",
+        "https://blogs.vultr.com/financing2024"
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.99
+        },
+        {
+          "chip": "MI300X",
+          "usd_per_hr": 1.85
+        },
+        {
+          "chip": "MI325X",
+          "usd_per_hr": 2.0
+        }
+      ],
+      "sites": [
+        {
+          "name": "Piscataway, NJ",
+          "city": "Piscataway",
+          "state": "NJ",
+          "country": "US",
+          "lat": 40.52,
+          "lng": -74.4,
+          "dc_owner": "Colocation (Equinix / others)"
+        },
+        {
+          "name": "Chicago, IL",
+          "city": "Chicago",
+          "state": "IL",
+          "country": "US",
+          "lat": 41.88,
+          "lng": -87.63,
+          "dc_owner": "Colocation"
+        },
+        {
+          "name": "Amsterdam, NL",
+          "city": "Amsterdam",
+          "state": "",
+          "country": "NL",
+          "lat": 52.37,
+          "lng": 4.9,
+          "dc_owner": "Colocation"
+        },
+        {
+          "name": "Frankfurt, DE",
+          "city": "Frankfurt",
+          "state": "",
+          "country": "DE",
+          "lat": 50.11,
+          "lng": 8.68,
+          "dc_owner": "Colocation"
+        },
+        {
+          "name": "Tokyo, JP",
+          "city": "Tokyo",
+          "state": "",
+          "country": "JP",
+          "lat": 35.68,
+          "lng": 139.69,
+          "dc_owner": "Colocation"
+        },
+        {
+          "name": "Singapore",
+          "city": "Singapore",
+          "state": "",
+          "country": "SG",
+          "lat": 1.35,
+          "lng": 103.82,
+          "dc_owner": "Colocation"
+        }
       ]
     },
     {
-      "id": "applied-digital",
-      "name": "Applied Digital",
-      "category": "landlord",
-      "hq": "Dallas, TX, US",
-      "founded": 2001,
-      "public": true,
-      "ticker": "NASDAQ: APLD",
-      "chip_vendor": "N/A (landlord)",
-      "chips": [],
+      "id": "gmi-cloud",
+      "name": "GMI Cloud",
+      "category": "gpu_neocloud",
+      "dc_model": "colo",
+      "hq": "Mountain View, CA, US",
+      "founded": 2023,
+      "public": false,
+      "ticker": "Private",
+      "chip_vendor": "Nvidia",
+      "chips": [
+        "H100",
+        "H200",
+        "GB200 NVL72"
+      ],
       "gpu_count_est": null,
-      "gpu_owner": "Tenant-owned (CoreWeave)",
-      "gpu_owner_detail": "Applied Digital owns and builds the data-center shell and power infrastructure only; CoreWeave owns and installs its own GPUs inside the leased space.",
+      "gpu_owner": "Self",
+      "gpu_owner_detail": "Nvidia Cloud Partner (NCP) spun out of GMI Technology / Realtek ties; H100/H200 clusters with Blackwell GB200 coming, run in colocation.",
       "revenue_usd": null,
       "revenue_year": null,
-      "revenue_note": "~$11B total anticipated contracted lease revenue across ~15-year CoreWeave leases (2025-2027 delivery).",
-      "backlog_usd": 11000000000,
+      "revenue_note": "Revenue undisclosed. NCP reference-platform partner targeting fast Blackwell availability.",
+      "backlog_usd": null,
+      "funding_total_usd": 82000000,
+      "valuation_usd": null,
       "debt_usd": null,
       "customers": [
         {
-          "name": "CoreWeave",
-          "contract_usd": 11000000000,
-          "contract_years": 15,
-          "note": "250MW (Jun 2025) + 150MW (Aug 2025) at Polaris Forge / Ellendale, ND; ~$7B then ~$11B total."
+          "name": "AI startups / APAC enterprise",
+          "note": "Strong Asia-Pacific + US presence via Nvidia NCP status."
         }
       ],
-      "contract_years_weighted": 15,
+      "contract_years_weighted": null,
       "risk_factors": {
-        "customer_concentration": 90,
-        "leverage": 55,
-        "contract_mismatch": 20,
-        "chip_freshness": 40
+        "customer_concentration": 50,
+        "leverage": 45,
+        "contract_mismatch": 45,
+        "chip_freshness": 30
       },
-      "risk_notes": "A textbook 'GPU landlord': 15-year triple-net-style leases push all chip-obsolescence risk onto the tenant (CoreWeave), so Applied Digital's own risk is overwhelmingly a bet on one tenant's staying power, not on chip generations.",
+      "risk_notes": "Young, well-connected Nvidia NCP with early Blackwell access; small scale and thin public disclosure are the main uncertainties.",
       "sources": [
-        "https://ir.applieddigital.com/news-events/press-releases/detail/128/applied-digital-finalizes-additional-150mw-lease-with",
-        "https://www.theregister.com/2025/06/02/coreweave_applied_digital_nd/"
+        "https://www.gmicloud.ai/en/pricing"
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.0
+        },
+        {
+          "chip": "H200",
+          "usd_per_hr": 2.5
+        }
       ],
       "sites": [
         {
-          "name": "Ellendale / Polaris Forge, ND",
-          "city": "Ellendale",
-          "state": "ND",
+          "name": "Mountain View, CA (HQ)",
+          "city": "Mountain View",
+          "state": "CA",
           "country": "US",
-          "lat": 46.0135,
-          "lng": -98.5237,
-          "note": "250MW + 150MW leased to CoreWeave; option on a further 150MW.",
-          "power_mw": 400
-        }
-      ],
-      "sec_cik": "0001144879",
-      "ticker_yahoo": "APLD",
-      "bonds": [
+          "lat": 37.39,
+          "lng": -122.08,
+          "dc_owner": "Colocation"
+        },
         {
-          "instrument": "2.75% Convertible Notes",
-          "coupon": 2.75,
-          "maturity": 2030,
-          "amount_usd": 450000000,
-          "type": "convertible",
-          "secured": false,
-          "note": "$375M + $75M option, Oct 2024. Plus large project-level data-center debt not shown here."
+          "name": "Taipei, Taiwan",
+          "city": "Taipei",
+          "state": "",
+          "country": "TW",
+          "lat": 25.03,
+          "lng": 121.56,
+          "dc_owner": "Colocation"
+        },
+        {
+          "name": "Phoenix, AZ",
+          "city": "Phoenix",
+          "state": "AZ",
+          "country": "US",
+          "lat": 33.45,
+          "lng": -112.07,
+          "dc_owner": "Colocation"
         }
-      ],
-      "power_mw_total": 400
+      ]
     },
     {
-      "id": "core-scientific",
-      "name": "Core Scientific",
-      "category": "landlord",
-      "hq": "Austin, TX, US",
-      "founded": 2017,
-      "public": true,
-      "ticker": "NASDAQ: CORZ",
-      "chip_vendor": "N/A (landlord)",
-      "chips": [],
+      "id": "genesis-cloud",
+      "name": "Genesis Cloud",
+      "category": "gpu_neocloud",
+      "dc_model": "colo",
+      "hq": "Munich, DE",
+      "founded": 2020,
+      "public": false,
+      "ticker": "Private",
+      "chip_vendor": "Nvidia",
+      "chips": [
+        "H100",
+        "H200",
+        "GB200 NVL72"
+      ],
       "gpu_count_est": null,
-      "gpu_owner": "Tenant-owned (CoreWeave)",
-      "gpu_owner_detail": "Core Scientific holds liens on the data-center infrastructure it builds, explicitly excluding the GPUs -- CoreWeave pays for GPU capex, power and utilities directly under a take-or-pay structure.",
-      "revenue_usd": 290000000,
-      "revenue_year": 2025,
-      "revenue_note": "~$290M average annualized colocation GAAP revenue per contract tranche; company guided >$10B cumulative revenue potential over the full 12-year term as options were exercised.",
-      "backlog_usd": 10000000000,
+      "gpu_owner": "Self",
+      "gpu_owner_detail": "EU-sovereign, renewable-powered GPU cloud; HGX H100/H200 and GB200 NVL72 clusters hosted in Nordic colocation.",
+      "revenue_usd": null,
+      "revenue_year": null,
+      "revenue_note": "Revenue undisclosed; pitch is EU data sovereignty + 100% renewable power.",
+      "backlog_usd": null,
+      "funding_total_usd": 45000000,
+      "valuation_usd": null,
       "debt_usd": null,
       "customers": [
         {
-          "name": "CoreWeave",
-          "contract_usd": 10000000000,
-          "contract_years": 12,
-          "note": "Series of 12-year take-or-pay contracts starting Jun 2024, now ~590MW across 6 sites (~800MW gross capacity)."
+          "name": "EU enterprises / research",
+          "note": "Sovereignty- and sustainability-focused European customer base."
         }
       ],
-      "contract_years_weighted": 12,
+      "contract_years_weighted": null,
       "risk_factors": {
-        "customer_concentration": 95,
+        "customer_concentration": 45,
         "leverage": 45,
-        "contract_mismatch": 15,
-        "chip_freshness": 40
+        "contract_mismatch": 45,
+        "chip_freshness": 30
       },
-      "risk_notes": "Former bitcoin miner now almost entirely dependent on a single HPC tenant (CoreWeave rejected Core Scientific's own 2024 acquisition offer, then became its largest customer); 12-year take-or-pay terms and GPU-exclusive liens make this a pure tenant-concentration bet.",
+      "risk_notes": "EU-sovereign, green-power niche with diversified customers; scale and funding are modest versus the hyperscaler-anchored leaders.",
       "sources": [
-        "https://investors.corescientific.com/news-events/press-releases/detail/74/core-scientific-to-provide-approximately-200-mw-of-infrastructure-to-host-coreweaves-high-performance-computing-services-capturing-significant-ai-compute-opportunity",
-        "https://www.datacenterdynamics.com/en/news/gpu-cloud-provider-coreweave-makes-1-billion-offer-for-cryptomine-firm-core-scientific-following-200mw-hosting-agreement/"
+        "https://saturncloud.io/blog/gpu-cloud-comparison-neoclouds-2025/"
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.0
+        }
       ],
       "sites": [
         {
-          "name": "Denton, TX",
-          "city": "Denton",
-          "state": "TX",
-          "country": "US",
-          "lat": 33.2148,
-          "lng": -97.1331,
-          "power_mw": 300
+          "name": "Munich, DE (HQ)",
+          "city": "Munich",
+          "state": "",
+          "country": "DE",
+          "lat": 48.14,
+          "lng": 11.58,
+          "dc_owner": "Colocation"
         },
         {
-          "name": "Muskogee, OK (approx.)",
-          "city": "Muskogee",
-          "state": "OK",
-          "country": "US",
-          "lat": 35.7479,
-          "lng": -95.3697,
-          "power_mw": 200
+          "name": "Stockholm region (Nordic)",
+          "city": "Stockholm",
+          "state": "",
+          "country": "SE",
+          "lat": 59.33,
+          "lng": 18.06,
+          "dc_owner": "Colocation (renewable, Nordic)"
+        }
+      ]
+    },
+    {
+      "id": "datacrunch",
+      "name": "DataCrunch (Verda)",
+      "category": "gpu_neocloud",
+      "dc_model": "colo",
+      "hq": "Helsinki, FI",
+      "founded": 2019,
+      "public": false,
+      "ticker": "Private",
+      "chip_vendor": "Nvidia",
+      "chips": [
+        "H100",
+        "H200",
+        "B200"
+      ],
+      "gpu_count_est": null,
+      "gpu_owner": "Self",
+      "gpu_owner_detail": "Renewable-powered GPU cloud (rebranded Verda in 2024); H100/H200/B200 in Nordic & Icelandic colocation.",
+      "revenue_usd": null,
+      "revenue_year": null,
+      "revenue_note": "Revenue undisclosed; low-cost, renewable-powered positioning.",
+      "backlog_usd": null,
+      "funding_total_usd": null,
+      "valuation_usd": null,
+      "debt_usd": null,
+      "customers": [
+        {
+          "name": "AI developers / EU enterprise",
+          "note": "Cost-competitive H100/H200/B200 on-demand."
         }
       ],
-      "sec_cik": "0001839341",
-      "ticker_yahoo": "CORZ",
-      "bonds": [
+      "contract_years_weighted": null,
+      "risk_factors": {
+        "customer_concentration": 45,
+        "leverage": 40,
+        "contract_mismatch": 45,
+        "chip_freshness": 25
+      },
+      "risk_notes": "Small, capital-light, renewable-powered cloud already on Blackwell (B200); low obsolescence risk but limited scale and disclosure.",
+      "sources": [
+        "https://saturncloud.io/blog/gpu-cloud-comparison-neoclouds-2025/"
+      ],
+      "pricing": [
         {
-          "instrument": "3.00% Convertible Senior Notes",
-          "coupon": 3.0,
-          "maturity": 2029,
-          "amount_usd": 460000000,
-          "type": "convertible",
-          "secured": false,
-          "note": "Aug 2024, post-restructuring."
+          "chip": "H100",
+          "usd_per_hr": 2.29
         },
         {
-          "instrument": "0.00% Convertible Senior Notes",
-          "coupon": 0.0,
-          "maturity": 2031,
-          "amount_usd": 550000000,
-          "type": "convertible",
-          "secured": false,
-          "note": "Dec 2024, ~$22.49 conversion price."
+          "chip": "H200",
+          "usd_per_hr": 2.99
+        },
+        {
+          "chip": "B200",
+          "usd_per_hr": 3.79
         }
       ],
-      "power_mw_total": 500
+      "sites": [
+        {
+          "name": "Helsinki, FI (HQ)",
+          "city": "Helsinki",
+          "state": "",
+          "country": "FI",
+          "lat": 60.17,
+          "lng": 24.94,
+          "dc_owner": "Colocation (renewable)"
+        },
+        {
+          "name": "Reykjav\u00edk, Iceland",
+          "city": "Reykjavik",
+          "state": "",
+          "country": "IS",
+          "lat": 64.15,
+          "lng": -21.94,
+          "dc_owner": "Colocation (renewable)"
+        }
+      ]
     }
   ],
   "pricing_reference": {
@@ -1319,6 +1559,30 @@
         "lat": 43.648,
         "lng": -79.381,
         "place": "Toronto, CA"
+      },
+      {
+        "id": "applied-digital",
+        "label": "Applied Digital",
+        "kind": "landlord",
+        "lat": 46.0135,
+        "lng": -98.5237,
+        "place": "Ellendale, ND"
+      },
+      {
+        "id": "core-scientific",
+        "label": "Core Scientific",
+        "kind": "landlord",
+        "lat": 33.2148,
+        "lng": -97.1331,
+        "place": "Denton, TX"
+      },
+      {
+        "id": "terawulf",
+        "label": "TeraWulf",
+        "kind": "landlord",
+        "lat": 43.3459,
+        "lng": -78.5497,
+        "place": "Lake Mariner, NY"
       }
     ],
     "edges": [
@@ -1525,6 +1789,43 @@
         "dst": "fluidstack",
         "kind": "lends",
         "note": "Guarantees TeraWulf hosting ($6.7B)"
+      },
+      {
+        "src": "nvidia",
+        "dst": "vultr",
+        "kind": "chips"
+      },
+      {
+        "src": "amd",
+        "dst": "vultr",
+        "kind": "chips"
+      },
+      {
+        "src": "amd",
+        "dst": "vultr",
+        "kind": "invests",
+        "note": "AMD Ventures co-invested (Dec 2024, $3.5B val.)"
+      },
+      {
+        "src": "nvidia",
+        "dst": "gmi-cloud",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "genesis-cloud",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "datacrunch",
+        "kind": "chips"
+      },
+      {
+        "src": "terawulf",
+        "dst": "fluidstack",
+        "kind": "lease",
+        "note": "Two 10-yr, $6.7B hosting agreements (Google-backstopped)"
       }
     ],
     "edge_kinds": {
@@ -1550,5 +1851,49 @@
       }
     },
     "note": "Directed edges src -> dst. This is the 'circular financing' web the sector is debated over: chip vendors invest in the neoclouds that buy their chips and in some cases lease compute back, while private credit funds the GPU purchases against the same GPUs as collateral. Curated from public announcements."
+  },
+  "datacenter_owners": {
+    "note": "Physical data-center owners / colocation hosts referenced by the neoclouds' sites. These are NOT GPU providers -- they own the building & power; the neocloud owns the GPUs inside.",
+    "owners": [
+      {
+        "id": "applied-digital",
+        "name": "Applied Digital",
+        "ticker": "NASDAQ: APLD",
+        "role": "Purpose-built AI data-center developer",
+        "note": "~$11B / ~15yr leases to CoreWeave at Ellendale, ND (Polaris Forge)."
+      },
+      {
+        "id": "core-scientific",
+        "name": "Core Scientific",
+        "ticker": "NASDAQ: CORZ",
+        "role": "Ex-bitcoin miner turned HPC host",
+        "note": "~$10B / 12yr take-or-pay colocation for CoreWeave (~590MW). CoreWeave agreed to acquire it in 2025."
+      },
+      {
+        "id": "terawulf",
+        "name": "TeraWulf",
+        "ticker": "NASDAQ: WULF",
+        "role": "HPC host (Lake Mariner, NY)",
+        "note": "Hosts FluidStack GPUs under two 10-yr, $6.7B agreements, Google-backstopped."
+      },
+      {
+        "id": "cologix",
+        "name": "Cologix",
+        "role": "Colocation provider",
+        "note": "Hosts Lambda's B200 clusters at COL4, Columbus OH."
+      },
+      {
+        "id": "centeris",
+        "name": "Centeris",
+        "role": "Colocation provider",
+        "note": "Hosts Voltage Park H100 capacity (Tacoma, WA)."
+      },
+      {
+        "id": "hypertec",
+        "name": "Hypertec",
+        "role": "Colocation / JV",
+        "note": "Co-builds Together AI's GB200 NVL72 cluster."
+      }
+    ]
   }
 }

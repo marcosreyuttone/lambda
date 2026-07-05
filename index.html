@@ -244,10 +244,10 @@
     <button id="controlsClose" aria-label="Close filters">✕</button>
   </div>
   <div class="group">
-    <h2>Company type</h2>
-    <label class="row"><input type="checkbox" class="f-cat" value="gpu_neocloud" checked><span class="swatch" style="background:var(--accent)"></span> GPU-owning neocloud <span class="count" data-cat="gpu_neocloud"></span></label>
-    <label class="row"><input type="checkbox" class="f-cat" value="landlord" checked><span class="swatch" style="background:var(--purple)"></span> Data-center landlord <span class="count" data-cat="landlord"></span></label>
-    <div class="legend-note">Landlords (Applied Digital, Core Scientific) own the building &amp; power, not the GPUs — the tenant does.</div>
+    <h2>Data-center model</h2>
+    <label class="row"><input type="checkbox" class="f-dc" value="owns" checked><span class="swatch" style="background:#34d399"></span> Owns / develops DCs <span class="count" data-dc="owns"></span></label>
+    <label class="row"><input type="checkbox" class="f-dc" value="colo" checked><span class="swatch" style="background:#4ea1ff"></span> Colocation (leases) <span class="count" data-dc="colo"></span></label>
+    <div class="legend-note">Every company here is a GPU neocloud. This splits those that build/own their data centers &amp; power from those that lease colocation space — each site lists its actual owner in the profile.</div>
   </div>
 
   <div class="group">
@@ -278,7 +278,7 @@
     <h2>Color markers by</h2>
     <select id="colorBy">
       <option value="risk_score">Neocloud Risk Score</option>
-      <option value="category">Company type</option>
+      <option value="dc_model">Data-center model</option>
       <option value="chip_vendor">Chip vendor</option>
       <option value="power">Power (MW)</option>
     </select>
@@ -323,8 +323,9 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
 const RISK_COLOR = v => v>=65 ? '#f87171' : v>=50 ? '#fbbf24' : v>=35 ? '#60a5fa' : '#34d399';
-const CAT_COLOR = { gpu_neocloud: '#4ea1ff', landlord: '#a78bfa' };
-const CHIP_COLOR = { Nvidia: '#76b900', AMD: '#ed1c24', 'N/A (landlord)': '#8ea2b8' };
+const DC_COLOR = { owns: '#34d399', colo: '#4ea1ff', mixed: '#fbbf24' };
+const DC_LABEL = { owns: 'Owns / develops data centers', colo: 'Colocation (leases space)', mixed: 'Mixed (owns + leases)' };
+const CHIP_COLOR = { Nvidia: '#76b900', AMD: '#ed1c24', 'Nvidia + AMD': '#fbbf24' };
 
 function fmtUSD(n) {
   if (n == null) return '—';
@@ -344,7 +345,7 @@ let map;
 let flowsLayer = null;
 const infraLayers = { power:null, hubs:null, fiber:null, cables:null, rivers:null };
 
-const state = { cats: new Set(['gpu_neocloud','landlord']), chip: '', company: '', sizeBy: 'risk_score', colorBy: 'risk_score', minRisk: 0, flows: false,
+const state = { dc: new Set(['owns','colo']), chip: '', company: '', sizeBy: 'risk_score', colorBy: 'risk_score', minRisk: 0, flows: false,
   layers: { power:false, hubs:false, fiber:false, cables:false, rivers:false } };
 
 const isMobile = () => window.matchMedia('(max-width:900px)').matches;
@@ -411,8 +412,8 @@ function populateCompanyFilter() {
 }
 
 function wireControls() {
-  document.querySelectorAll('.f-cat').forEach(cb => cb.addEventListener('change', () => {
-    state.cats = new Set([...document.querySelectorAll('.f-cat:checked')].map(x=>x.value));
+  document.querySelectorAll('.f-dc').forEach(cb => cb.addEventListener('change', () => {
+    state.dc = new Set([...document.querySelectorAll('.f-dc:checked')].map(x=>x.value));
     renderAll();
   }));
   document.getElementById('chipFilter').addEventListener('change', e => { state.chip = e.target.value; renderAll(); });
@@ -423,8 +424,8 @@ function wireControls() {
     state.minRisk = +e.target.value; document.getElementById('minRiskLbl').textContent = e.target.value; renderAll();
   });
   document.getElementById('resetFilters').addEventListener('click', () => {
-    state.cats = new Set(['gpu_neocloud','landlord']); state.chip=''; state.company=''; state.minRisk=0; state.flows=false;
-    document.querySelectorAll('.f-cat').forEach(cb=>cb.checked=true);
+    state.dc = new Set(['owns','colo']); state.chip=''; state.company=''; state.minRisk=0; state.flows=false;
+    document.querySelectorAll('.f-dc').forEach(cb=>cb.checked=true);
     document.getElementById('chipFilter').value=''; document.getElementById('companyFilter').value='';
     document.getElementById('minRisk').value=0; document.getElementById('minRiskLbl').textContent='0';
     document.getElementById('L-flows').checked=false;
@@ -453,7 +454,7 @@ function closeControlsMobile() {
 }
 
 function passesFilter(company) {
-  if (!state.cats.has(company.category)) return false;
+  if (!state.dc.has(company.dc_model)) return false;
   if (state.chip && !(company.chips||[]).includes(state.chip)) return false;
   if (state.company && company.id !== state.company) return false;
   if (company.risk_score != null && company.risk_score < state.minRisk) return false;
@@ -473,7 +474,7 @@ function sizeFor(company) {
 }
 function colorFor(company) {
   if (state.colorBy === 'risk_score') return company.risk_score!=null ? RISK_COLOR(company.risk_score) : '#5f7388';
-  if (state.colorBy === 'category') return CAT_COLOR[company.category] || '#5f7388';
+  if (state.colorBy === 'dc_model') return DC_COLOR[company.dc_model] || '#5f7388';
   if (state.colorBy === 'chip_vendor') return CHIP_COLOR[company.chip_vendor] || '#5f7388';
   if (state.colorBy === 'power') return company.power_mw_total ? POWER_COLOR(company.power_mw_total) : '#5f7388';
   return '#4ea1ff';
@@ -596,9 +597,9 @@ function renderAll() {
   document.getElementById('kpi-gpu').textContent = gpuTotal ? fmtNum(gpuTotal) : '—';
   document.getElementById('kpi-backlog').textContent = backlogTotal ? fmtUSD(backlogTotal) : '—';
 
-  document.querySelectorAll('[data-cat]').forEach(el => {
-    const cat = el.getAttribute('data-cat');
-    el.textContent = DATA.companies.filter(c=>c.category===cat).length;
+  document.querySelectorAll('[data-dc]').forEach(el => {
+    const m = el.getAttribute('data-dc');
+    el.textContent = DATA.companies.filter(c=>c.dc_model===m).length;
   });
 
   renderStats(seenCompanies);
@@ -632,9 +633,9 @@ function renderLegend() {
   if (state.colorBy === 'risk_score') {
     rows = ['#34d399 Low (<35)', '#60a5fa Moderate (35-49)', '#fbbf24 Elevated (50-64)', '#f87171 High (65+)']
       .map(s => { const [c,...rest]=s.split(' '); return `<div class="row2"><span class="swatch" style="background:${c}"></span>${rest.join(' ')}</div>`; }).join('');
-  } else if (state.colorBy === 'category') {
-    rows = `<div class="row2"><span class="swatch" style="background:${CAT_COLOR.gpu_neocloud}"></span>GPU-owning neocloud</div>
-            <div class="row2"><span class="swatch" style="background:${CAT_COLOR.landlord}"></span>Data-center landlord</div>`;
+  } else if (state.colorBy === 'dc_model') {
+    rows = `<div class="row2"><span class="swatch" style="background:${DC_COLOR.owns}"></span>Owns / develops DCs</div>
+            <div class="row2"><span class="swatch" style="background:${DC_COLOR.colo}"></span>Colocation (leases)</div>`;
   } else if (state.colorBy === 'power') {
     rows = `<div class="row2"><span class="swatch" style="background:#f472b6"></span>800+ MW</div>
             <div class="row2"><span class="swatch" style="background:#c084fc"></span>300–799 MW</div>
@@ -643,7 +644,7 @@ function renderLegend() {
   } else {
     rows = `<div class="row2"><span class="swatch" style="background:${CHIP_COLOR.Nvidia}"></span>Nvidia</div>
             <div class="row2"><span class="swatch" style="background:${CHIP_COLOR.AMD}"></span>AMD</div>
-            <div class="row2"><span class="swatch" style="background:${CHIP_COLOR['N/A (landlord)']}"></span>N/A (landlord)</div>`;
+            <div class="row2"><span class="swatch" style="background:${CHIP_COLOR['Nvidia + AMD']}"></span>Nvidia + AMD</div>`;
   }
   el.innerHTML = `<h3>Marker color</h3>${rows}<div class="legend-note" style="margin-top:8px">Size = ${document.getElementById('sizeBy').options[document.getElementById('sizeBy').selectedIndex].text}</div>`;
 }
@@ -756,8 +757,10 @@ function openDrawer(id) {
   const c = DATA.companies.find(x => x.id === id);
   if (!c) return;
   closeLeaderboard(); closeDebtWall(); closeControlsMobile();
-  const catLabel = c.category === 'landlord' ? 'Data-center landlord' : 'GPU-owning neocloud';
+  const dcLabel = DC_LABEL[c.dc_model] || 'GPU neocloud';
+  const dcColor = DC_COLOR[c.dc_model] || '#5f7388';
   const rf = c.risk_factors || {};
+  const dcOwners = [...new Set((c.sites||[]).map(s=>s.dc_owner).filter(Boolean))];
   const customers = (c.customers||[]).map(cu => `
     <div class="customer-row">
       <div><b>${cu.name}</b></div>
@@ -769,6 +772,7 @@ function openDrawer(id) {
   const sites = (c.sites||[]).map(s => `
     <div class="site-row">
       <div class="nm">${s.name}${s.power_mw?` <span class="tag2">${fmtNum(s.power_mw)} MW</span>`:''}</div>
+      ${s.dc_owner ? `<div class="note"><span style="color:var(--muted-2)">DC owner:</span> ${s.dc_owner}</div>` : ''}
       ${s.note ? `<div class="note">${s.note}</div>` : ''}
     </div>`).join('');
 
@@ -779,7 +783,7 @@ function openDrawer(id) {
     <div class="dh">
       <button class="close" onclick="closeDrawer()">✕</button>
       <h3>${c.name}</h3>
-      <span class="pill"><span class="swatch" style="background:${CAT_COLOR[c.category]}"></span>${catLabel}</span>
+      <span class="pill"><span class="swatch" style="background:${dcColor}"></span>${dcLabel}</span>
       <span class="pill">${c.public ? (c.ticker||'Public') : 'Private'}</span>
       <span class="pill">${c.chip_vendor}</span>
     </div>
@@ -799,10 +803,12 @@ function openDrawer(id) {
 
       ${liveFinancialsSection(c)}
 
-      <div class="sec">Chips &amp; GPU ownership</div>
+      <div class="sec">Chips, GPU &amp; data-center ownership</div>
       <div class="chiplist">${chips}</div>
       <div class="kv" style="margin-top:8px"><span class="k">GPU count (est.)</span><span class="v">${fmtNum(c.gpu_count_est)}</span></div>
       <div class="kv"><span class="k">Who owns the GPUs</span><span class="v">${c.gpu_owner||'—'}</span></div>
+      <div class="kv"><span class="k">Data-center model</span><span class="v">${dcLabel}</span></div>
+      ${dcOwners.length ? `<div class="kv"><span class="k">Data-center owner(s)</span><span class="v">${dcOwners.join(', ')}</span></div>` : ''}
       ${c.gpu_owner_detail ? `<div class="legend-note">${c.gpu_owner_detail}</div>` : ''}
 
       ${pricingSection(c)}
@@ -860,7 +866,7 @@ function renderLeaderboard(metric) {
   const body = rows.map((c,i) => `
     <div class="lb-row" onclick="openDrawer('${c.id}')">
       <div class="rk">${i+1}</div>
-      <div class="nm">${c.name}<div><span class="cat">${c.category==='landlord'?'Landlord':'Neocloud'}</span></div></div>
+      <div class="nm">${c.name}<div><span class="cat">${c.dc_model==='owns'?'Owns DCs':'Colo'}</span></div></div>
       <div class="val"><b style="${metric==='risk_score'?`color:${RISK_COLOR(c[metric])}`:''}">${m.fmt(c[metric])}</b></div>
     </div>
     <div class="lb-bar" style="width:${Math.max(4,(c[metric]/max)*100)}%; background:${metric==='risk_score'?RISK_COLOR(c[metric]):'var(--accent)'}"></div>
@@ -877,10 +883,9 @@ function renderLeaderboard(metric) {
       <div class="sec">Methodology: Neocloud Risk Score</div>
       <div class="legend-note">
         Weighted composite (0-100, higher = riskier): customer concentration (30%), leverage/debt reliance (25%),
-        contract-length-vs-chip-depreciation mismatch (25%), chip-generation freshness (20%).
-        Landlord-model companies carry no direct chip exposure, so their score is driven almost entirely by tenant
-        concentration — a deliberate design choice to surface that a "safe" infrastructure landlord bet is really a
-        bet on one tenant's staying power. See README for full methodology and per-company notes in each profile.
+        contract-length-vs-chip-depreciation mismatch (25%), chip-generation freshness (20%). Every company here is a
+        GPU neocloud; the "Data-center model" split shows which ones own/develop their facilities versus lease
+        colocation, and each profile names the physical data-center owner per site. See README for full methodology.
       </div>
     </div>
   `;

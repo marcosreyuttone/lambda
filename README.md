@@ -1,18 +1,20 @@
 # Neocloud Intelligence Map
 
 An interactive map of **neocloud** GPU compute providers — the CoreWeave /
-Lambda / Crusoe / Nebius wave of companies renting out Nvidia/AMD GPU
-capacity to AI labs and enterprises — plus the **data-center landlords**
-(Applied Digital, Core Scientific) that build the buildings and power those
-GPUs without owning them.
+Lambda / Crusoe / Nebius wave of companies that own Nvidia/AMD GPU fleets and
+rent that capacity to AI labs and enterprises. Every company on the map is a
+GPU neocloud; a **data-center model** dimension separates those that build and
+own their facilities from those that lease colocation space, and each site
+names its actual **data-center owner** (e.g. Applied Digital, Core Scientific,
+TeraWulf, Cologix).
 
 For each company the map tracks, from public sources:
 
-- **Revenue** (reported or run-rate) and **contracted backlog**
+- **Revenue** (latest full-year or annualized run-rate) and **contracted backlog**
 - **Chips** — which Nvidia/AMD GPU generation(s) they run
-- **Data-center sites** — where their GPU capacity actually sits
-- **Who owns the GPUs** — self-owned, debt-financed, JV-owned, vendor
-  lease-back, or (for landlords) tenant-owned
+- **Data-center sites** — where their GPU capacity sits, and **who owns each site**
+- **Who owns the GPUs** — self-owned, debt-financed, JV-owned, or vendor lease-back
+- **Data-center model** — owns/develops facilities vs. leases colocation
 - **Anchor customers and contract length** — e.g. CoreWeave-OpenAI (~5yr,
   $22.4B), Nebius-Meta (5yr, $27B), Applied Digital-CoreWeave (~15yr, ~$11B)
 - **Bonds & notes** — every tracked senior/convertible note (coupon,
@@ -111,32 +113,34 @@ This map turns that into a single, transparent, per-company **0-100 score**
 | Contract-vs-chip mismatch | 25% | Gap between debt tenor, contract tenor, and GPU refresh cycles |
 | Chip-generation freshness | 20% | Exposure to Hopper-class (H100/H200) obsolescence vs. Blackwell/MI350-class |
 
-**Landlord-model** companies (Applied Digital, Core Scientific — they own
-the shell and power, not the GPUs) are scored on the same rubric for
-comparability, but carry a neutral chip-freshness score since they have no
-direct chip exposure. The result is a deliberate finding of this map: their
-risk score is driven almost entirely by **tenant concentration** — a
-"safe" long-term real-estate lease to CoreWeave is really a concentrated bet
-on one tenant's staying power, not a chip bet.
+The score is model-agnostic: whether a neocloud owns its data centers or
+leases colocation, `chip_freshness` still reflects its own fleet's
+obsolescence exposure. The separate **data-center owner** field names who owns
+the building/power at each site.
 
-As of this build, the distribution runs from Together AI / Nebius (~42-44,
-diversified or equity-funded) up to Northern Data (~73, revenue down 34% YoY
-with tripled losses while being acquired at a fraction of invested capital)
-and CoreWeave/Crusoe (~68-69, heaviest disclosed debt loads). Edit the
-weights or per-company `risk_factors` in the curated JSON and re-run
-`python3 app.py --build-only` to recompute.
+As of this build, the distribution runs from Vultr / Together AI / Nebius
+(~40-44, diversified, equity-funded, or already on Blackwell) up to Northern
+Data (~73, revenue down 34% YoY with tripled losses while being acquired at a
+fraction of invested capital) and CoreWeave/Crusoe (~68-69, heaviest disclosed
+debt loads). Edit the weights or per-company `risk_factors` in the curated JSON
+and re-run `python3 app.py --build-only` to recompute.
 
 *(This score is an illustrative, editable model for exploring the sector's
 structure — not investment advice.)*
 
 ## Companies tracked
 
-**GPU-owning neoclouds:** CoreWeave, Lambda, Crusoe Energy, Nebius Group,
-Together AI, IREN Limited, Nscale, Voltage Park, FluidStack, Northern Data /
-Taiga Cloud, TensorWave.
+All are **GPU neoclouds** (they own the GPUs). The **data-center model**
+column shows whether each builds/owns its facilities or leases colocation.
 
-**Data-center landlords (host GPUs they don't own):** Applied Digital, Core
-Scientific.
+**Owns / develops data centers:** Crusoe Energy, Nebius Group, IREN Limited,
+Nscale, Northern Data / Taiga Cloud.
+
+**Colocation (leases space):** CoreWeave, Lambda, Together AI, Voltage Park,
+FluidStack, TensorWave, Vultr, GMI Cloud, Genesis Cloud, DataCrunch (Verda).
+
+**Data-center owners referenced** (not GPU providers — they own the building &
+power): Applied Digital, Core Scientific, TeraWulf, Cologix, Centeris, Hypertec.
 
 ## Data sources & accuracy
 
