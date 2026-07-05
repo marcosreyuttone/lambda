@@ -1,0 +1,63 @@
+name: Build & Deploy Neocloud Map
+
+# Live-builds the dataset (SEC EDGAR + US Treasury + Yahoo Finance, with
+# curated fallback) and publishes the static map to GitHub Pages — free
+# hosting at https://marcosreyuttone.github.io/lambda/
+on:
+  push:
+    branches:
+      - claude/neocloud-infra-map-uc22u8       # default / working branch
+  schedule:
+    - cron: "0 6 * * *"                        # daily refresh of the live figures
+  workflow_dispatch: {}                         # manual "Run workflow" button
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build dataset (live free APIs, curated fallback)
+        run: python3 app.py --build-only
+
+      - name: Assemble static site
+        run: |
+          mkdir -p _site/data
+          cp index.html _site/
+          cp data/neoclouds.json _site/data/
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          # Auto-enable GitHub Pages (Actions source) so no manual repo
+          # Settings toggle is needed. Requires a public repo and the
+          # pages:write permission granted above.
+          enablement: true
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
