@@ -86,7 +86,8 @@
           "lng": -74.2907,
           "note": "Flagship converted 280k sq ft facility, ~$1.2B buildout.",
           "power_mw": 36,
-          "dc_owner": "Leased & retrofit (CoreWeave)"
+          "dc_owner": "Leased & retrofit (CoreWeave)",
+          "site_type": "datacenter"
         },
         {
           "name": "Plano, TX",
@@ -97,7 +98,8 @@
           "lng": -96.6989,
           "note": "$1.6B facility, operational since late 2023.",
           "power_mw": 100,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         },
         {
           "name": "Weehawken, NJ",
@@ -106,7 +108,8 @@
           "country": "US",
           "lat": 40.7695,
           "lng": -74.0104,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         },
         {
           "name": "Chicago, IL",
@@ -115,7 +118,8 @@
           "country": "US",
           "lat": 41.8781,
           "lng": -87.6298,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         },
         {
           "name": "Las Vegas, NV",
@@ -124,7 +128,8 @@
           "country": "US",
           "lat": 36.1699,
           "lng": -115.1398,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         },
         {
           "name": "Chester, VA",
@@ -133,7 +138,8 @@
           "country": "US",
           "lat": 37.3546,
           "lng": -77.4258,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         },
         {
           "name": "Hillsboro, OR",
@@ -142,7 +148,8 @@
           "country": "US",
           "lat": 45.5229,
           "lng": -122.9898,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         },
         {
           "name": "Douglasville, GA",
@@ -151,7 +158,8 @@
           "country": "US",
           "lat": 33.7515,
           "lng": -84.7477,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         },
         {
           "name": "London, UK",
@@ -160,7 +168,8 @@
           "country": "UK",
           "lat": 51.5072,
           "lng": -0.1276,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         },
         {
           "name": "Ellendale, ND (leased from Applied Digital)",
@@ -171,7 +180,8 @@
           "lng": -98.5237,
           "note": "500MW across two Applied Digital leases (~$11B, ~15yr).",
           "power_mw": 500,
-          "dc_owner": "Applied Digital"
+          "dc_owner": "Applied Digital",
+          "site_type": "datacenter"
         },
         {
           "name": "Denton / Muskogee HPC campuses (leased from Core Scientific)",
@@ -182,7 +192,8 @@
           "lng": -97.1331,
           "note": "Part of ~590MW / 12-year, up to $10.4B Core Scientific colocation program.",
           "power_mw": 200,
-          "dc_owner": "Core Scientific"
+          "dc_owner": "Core Scientific",
+          "site_type": "datacenter"
         }
       ],
       "sec_cik": "0001769628",
@@ -301,7 +312,8 @@
           "country": "US",
           "lat": 37.7749,
           "lng": -122.4194,
-          "dc_owner": "ECL / colocation"
+          "dc_owner": "ECL / colocation",
+          "site_type": "hq"
         },
         {
           "name": "Allen, TX",
@@ -310,7 +322,8 @@
           "country": "US",
           "lat": 33.1032,
           "lng": -96.6706,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         },
         {
           "name": "Columbus, OH",
@@ -319,7 +332,8 @@
           "country": "US",
           "lat": 39.9612,
           "lng": -82.9988,
-          "dc_owner": "Cologix (COL4)"
+          "dc_owner": "Cologix (COL4)",
+          "site_type": "datacenter"
         },
         {
           "name": "Kansas City, MO",
@@ -330,7 +344,8 @@
           "lng": -94.5786,
           "note": "New 'AI Factory', 24MW scaling to 100MW+, targeted early 2026.",
           "power_mw": 24,
-          "dc_owner": "Lambda (AI Factory, developing)"
+          "dc_owner": "Lambda (AI Factory, developing)",
+          "site_type": "datacenter"
         }
       ],
       "pricing": [
@@ -401,7 +416,8 @@
           "lng": -99.7331,
           "note": "~1.2GW planned, 8 data halls.",
           "power_mw": 1200,
-          "dc_owner": "Crusoe / Blue Owl JV (self-developed)"
+          "dc_owner": "Crusoe / Blue Owl JV (self-developed)",
+          "site_type": "datacenter"
         }
       ],
       "pricing": [
@@ -473,7 +489,8 @@
           "lng": -75.0259,
           "note": "New campus built for the Microsoft deal, deploying 2025-2026.",
           "power_mw": 300,
-          "dc_owner": "Nebius (self-built)"
+          "dc_owner": "Nebius (self-built)",
+          "site_type": "datacenter"
         },
         {
           "name": "M\u00e4nts\u00e4l\u00e4, Finland",
@@ -484,7 +501,8 @@
           "lng": 25.321,
           "note": "Original Yandex-heritage data center.",
           "power_mw": 75,
-          "dc_owner": "Nebius (self-built)"
+          "dc_owner": "Nebius (self-built)",
+          "site_type": "datacenter"
         }
       ],
       "sec_cik": "0001513845",
@@ -581,7 +599,8 @@
           "country": "US",
           "lat": 37.77,
           "lng": -122.41,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "hq"
         },
         {
           "name": "GB200 NVL72 cluster (Hypertec JV, N. America)",
@@ -591,7 +610,8 @@
           "lat": 45.5019,
           "lng": -73.5674,
           "note": "Approximate -- exact site undisclosed.",
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         }
       ],
       "pricing": [
@@ -658,7 +678,8 @@
           "lng": -100.2059,
           "note": "60MW air-cooled Nvidia Blackwell deployment.",
           "power_mw": 60,
-          "dc_owner": "IREN (self-owned)"
+          "dc_owner": "IREN (self-owned)",
+          "site_type": "datacenter"
         },
         {
           "name": "Mackenzie / Prince George, BC",
@@ -668,7 +689,8 @@
           "lat": 55.3372,
           "lng": -123.5136,
           "power_mw": 80,
-          "dc_owner": "IREN (self-owned)"
+          "dc_owner": "IREN (self-owned)",
+          "site_type": "datacenter"
         }
       ],
       "sec_cik": "0001878848",
@@ -784,7 +806,8 @@
           "lng": -99.9018,
           "note": "104,000 GB300 GPUs, Q3 2026, approximate location.",
           "power_mw": 240,
-          "dc_owner": "Nscale (self-built)"
+          "dc_owner": "Nscale (self-built)",
+          "site_type": "datacenter"
         },
         {
           "name": "Narvik, Norway",
@@ -795,7 +818,8 @@
           "lng": 17.4272,
           "note": "52,000 GPUs.",
           "power_mw": 120,
-          "dc_owner": "Nscale (self-built)"
+          "dc_owner": "Nscale (self-built)",
+          "site_type": "datacenter"
         },
         {
           "name": "Loughton, UK",
@@ -806,7 +830,8 @@
           "lng": 0.0648,
           "note": "23,040 GB300 GPUs, 50-90MW, Q1 2027.",
           "power_mw": 70,
-          "dc_owner": "Nscale (self-built)"
+          "dc_owner": "Nscale (self-built)",
+          "site_type": "datacenter"
         },
         {
           "name": "Sines, Portugal",
@@ -817,7 +842,8 @@
           "lng": -8.8697,
           "note": "12,600 GPUs, Q1 2026.",
           "power_mw": 40,
-          "dc_owner": "Nscale (self-built)"
+          "dc_owner": "Nscale (self-built)",
+          "site_type": "datacenter"
         }
       ],
       "power_mw_total": 470,
@@ -868,7 +894,19 @@
           "country": "US",
           "lat": 37.76,
           "lng": -122.43,
-          "dc_owner": "Centeris / colocation"
+          "dc_owner": "Centeris / colocation",
+          "site_type": "hq"
+        },
+        {
+          "name": "Tacoma, WA (Centeris)",
+          "city": "Tacoma",
+          "state": "WA",
+          "country": "US",
+          "lat": 47.2529,
+          "lng": -122.4443,
+          "dc_owner": "Centeris",
+          "site_type": "datacenter",
+          "power_mw": 24
         }
       ],
       "pricing": [
@@ -933,7 +971,8 @@
           "lng": -78.5497,
           "note": "Approximate -- flagship TeraWulf HPC hosting site.",
           "power_mw": 200,
-          "dc_owner": "TeraWulf (host)"
+          "dc_owner": "TeraWulf (host)",
+          "site_type": "datacenter"
         }
       ],
       "bonds": [
@@ -1009,13 +1048,15 @@
       ],
       "sites": [
         {
-          "name": "Frankfurt, DE (HQ)",
+          "name": "Frankfurt (Ardent DC)",
           "city": "Frankfurt",
           "state": "",
           "country": "DE",
           "lat": 50.1109,
           "lng": 8.6821,
-          "dc_owner": "Northern Data / Ardent (self-owned)"
+          "dc_owner": "Northern Data / Ardent (self-owned)",
+          "site_type": "datacenter",
+          "power_mw": 120
         }
       ],
       "sec_cik": null,
@@ -1071,7 +1112,8 @@
           "country": "US",
           "lat": 40.9699,
           "lng": -77.7278,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         },
         {
           "name": "Arizona (approx.)",
@@ -1080,7 +1122,8 @@
           "country": "US",
           "lat": 34.0489,
           "lng": -111.0937,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         },
         {
           "name": "Florida (approx.)",
@@ -1089,7 +1132,8 @@
           "country": "US",
           "lat": 27.7663,
           "lng": -81.6868,
-          "dc_owner": "Colocation (leased)"
+          "dc_owner": "Colocation (leased)",
+          "site_type": "datacenter"
         }
       ],
       "pricing": [
@@ -1171,7 +1215,8 @@
           "country": "US",
           "lat": 40.52,
           "lng": -74.4,
-          "dc_owner": "Colocation (Equinix / others)"
+          "dc_owner": "Colocation (Equinix / others)",
+          "site_type": "datacenter"
         },
         {
           "name": "Chicago, IL",
@@ -1180,7 +1225,8 @@
           "country": "US",
           "lat": 41.88,
           "lng": -87.63,
-          "dc_owner": "Colocation"
+          "dc_owner": "Colocation",
+          "site_type": "datacenter"
         },
         {
           "name": "Amsterdam, NL",
@@ -1189,7 +1235,8 @@
           "country": "NL",
           "lat": 52.37,
           "lng": 4.9,
-          "dc_owner": "Colocation"
+          "dc_owner": "Colocation",
+          "site_type": "datacenter"
         },
         {
           "name": "Frankfurt, DE",
@@ -1198,7 +1245,8 @@
           "country": "DE",
           "lat": 50.11,
           "lng": 8.68,
-          "dc_owner": "Colocation"
+          "dc_owner": "Colocation",
+          "site_type": "datacenter"
         },
         {
           "name": "Tokyo, JP",
@@ -1207,7 +1255,8 @@
           "country": "JP",
           "lat": 35.68,
           "lng": 139.69,
-          "dc_owner": "Colocation"
+          "dc_owner": "Colocation",
+          "site_type": "datacenter"
         },
         {
           "name": "Singapore",
@@ -1216,7 +1265,8 @@
           "country": "SG",
           "lat": 1.35,
           "lng": 103.82,
-          "dc_owner": "Colocation"
+          "dc_owner": "Colocation",
+          "site_type": "datacenter"
         }
       ]
     },
@@ -1280,7 +1330,8 @@
           "country": "US",
           "lat": 37.39,
           "lng": -122.08,
-          "dc_owner": "Colocation"
+          "dc_owner": "Colocation",
+          "site_type": "hq"
         },
         {
           "name": "Taipei, Taiwan",
@@ -1289,7 +1340,8 @@
           "country": "TW",
           "lat": 25.03,
           "lng": 121.56,
-          "dc_owner": "Colocation"
+          "dc_owner": "Colocation",
+          "site_type": "datacenter"
         },
         {
           "name": "Phoenix, AZ",
@@ -1298,7 +1350,8 @@
           "country": "US",
           "lat": 33.45,
           "lng": -112.07,
-          "dc_owner": "Colocation"
+          "dc_owner": "Colocation",
+          "site_type": "datacenter"
         }
       ]
     },
@@ -1358,7 +1411,8 @@
           "country": "DE",
           "lat": 48.14,
           "lng": 11.58,
-          "dc_owner": "Colocation"
+          "dc_owner": "Colocation",
+          "site_type": "hq"
         },
         {
           "name": "Stockholm region (Nordic)",
@@ -1367,7 +1421,8 @@
           "country": "SE",
           "lat": 59.33,
           "lng": 18.06,
-          "dc_owner": "Colocation (renewable, Nordic)"
+          "dc_owner": "Colocation (renewable, Nordic)",
+          "site_type": "datacenter"
         }
       ]
     },
@@ -1435,7 +1490,8 @@
           "country": "FI",
           "lat": 60.17,
           "lng": 24.94,
-          "dc_owner": "Colocation (renewable)"
+          "dc_owner": "Colocation (renewable)",
+          "site_type": "datacenter"
         },
         {
           "name": "Reykjav\u00edk, Iceland",
@@ -1444,7 +1500,575 @@
           "country": "IS",
           "lat": 64.15,
           "lng": -21.94,
-          "dc_owner": "Colocation (renewable)"
+          "dc_owner": "Colocation (renewable)",
+          "site_type": "datacenter"
+        }
+      ]
+    },
+    {
+      "id": "scaleway",
+      "name": "Scaleway",
+      "category": "gpu_neocloud",
+      "dc_model": "owns",
+      "hq": "Paris, FR",
+      "founded": 1999,
+      "public": false,
+      "ticker": "Iliad Group (parent)",
+      "chip_vendor": "Nvidia",
+      "chips": [
+        "H100",
+        "L40S",
+        "GB200 NVL72"
+      ],
+      "gpu_count_est": null,
+      "gpu_owner": "Self",
+      "gpu_owner_detail": "European public cloud (Iliad Group subsidiary); owns its French/EU data centers and its GPU fleet (Hopper + Blackwell).",
+      "revenue_usd": null,
+      "revenue_year": null,
+      "revenue_note": "Part of Iliad Group; standalone GPU revenue not broken out.",
+      "backlog_usd": null,
+      "funding_total_usd": null,
+      "valuation_usd": null,
+      "debt_usd": null,
+      "customers": [
+        {
+          "name": "EU enterprise / public sector",
+          "note": "European sovereignty positioning; Jupiter-class GPU clusters."
+        }
+      ],
+      "contract_years_weighted": null,
+      "risk_factors": {
+        "customer_concentration": 40,
+        "leverage": 45,
+        "contract_mismatch": 45,
+        "chip_freshness": 30
+      },
+      "risk_notes": "Backed by Iliad Group with owned EU data centers and diversified customers; lower standalone-financial visibility.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Scaleway"
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.52
+        }
+      ],
+      "sites": [
+        {
+          "name": "Paris DC5 (Vitry)",
+          "city": "Vitry-sur-Seine",
+          "state": "",
+          "country": "FR",
+          "lat": 48.787,
+          "lng": 2.393,
+          "dc_owner": "Scaleway/Iliad (self-owned)",
+          "site_type": "datacenter",
+          "power_mw": 130
+        },
+        {
+          "name": "Amsterdam",
+          "city": "Amsterdam",
+          "state": "",
+          "country": "NL",
+          "lat": 52.37,
+          "lng": 4.9,
+          "dc_owner": "Scaleway/Iliad (self-owned)",
+          "site_type": "datacenter"
+        },
+        {
+          "name": "Warsaw",
+          "city": "Warsaw",
+          "state": "",
+          "country": "PL",
+          "lat": 52.23,
+          "lng": 21.01,
+          "dc_owner": "Scaleway/Iliad (self-owned)",
+          "site_type": "datacenter"
+        }
+      ]
+    },
+    {
+      "id": "ovhcloud",
+      "name": "OVHcloud",
+      "category": "gpu_neocloud",
+      "dc_model": "owns",
+      "hq": "Roubaix, FR",
+      "founded": 1999,
+      "public": true,
+      "ticker": "EPA: OVH",
+      "chip_vendor": "Nvidia",
+      "chips": [
+        "H100",
+        "L40S",
+        "L4",
+        "GB200 NVL72"
+      ],
+      "gpu_count_est": null,
+      "gpu_owner": "Self",
+      "gpu_owner_detail": "Owns and operates ~40 data centers worldwide (builds its own servers & water-cooling); GPU cloud on Nvidia Hopper/Blackwell.",
+      "revenue_usd": 1100000000,
+      "revenue_year": 2025,
+      "revenue_note": "Group revenue ~EUR1.1B (all cloud, not GPU-only); GPU a fast-growing slice.",
+      "backlog_usd": null,
+      "funding_total_usd": null,
+      "valuation_usd": null,
+      "debt_usd": null,
+      "ticker_yahoo": "OVH.PA",
+      "customers": [
+        {
+          "name": "EU enterprise / SMB",
+          "note": "Sovereign European cloud with a large owned DC footprint."
+        }
+      ],
+      "contract_years_weighted": null,
+      "risk_factors": {
+        "customer_concentration": 30,
+        "leverage": 45,
+        "contract_mismatch": 40,
+        "chip_freshness": 35
+      },
+      "risk_notes": "Established, publicly listed, owns its data centers and builds its own hardware; among the lowest-risk here, though GPU is a smaller part of a broad cloud business.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/OVHcloud"
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.99
+        },
+        {
+          "chip": "L40S",
+          "usd_per_hr": 1.4
+        }
+      ],
+      "sites": [
+        {
+          "name": "Gravelines, FR",
+          "city": "Gravelines",
+          "state": "",
+          "country": "FR",
+          "lat": 50.987,
+          "lng": 2.128,
+          "dc_owner": "OVHcloud (self-owned)",
+          "site_type": "datacenter",
+          "power_mw": 200
+        },
+        {
+          "name": "Roubaix, FR",
+          "city": "Roubaix",
+          "state": "",
+          "country": "FR",
+          "lat": 50.69,
+          "lng": 3.178,
+          "dc_owner": "OVHcloud (self-owned)",
+          "site_type": "datacenter",
+          "power_mw": 90
+        },
+        {
+          "name": "Strasbourg, FR",
+          "city": "Strasbourg",
+          "state": "",
+          "country": "FR",
+          "lat": 48.573,
+          "lng": 7.752,
+          "dc_owner": "OVHcloud (self-owned)",
+          "site_type": "datacenter"
+        },
+        {
+          "name": "Beauharnois, Canada",
+          "city": "Beauharnois",
+          "state": "QC",
+          "country": "CA",
+          "lat": 45.315,
+          "lng": -73.878,
+          "dc_owner": "OVHcloud (self-owned)",
+          "site_type": "datacenter",
+          "power_mw": 120
+        },
+        {
+          "name": "Vint Hill, VA (US)",
+          "city": "Vint Hill",
+          "state": "VA",
+          "country": "US",
+          "lat": 38.72,
+          "lng": -77.72,
+          "dc_owner": "OVHcloud (self-owned)",
+          "site_type": "datacenter"
+        }
+      ]
+    },
+    {
+      "id": "runpod",
+      "name": "RunPod",
+      "category": "gpu_neocloud",
+      "dc_model": "colo",
+      "hq": "Moorestown, NJ, US",
+      "founded": 2022,
+      "public": false,
+      "ticker": "Private",
+      "chip_vendor": "Nvidia",
+      "chips": [
+        "H100",
+        "H200",
+        "B200"
+      ],
+      "gpu_count_est": null,
+      "gpu_owner": "Mixed: owned + community/partner",
+      "gpu_owner_detail": "Developer-first GPU cloud aggregating owned 'Secure Cloud' capacity in partner data centers plus a 'Community Cloud' of third-party hosts.",
+      "revenue_usd": null,
+      "revenue_year": null,
+      "revenue_note": "Revenue undisclosed; popular serverless/on-demand GPU platform.",
+      "backlog_usd": null,
+      "funding_total_usd": 20000000,
+      "valuation_usd": null,
+      "debt_usd": null,
+      "customers": [
+        {
+          "name": "AI developers / startups",
+          "note": "Serverless + on-demand GPUs; large self-serve developer base."
+        }
+      ],
+      "contract_years_weighted": null,
+      "risk_factors": {
+        "customer_concentration": 40,
+        "leverage": 40,
+        "contract_mismatch": 45,
+        "chip_freshness": 30
+      },
+      "risk_notes": "Capital-light, diversified developer base; part of its fleet is third-party community hosts, which adds reliability variance but little balance-sheet risk.",
+      "sources": [
+        "https://www.runpod.io/"
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.79
+        },
+        {
+          "chip": "H200",
+          "usd_per_hr": 3.59
+        },
+        {
+          "chip": "B200",
+          "usd_per_hr": 5.98
+        }
+      ],
+      "sites": [
+        {
+          "name": "US-East (partner DCs)",
+          "city": "",
+          "state": "NJ",
+          "country": "US",
+          "lat": 40.0,
+          "lng": -74.6,
+          "dc_owner": "Colocation / partner DCs",
+          "site_type": "datacenter"
+        },
+        {
+          "name": "US-West (partner DCs)",
+          "city": "",
+          "state": "CA",
+          "country": "US",
+          "lat": 37.0,
+          "lng": -120.0,
+          "dc_owner": "Colocation / partner DCs",
+          "site_type": "datacenter"
+        },
+        {
+          "name": "EU (partner DCs)",
+          "city": "",
+          "state": "",
+          "country": "EU",
+          "lat": 50.1,
+          "lng": 8.7,
+          "dc_owner": "Colocation / partner DCs",
+          "site_type": "datacenter"
+        }
+      ]
+    },
+    {
+      "id": "denvr",
+      "name": "Denvr Dataworks",
+      "category": "gpu_neocloud",
+      "dc_model": "owns",
+      "hq": "Calgary, AB, CA",
+      "founded": 2017,
+      "public": false,
+      "ticker": "Private",
+      "chip_vendor": "Nvidia + Intel",
+      "chips": [
+        "A100",
+        "H100",
+        "Intel Gaudi"
+      ],
+      "gpu_count_est": null,
+      "gpu_owner": "Self",
+      "gpu_owner_detail": "Operates sovereign, owned data centers in Canada and the USA with H100/A100 and Intel Gaudi, InfiniBand-networked.",
+      "revenue_usd": null,
+      "revenue_year": null,
+      "revenue_note": "Revenue undisclosed; sovereign AI-cloud positioning.",
+      "backlog_usd": null,
+      "funding_total_usd": null,
+      "valuation_usd": null,
+      "debt_usd": null,
+      "customers": [
+        {
+          "name": "Enterprise / research (US & Canada)",
+          "note": "Sovereign, InfiniBand H100 clusters."
+        }
+      ],
+      "contract_years_weighted": null,
+      "risk_factors": {
+        "customer_concentration": 45,
+        "leverage": 45,
+        "contract_mismatch": 45,
+        "chip_freshness": 45
+      },
+      "risk_notes": "Owns its (sovereign) data centers; fleet skews to prior-gen A100/H100 and Gaudi, a modestly higher obsolescence exposure.",
+      "sources": [
+        "https://www.denvr.com/"
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.29
+        }
+      ],
+      "sites": [
+        {
+          "name": "Calgary, AB",
+          "city": "Calgary",
+          "state": "AB",
+          "country": "CA",
+          "lat": 51.045,
+          "lng": -114.057,
+          "dc_owner": "Denvr (sovereign, self-owned)",
+          "site_type": "datacenter",
+          "power_mw": 40
+        },
+        {
+          "name": "Houston, TX (US)",
+          "city": "Houston",
+          "state": "TX",
+          "country": "US",
+          "lat": 29.76,
+          "lng": -95.37,
+          "dc_owner": "Denvr (sovereign, self-owned)",
+          "site_type": "datacenter"
+        }
+      ]
+    },
+    {
+      "id": "e2e",
+      "name": "E2E Networks",
+      "category": "gpu_neocloud",
+      "dc_model": "colo",
+      "hq": "New Delhi, IN",
+      "founded": 2009,
+      "public": true,
+      "ticker": "NSE: E2E",
+      "chip_vendor": "Nvidia",
+      "chips": [
+        "A100",
+        "H100",
+        "H200"
+      ],
+      "gpu_count_est": null,
+      "gpu_owner": "Self",
+      "gpu_owner_detail": "India's largest listed AI-cloud; owns its A100/H100/H200 fleet in Indian colocation (TIR clusters).",
+      "revenue_usd": 40000000,
+      "revenue_year": 2025,
+      "revenue_note": "~$40M revenue (fast-growing); NSE-listed.",
+      "backlog_usd": null,
+      "funding_total_usd": null,
+      "valuation_usd": null,
+      "debt_usd": null,
+      "customers": [
+        {
+          "name": "Indian enterprise / startups / gov",
+          "note": "Sovereign India AI compute; part of the IndiaAI mission pool."
+        }
+      ],
+      "contract_years_weighted": null,
+      "risk_factors": {
+        "customer_concentration": 45,
+        "leverage": 40,
+        "contract_mismatch": 45,
+        "chip_freshness": 40
+      },
+      "risk_notes": "Listed, capital-light India play riding sovereign-AI demand; small scale and A100-heavy fleet are the main caveats.",
+      "sources": [
+        "https://www.cbinsights.com/company/e2e-networks"
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.4
+        }
+      ],
+      "sites": [
+        {
+          "name": "Delhi / NCR",
+          "city": "Delhi",
+          "state": "",
+          "country": "IN",
+          "lat": 28.61,
+          "lng": 77.21,
+          "dc_owner": "Colocation (India)",
+          "site_type": "datacenter"
+        },
+        {
+          "name": "Mumbai",
+          "city": "Mumbai",
+          "state": "",
+          "country": "IN",
+          "lat": 19.08,
+          "lng": 72.88,
+          "dc_owner": "Colocation (India)",
+          "site_type": "datacenter"
+        },
+        {
+          "name": "Chennai",
+          "city": "Chennai",
+          "state": "",
+          "country": "IN",
+          "lat": 13.08,
+          "lng": 80.27,
+          "dc_owner": "Colocation (India)",
+          "site_type": "datacenter"
+        }
+      ]
+    },
+    {
+      "id": "sesterce",
+      "name": "Sesterce",
+      "category": "gpu_neocloud",
+      "dc_model": "owns",
+      "hq": "Marseille, FR",
+      "founded": 2018,
+      "public": false,
+      "ticker": "Private",
+      "chip_vendor": "Nvidia",
+      "chips": [
+        "H100",
+        "H200",
+        "GB200 NVL72"
+      ],
+      "gpu_count_est": null,
+      "gpu_owner": "Self",
+      "gpu_owner_detail": "European AI-factory builder; investing EUR450m in a Valence, France AI data center; owns its GPU clusters.",
+      "revenue_usd": null,
+      "revenue_year": null,
+      "revenue_note": "Early revenue (~$4M reported at small scale); scaling via owned EU AI factories.",
+      "backlog_usd": null,
+      "funding_total_usd": null,
+      "valuation_usd": null,
+      "debt_usd": null,
+      "customers": [
+        {
+          "name": "EU startups / enterprise",
+          "note": "Sustainable, sovereign EU AI infrastructure."
+        }
+      ],
+      "contract_years_weighted": null,
+      "risk_factors": {
+        "customer_concentration": 50,
+        "leverage": 55,
+        "contract_mismatch": 50,
+        "chip_freshness": 25
+      },
+      "risk_notes": "Building owned EU AI-factory capacity ahead of proven demand -- classic buildout-ahead-of-revenue risk, offset by newest-gen silicon.",
+      "sources": [
+        "https://www.datacenterdynamics.com/en/news/sesterce-invests-450m-in-ai-data-center-in-valence-france/"
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.2
+        }
+      ],
+      "sites": [
+        {
+          "name": "Valence, FR (AI factory)",
+          "city": "Valence",
+          "state": "",
+          "country": "FR",
+          "lat": 44.933,
+          "lng": 4.892,
+          "dc_owner": "Sesterce (self-developed)",
+          "site_type": "datacenter",
+          "power_mw": 150
+        },
+        {
+          "name": "Marseille, FR",
+          "city": "Marseille",
+          "state": "",
+          "country": "FR",
+          "lat": 43.296,
+          "lng": 5.37,
+          "dc_owner": "Sesterce (self-developed)",
+          "site_type": "datacenter"
+        }
+      ]
+    },
+    {
+      "id": "ori",
+      "name": "Ori",
+      "category": "gpu_neocloud",
+      "dc_model": "colo",
+      "hq": "London, UK",
+      "founded": 2020,
+      "public": false,
+      "ticker": "Private",
+      "chip_vendor": "Nvidia",
+      "chips": [
+        "H100",
+        "H200",
+        "GB200 NVL72"
+      ],
+      "gpu_count_est": null,
+      "gpu_owner": "Self",
+      "gpu_owner_detail": "UK GPU cloud (Ori Global Cloud) offering serverless + dedicated clusters in UK/EU colocation.",
+      "revenue_usd": null,
+      "revenue_year": null,
+      "revenue_note": "Revenue undisclosed; UK/EU sovereign AI-cloud.",
+      "backlog_usd": null,
+      "funding_total_usd": null,
+      "valuation_usd": null,
+      "debt_usd": null,
+      "customers": [
+        {
+          "name": "UK/EU enterprise & startups",
+          "note": "Serverless Kubernetes + dedicated GPU clusters."
+        }
+      ],
+      "contract_years_weighted": null,
+      "risk_factors": {
+        "customer_concentration": 45,
+        "leverage": 45,
+        "contract_mismatch": 45,
+        "chip_freshness": 30
+      },
+      "risk_notes": "Small UK challenger with newest-gen silicon and diversified customers; scale and disclosure are the main uncertainties.",
+      "sources": [
+        "https://www.crunchbase.com/organization/ori-8629"
+      ],
+      "pricing": [
+        {
+          "chip": "H100",
+          "usd_per_hr": 2.49
+        }
+      ],
+      "sites": [
+        {
+          "name": "London, UK",
+          "city": "London",
+          "state": "",
+          "country": "UK",
+          "lat": 51.507,
+          "lng": -0.128,
+          "dc_owner": "Colocation (UK/EU)",
+          "site_type": "datacenter"
         }
       ]
     }
@@ -1826,6 +2450,41 @@
         "dst": "fluidstack",
         "kind": "lease",
         "note": "Two 10-yr, $6.7B hosting agreements (Google-backstopped)"
+      },
+      {
+        "src": "nvidia",
+        "dst": "scaleway",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "ovhcloud",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "runpod",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "denvr",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "e2e",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "sesterce",
+        "kind": "chips"
+      },
+      {
+        "src": "nvidia",
+        "dst": "ori",
+        "kind": "chips"
       }
     ],
     "edge_kinds": {

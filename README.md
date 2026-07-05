@@ -134,10 +134,19 @@ All are **GPU neoclouds** (they own the GPUs). The **data-center model**
 column shows whether each builds/owns its facilities or leases colocation.
 
 **Owns / develops data centers:** Crusoe Energy, Nebius Group, IREN Limited,
-Nscale, Northern Data / Taiga Cloud.
+Nscale, Northern Data / Taiga Cloud, OVHcloud, Scaleway, Sesterce, Denvr Dataworks.
 
 **Colocation (leases space):** CoreWeave, Lambda, Together AI, Voltage Park,
-FluidStack, TensorWave, Vultr, GMI Cloud, Genesis Cloud, DataCrunch (Verda).
+FluidStack, TensorWave, Vultr, GMI Cloud, Genesis Cloud, DataCrunch (Verda),
+RunPod, E2E Networks, Ori.
+
+Each company's **sites are its data centers** (office HQs are tagged and hidden
+from the map). Every circle is one data center, sized by default by its
+**estimated GPU revenue** — a company's revenue split across its data centers by
+power capacity (an estimate, not a disclosed per-site figure). A live
+**OpenStreetMap** layer overlays *all* operators' data-center buildings for
+context, and **PeeringDB** powers the interconnection-hubs layer (those are
+peering points of presence, deliberately not treated as GPU data centers).
 
 **Data-center owners referenced** (not GPU providers — they own the building &
 power): Applied Digital, Core Scientific, TeraWulf, Cologix, Centeris, Hypertec.

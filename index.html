@@ -228,7 +228,7 @@
   <div class="spacer"></div>
   <div class="kpi">
     <div class="k"><b id="kpi-companies">—</b><span>Companies</span></div>
-    <div class="k"><b id="kpi-sites">—</b><span>Sites shown</span></div>
+    <div class="k"><b id="kpi-sites">—</b><span>Data centers</span></div>
     <div class="k"><b id="kpi-gpu">—</b><span>GPUs tracked</span></div>
     <div class="k"><b id="kpi-backlog">—</b><span>Contracted backlog</span></div>
   </div>
@@ -266,12 +266,14 @@
   <div class="group">
     <h2>Size markers by</h2>
     <select id="sizeBy">
-      <option value="risk_score">Neocloud Risk Score</option>
-      <option value="power_mw_total">Power (MW, announced)</option>
-      <option value="gpu_count_est">GPU count (est.)</option>
-      <option value="backlog_usd">Contracted backlog (USD)</option>
-      <option value="revenue_usd">Revenue (USD)</option>
+      <option value="est_gpu_revenue_usd">Est. GPU revenue (per data center)</option>
+      <option value="power_mw">Power (MW, per data center)</option>
+      <option value="risk_score">Neocloud Risk Score (company)</option>
+      <option value="gpu_count_est">GPU count (company)</option>
+      <option value="backlog_usd">Contracted backlog (company)</option>
+      <option value="revenue_usd">Company revenue</option>
     </select>
+    <div class="legend-note">Each circle is one <b>data center</b>. Est. GPU revenue splits a company's revenue across its data centers by power capacity — an estimate, not a disclosed per-site figure.</div>
   </div>
 
   <div class="group">
@@ -298,7 +300,8 @@
     <label class="row"><input type="checkbox" id="L-fiber"><span class="swatch" style="background:#f59e0b"></span> Fiber backbone <span class="count" id="c-fiber"></span></label>
     <label class="row"><input type="checkbox" id="L-cables"><span class="swatch" style="background:#22d3ee"></span> Submarine cables <span class="count" id="c-cables"></span></label>
     <label class="row"><input type="checkbox" id="L-rivers"><span class="swatch" style="background:#2dd4bf"></span> Cooling rivers <span class="count" id="c-rivers"></span></label>
-    <div class="legend-note">Power stations sized by MW &amp; colored by fuel (nuclear / gas / hydro). Interconnection hubs live from PeeringDB, sized by networks present. Fiber &amp; cables are curated long-haul routes.</div>
+    <label class="row"><input type="checkbox" id="L-osm"><span class="swatch" style="background:#64748b"></span> All data centers (OSM) <span class="count" id="c-osm"></span></label>
+    <div class="legend-note">Power stations sized by MW &amp; colored by fuel. Interconnection hubs &amp; the OpenStreetMap data-center layer are live public data (PeeringDB &amp; OSM) — the OSM layer shows <i>all</i> operators' data centers for context, not just neoclouds.</div>
   </div>
 
   <div class="group">
@@ -345,8 +348,8 @@ let map;
 let flowsLayer = null;
 const infraLayers = { power:null, hubs:null, fiber:null, cables:null, rivers:null };
 
-const state = { dc: new Set(['owns','colo']), chip: '', company: '', sizeBy: 'risk_score', colorBy: 'risk_score', minRisk: 0, flows: false,
-  layers: { power:false, hubs:false, fiber:false, cables:false, rivers:false } };
+const state = { dc: new Set(['owns','colo']), chip: '', company: '', sizeBy: 'est_gpu_revenue_usd', colorBy: 'risk_score', minRisk: 0, flows: false,
+  layers: { power:false, hubs:false, fiber:false, cables:false, rivers:false, osm:false } };
 
 const isMobile = () => window.matchMedia('(max-width:900px)').matches;
 function fmtPct(n, dp=1) { return n==null ? '—' : (n>0?'+':'') + n.toFixed(dp) + '%'; }
@@ -386,6 +389,7 @@ function updateLayerCounts() {
   set('c-fiber', (conn.backbone||[]).length);
   set('c-cables', (conn.cable_landings||[]).length);
   set('c-rivers', (conn.rivers||[]).length);
+  set('c-osm', (DATA.osm_datacenters||[]).length);
 }
 
 function allSites() {
@@ -435,7 +439,7 @@ function wireControls() {
   document.getElementById('openLeaderboard').addEventListener('click', openLeaderboard);
   document.getElementById('L-flows').addEventListener('change', e => { state.flows = e.target.checked; renderFlows(); });
   document.getElementById('openDebtWall').addEventListener('click', openDebtWall);
-  ['power','hubs','fiber','cables','rivers'].forEach(k => {
+  ['power','hubs','fiber','cables','rivers','osm'].forEach(k => {
     const cb = document.getElementById('L-'+k);
     if (cb) cb.addEventListener('change', e => { state.layers[k] = e.target.checked; renderInfra(k); });
   });
@@ -462,15 +466,18 @@ function passesFilter(company) {
 }
 
 const POWER_COLOR = mw => mw>=800 ? '#f472b6' : mw>=300 ? '#c084fc' : mw>=100 ? '#818cf8' : '#60a5fa';
-function sizeFor(company) {
-  const v = company[state.sizeBy];
-  if (v == null) return 8;
-  let scaled;
-  if (state.sizeBy === 'risk_score') scaled = 6 + (v/100)*16;
-  else if (state.sizeBy === 'gpu_count_est') scaled = 6 + Math.sqrt(v/2000);
-  else if (state.sizeBy === 'power_mw_total') scaled = 6 + Math.sqrt(v)*0.7;
-  else scaled = 6 + Math.sqrt(v/2e8);
-  return Math.max(6, Math.min(30, scaled));
+// Per-site radius: site-level metrics use the site's own value; company-level
+// metrics (risk/gpu/backlog/revenue) size every one of that company's DCs alike.
+function siteRadius(company, site) {
+  const by = state.sizeBy;
+  let v, scaled;
+  if (by === 'est_gpu_revenue_usd') { v = site.est_gpu_revenue_usd; scaled = 5 + Math.sqrt((v||0)/4e7); }
+  else if (by === 'power_mw') { v = site.power_mw; scaled = 5 + Math.sqrt(v||0)*0.9; }
+  else if (by === 'risk_score') { v = company.risk_score; scaled = 6 + ((v||0)/100)*16; }
+  else if (by === 'gpu_count_est') { v = company.gpu_count_est; scaled = 6 + Math.sqrt((v||0)/2000); }
+  else { v = company[by]; scaled = 6 + Math.sqrt((v||0)/2e8); }        // backlog / revenue USD
+  if (v == null) return 5;
+  return Math.max(5, Math.min(30, scaled));
 }
 function colorFor(company) {
   if (state.colorBy === 'risk_score') return company.risk_score!=null ? RISK_COLOR(company.risk_score) : '#5f7388';
@@ -556,6 +563,12 @@ function buildInfra(kind) {
       line.bindPopup(`<h4>${r.name}</h4><div class="mini">Cooling-water context</div>`);
       g.addLayer(line);
     }
+  } else if (kind === 'osm') {
+    for (const dcp of (DATA.osm_datacenters||[])) {
+      const m = L.circleMarker([dcp.lat,dcp.lng], { radius:2.5, color:'#64748b', weight:0, fillColor:'#94a3b8', fillOpacity:0.55 });
+      m.bindPopup(`<h4>${dcp.name||'Data center'}</h4><div class="mini">${dcp.operator||''}</div><div class="mini" style="color:var(--muted-2)">OpenStreetMap — all operators (context)</div>`);
+      g.addLayer(m);
+    }
   }
   return g;
 }
@@ -580,11 +593,11 @@ function renderAll() {
     if (c.backlog_usd) backlogTotal += c.backlog_usd;
 
     const color = colorFor(c);
-    const radius = sizeFor(c);
     for (const s of (c.sites||[])) {
+      if ((s.site_type||'datacenter') !== 'datacenter') continue;   // skip HQ/office
       siteCount++;
       const marker = L.circleMarker([s.lat, s.lng], {
-        radius, color:'#0b0f14', weight:1.5, fillColor: color, fillOpacity:0.85
+        radius: siteRadius(c, s), color:'#0b0f14', weight:1.5, fillColor: color, fillOpacity:0.85
       }).addTo(map);
       marker.bindPopup(popupHtml(c, s));
       marker.on('click', () => openDrawer(c.id));
@@ -608,19 +621,23 @@ function renderAll() {
 function renderStats(seenCompanies) {
   const shown = DATA.companies.filter(c => seenCompanies.has(c.id));
   const avgRisk = shown.length ? (shown.reduce((s,c)=>s+(c.risk_score||0),0)/shown.length).toFixed(1) : '—';
+  const dcCount = shown.reduce((n,c)=>n + (c.sites||[]).filter(s=>(s.site_type||'datacenter')==='datacenter').length, 0);
   const power = shown.reduce((s,c)=>s+(c.power_mw_total||0),0);
+  const estRev = shown.reduce((s,c)=>s + (c.sites||[]).reduce((a,x)=>a+(x.est_gpu_revenue_usd||0),0), 0);
   const el = document.getElementById('stats');
   el.innerHTML = `
     <div class="stats-head" onclick="document.getElementById('stats').classList.toggle('collapsed')">
-      <span>${shown.length} shown · avg risk <b style="color:${RISK_COLOR(avgRisk)}">${avgRisk}</b></span>
+      <span>${shown.length} cos · ${dcCount} DCs · avg risk <b style="color:${RISK_COLOR(avgRisk)}">${avgRisk}</b></span>
       <span class="chev">▾</span>
     </div>
     <div class="stats-body">
       <div class="sec">Current filter</div>
       <div class="stat"><span>Companies shown</span><b>${shown.length}</b></div>
+      <div class="stat"><span>Data centers shown</span><b>${dcCount}</b></div>
       <div class="stat"><span>Avg. Neocloud Risk Score</span><b style="color:${RISK_COLOR(avgRisk)}">${avgRisk}</b></div>
       <div class="stat"><span>Total GPUs tracked (est.)</span><b>${fmtNum(shown.reduce((s,c)=>s+(c.gpu_count_est||0),0))}</b></div>
       <div class="stat"><span>Announced power</span><b>${power? fmtNum(power)+' MW':'—'}</b></div>
+      <div class="stat"><span>Est. GPU revenue (mapped)</span><b>${estRev? fmtUSD(estRev):'—'}</b></div>
       <div class="stat"><span>Total contracted backlog</span><b>${fmtUSD(shown.reduce((s,c)=>s+(c.backlog_usd||0),0))}</b></div>
       <div class="legend-note">${DATA.disclaimer}</div>
     </div>
@@ -650,8 +667,12 @@ function renderLegend() {
 }
 
 function popupHtml(c, s) {
+  const bits = [];
+  if (s.power_mw) bits.push(`${fmtNum(s.power_mw)} MW`);
+  if (s.est_gpu_revenue_usd) bits.push(`~${fmtUSD(s.est_gpu_revenue_usd)}/yr est.`);
   return `<h4>${s.name}</h4>
-    <div class="mini">${c.name} ${c.risk_score!=null ? `· Risk ${c.risk_score}` : ''}</div>
+    <div class="mini">${c.name}${bits.length?' · '+bits.join(' · '):''}</div>
+    ${s.dc_owner ? `<div class="mini" style="margin-top:4px">DC owner: ${s.dc_owner}</div>` : ''}
     ${s.note ? `<div class="mini" style="margin-top:4px">${s.note}</div>` : ''}
     <div class="more" onclick="openDrawer('${c.id}')">View company profile →</div>`;
 }
@@ -769,9 +790,10 @@ function openDrawer(id) {
       ${cu.note ? `<div class="mini" style="color:var(--muted-2)">${cu.note}</div>` : ''}
     </div>`).join('') || '<div class="mini">Not disclosed</div>';
 
-  const sites = (c.sites||[]).map(s => `
+  const dcSites = (c.sites||[]).filter(s => (s.site_type||'datacenter')==='datacenter');
+  const sites = dcSites.map(s => `
     <div class="site-row">
-      <div class="nm">${s.name}${s.power_mw?` <span class="tag2">${fmtNum(s.power_mw)} MW</span>`:''}</div>
+      <div class="nm">${s.name}${s.power_mw?` <span class="tag2">${fmtNum(s.power_mw)} MW</span>`:''}${s.est_gpu_revenue_usd?` <span class="tag2">~${fmtUSD(s.est_gpu_revenue_usd)}/yr</span>`:''}</div>
       ${s.dc_owner ? `<div class="note"><span style="color:var(--muted-2)">DC owner:</span> ${s.dc_owner}</div>` : ''}
       ${s.note ? `<div class="note">${s.note}</div>` : ''}
     </div>`).join('');
@@ -831,7 +853,7 @@ function openDrawer(id) {
       ${riskRow('Chip-generation freshness risk', rf.chip_freshness)}
       ${c.risk_notes ? `<div class="legend-note" style="margin-top:8px">${c.risk_notes}</div>` : ''}
 
-      <div class="sec">Sites (${(c.sites||[]).length})</div>
+      <div class="sec">Data centers (${dcSites.length})</div>
       ${sites}
 
       <div class="sec">Sources</div>

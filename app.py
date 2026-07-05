@@ -346,6 +346,81 @@ def annotate_bond_spreads(company, treasury):
             b["coupon_vs_benchmark_bps"] = round((cpn - bench) * 100)
 
 
+# Illustrative neocloud GPU revenue intensity, used only to (a) proxy revenue for
+# private operators from their announced power, and (b) split a company's revenue
+# across its data centers by capacity. Clearly an estimate, not a disclosed figure.
+REV_PER_MW_YEAR = 4_000_000
+OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+
+
+def _median(xs):
+    xs = sorted(xs)
+    n = len(xs)
+    if not n:
+        return None
+    return xs[n // 2] if n % 2 else (xs[n // 2 - 1] + xs[n // 2]) / 2
+
+
+def annotate_site_revenue(company):
+    """Estimate GPU revenue per *data center* so each map circle can be sized by it.
+
+    Method: take the company's annual revenue (reported, or proxied from total
+    announced DC power at REV_PER_MW_YEAR when private) and split it across the
+    company's data-center sites weighted by each site's power (MW). Sites without
+    a power figure get the company's median site power so they still get a share.
+    """
+    dcs = [s for s in company.get("sites", []) if s.get("site_type", "datacenter") == "datacenter"]
+    if not dcs:
+        return
+    powers = [s["power_mw"] for s in dcs if s.get("power_mw")]
+    default_w = _median(powers) if powers else None
+    total_power = sum(powers) if powers else 0
+
+    revenue = company.get("revenue_usd")
+    basis = "allocated from reported revenue by DC power"
+    if revenue is None and total_power:
+        revenue = total_power * REV_PER_MW_YEAR
+        basis = f"estimated from announced power @ ${REV_PER_MW_YEAR/1e6:.0f}M/MW-yr"
+    if revenue is None:
+        for s in dcs:
+            s["est_gpu_revenue_usd"] = None
+            s["est_basis"] = "not estimable (revenue & power undisclosed)"
+        return
+
+    weights = [(s, (s.get("power_mw") or default_w or 1)) for s in dcs]
+    wsum = sum(w for _, w in weights) or 1
+    for s, w in weights:
+        s["est_gpu_revenue_usd"] = round(revenue * w / wsum)
+        s["est_basis"] = basis
+
+
+def fetch_osm_datacenters():
+    """Real data-center buildings worldwide from OpenStreetMap (Overpass), named
+    only, capped for size. Context layer -- these are all operators, not just
+    neoclouds. Returns a list of {name, operator, lat, lng} or None on failure."""
+    query = ('[out:json][timeout:60];'
+             '(way["telecom"="data_center"]["name"];relation["telecom"="data_center"]["name"];'
+             'way["building"="data_center"]["name"];);out center 900;')
+    try:
+        req = Request(OVERPASS_URL, data=("data=" + query).encode(),
+                      headers={"User-Agent": UA})
+        with urlopen(req, timeout=90) as r:
+            data = json.load(r)
+    except (URLError, HTTPError, ValueError, TimeoutError, OSError) as e:
+        print(f"  ! Overpass: {e}")
+        return None
+    out = []
+    for el in data.get("elements", []):
+        t = el.get("tags", {})
+        lat = el.get("lat") or (el.get("center") or {}).get("lat")
+        lng = el.get("lon") or (el.get("center") or {}).get("lon")
+        if lat is None or lng is None:
+            continue
+        out.append({"name": t.get("name"), "operator": t.get("operator", ""),
+                    "lat": round(lat, 4), "lng": round(lng, 4)})
+    return out or None
+
+
 def build(live=True):
     with open(CURATED_PATH, "r", encoding="utf-8") as f:
         curated = json.load(f)
@@ -353,6 +428,7 @@ def build(live=True):
     weights = curated["risk_methodology"]["weights"]
     for company in curated["companies"]:
         company["risk_score"] = compute_risk_score(company, weights)
+        annotate_site_revenue(company)
 
     treasury = None
     if live:
@@ -397,6 +473,11 @@ def build(live=True):
             curated["interconnection_hubs"] = hubs
             print(f"  PeeringDB: {len(hubs)} interconnection hubs "
                   f"(>= {IX_MIN_NETS} networks)")
+        # Real data-center buildings worldwide from OpenStreetMap (context layer).
+        osm = fetch_osm_datacenters()
+        if osm:
+            curated["osm_datacenters"] = osm
+            print(f"  OpenStreetMap: {len(osm)} named data-center buildings")
 
     if treasury:
         curated["treasury"] = treasury
