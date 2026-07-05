@@ -1,0 +1,2004 @@
+{
+  "_comment": "Curated US connectivity context for the interconnection layer. cable_landings = major submarine cable landing stations with an approximate offshore endpoint used to draw a short stub into the ocean and a list of notable systems landing there. backbone = approximate long-haul terrestrial fiber corridors as metro-to-metro polylines. Positions and cable lists are approximate/illustrative for visualization, NOT survey-grade routes.",
+  "_disclaimer": "Illustrative connectivity context, not authoritative route data.",
+  "cable_landings": [
+    {
+      "name": "Virginia Beach, VA",
+      "city": "Virginia Beach",
+      "state": "VA",
+      "lat": 36.7335,
+      "lng": -75.967,
+      "offshore": [
+        36.55,
+        -74.7
+      ],
+      "cables": [
+        "MAREA",
+        "BRUSA",
+        "Dunant"
+      ]
+    },
+    {
+      "name": "Manasquan, NJ",
+      "city": "Manasquan",
+      "state": "NJ",
+      "lat": 40.1037,
+      "lng": -74.0346,
+      "offshore": [
+        40.0,
+        -73.0
+      ],
+      "cables": [
+        "Seabras-1",
+        "Havfrue/AEC-2"
+      ]
+    },
+    {
+      "name": "Wall Township, NJ",
+      "city": "Wall",
+      "state": "NJ",
+      "lat": 40.17,
+      "lng": -74.07,
+      "offshore": [
+        40.05,
+        -72.9
+      ],
+      "cables": [
+        "TAT-14",
+        "Apollo"
+      ]
+    },
+    {
+      "name": "Tuckerton, NJ",
+      "city": "Tuckerton",
+      "state": "NJ",
+      "lat": 39.6,
+      "lng": -74.34,
+      "offshore": [
+        39.4,
+        -73.4
+      ],
+      "cables": [
+        "AC-1",
+        "Yellow",
+        "GTT Express"
+      ]
+    },
+    {
+      "name": "Shirley, NY",
+      "city": "Shirley",
+      "state": "NY",
+      "lat": 40.79,
+      "lng": -72.87,
+      "offshore": [
+        40.6,
+        -71.8
+      ],
+      "cables": [
+        "GTT Atlantic",
+        "Tata TGN"
+      ]
+    },
+    {
+      "name": "Myrtle Beach, SC",
+      "city": "Myrtle Beach",
+      "state": "SC",
+      "lat": 33.6891,
+      "lng": -78.8867,
+      "offshore": [
+        33.5,
+        -77.9
+      ],
+      "cables": [
+        "SAEx",
+        "BRUSA (branch)"
+      ]
+    },
+    {
+      "name": "Jacksonville, FL",
+      "city": "Jacksonville",
+      "state": "FL",
+      "lat": 30.3322,
+      "lng": -81.39,
+      "offshore": [
+        30.2,
+        -80.4
+      ],
+      "cables": [
+        "Path / Caribbean systems"
+      ]
+    },
+    {
+      "name": "Hollywood, FL",
+      "city": "Hollywood",
+      "state": "FL",
+      "lat": 26.0112,
+      "lng": -80.12,
+      "offshore": [
+        25.9,
+        -79.3
+      ],
+      "cables": [
+        "AMX-1",
+        "ARCOS",
+        "GlobeNet"
+      ]
+    },
+    {
+      "name": "North Miami Beach, FL",
+      "city": "North Miami Beach",
+      "state": "FL",
+      "lat": 25.93,
+      "lng": -80.12,
+      "offshore": [
+        25.8,
+        -79.2
+      ],
+      "cables": [
+        "Maya-1",
+        "Pan American",
+        "Deep Blue"
+      ]
+    },
+    {
+      "name": "Tierra del Mar / Pacific City, OR",
+      "city": "Pacific City",
+      "state": "OR",
+      "lat": 45.19,
+      "lng": -123.96,
+      "offshore": [
+        45.1,
+        -125.1
+      ],
+      "cables": [
+        "Jupiter (branch)",
+        "trans-Pacific"
+      ]
+    },
+    {
+      "name": "Bandon, OR",
+      "city": "Bandon",
+      "state": "OR",
+      "lat": 43.119,
+      "lng": -124.408,
+      "offshore": [
+        43.0,
+        -125.6
+      ],
+      "cables": [
+        "NCP",
+        "trans-Pacific"
+      ]
+    },
+    {
+      "name": "Manchester / Point Arena, CA",
+      "city": "Manchester",
+      "state": "CA",
+      "lat": 38.97,
+      "lng": -123.69,
+      "offshore": [
+        38.8,
+        -124.9
+      ],
+      "cables": [
+        "TPC / Pacific systems"
+      ]
+    },
+    {
+      "name": "Grover Beach, CA",
+      "city": "Grover Beach",
+      "state": "CA",
+      "lat": 35.1216,
+      "lng": -120.621,
+      "offshore": [
+        35.0,
+        -121.8
+      ],
+      "cables": [
+        "China-US",
+        "trans-Pacific"
+      ]
+    },
+    {
+      "name": "Morro Bay, CA",
+      "city": "Morro Bay",
+      "state": "CA",
+      "lat": 35.3658,
+      "lng": -120.8499,
+      "offshore": [
+        35.2,
+        -122.0
+      ],
+      "cables": [
+        "Asia-America Gateway (branch)"
+      ]
+    },
+    {
+      "name": "Hermosa Beach / El Segundo, CA",
+      "city": "Hermosa Beach",
+      "state": "CA",
+      "lat": 33.86,
+      "lng": -118.4,
+      "offshore": [
+        33.6,
+        -119.5
+      ],
+      "cables": [
+        "FASTER",
+        "PLCN",
+        "Bay-to-Bay Express"
+      ]
+    },
+    {
+      "name": "Makaha / Kahe Point, Oahu, HI",
+      "city": "Honolulu",
+      "state": "HI",
+      "lat": 21.47,
+      "lng": -158.22,
+      "offshore": [
+        21.3,
+        -159.2
+      ],
+      "cables": [
+        "SEA-US",
+        "Asia-Pacific Gateway",
+        "central-Pacific hub"
+      ]
+    },
+    {
+      "name": "Sines, Portugal",
+      "city": "Sines",
+      "state": "",
+      "country": "PT",
+      "lat": 37.9563,
+      "lng": -8.8697,
+      "offshore": [
+        37.7,
+        -9.7
+      ],
+      "cables": [
+        "EllaLink",
+        "2Africa",
+        "Medusa",
+        "Nuvem (planned)"
+      ]
+    },
+    {
+      "name": "Bude, UK",
+      "city": "Bude",
+      "state": "",
+      "country": "UK",
+      "lat": 50.83,
+      "lng": -4.55,
+      "offshore": [
+        50.6,
+        -5.4
+      ],
+      "cables": [
+        "Apollo",
+        "FLAG Atlantic-1",
+        "Grace Hopper"
+      ]
+    },
+    {
+      "name": "Marseille, France",
+      "city": "Marseille",
+      "state": "",
+      "country": "FR",
+      "lat": 43.2965,
+      "lng": 5.3698,
+      "offshore": [
+        43.1,
+        5.6
+      ],
+      "cables": [
+        "2Africa",
+        "PEACE",
+        "SEA-ME-WE",
+        "EU-EU hub"
+      ]
+    },
+    {
+      "name": "Helsinki, Finland",
+      "city": "Helsinki",
+      "state": "",
+      "country": "FI",
+      "lat": 60.1699,
+      "lng": 24.9384,
+      "offshore": [
+        59.9,
+        24.0
+      ],
+      "cables": [
+        "C-Lion1 (to Germany)"
+      ]
+    }
+  ],
+  "backbone": [
+    {
+      "name": "Northeast Corridor",
+      "type": "terrestrial",
+      "path": [
+        [
+          42.36,
+          -71.06
+        ],
+        [
+          41.31,
+          -72.92
+        ],
+        [
+          40.71,
+          -74.01
+        ],
+        [
+          39.95,
+          -75.16
+        ],
+        [
+          38.9,
+          -77.04
+        ],
+        [
+          39.04,
+          -77.49
+        ]
+      ]
+    },
+    {
+      "name": "Atlantic Seaboard",
+      "type": "terrestrial",
+      "path": [
+        [
+          39.04,
+          -77.49
+        ],
+        [
+          35.23,
+          -80.84
+        ],
+        [
+          33.75,
+          -84.39
+        ],
+        [
+          30.33,
+          -81.66
+        ],
+        [
+          25.76,
+          -80.19
+        ]
+      ]
+    },
+    {
+      "name": "Ashburn\u2013Chicago",
+      "type": "terrestrial",
+      "path": [
+        [
+          39.04,
+          -77.49
+        ],
+        [
+          40.44,
+          -79.99
+        ],
+        [
+          41.5,
+          -81.69
+        ],
+        [
+          41.85,
+          -87.65
+        ]
+      ]
+    },
+    {
+      "name": "Southern Transcontinental",
+      "type": "terrestrial",
+      "path": [
+        [
+          33.75,
+          -84.39
+        ],
+        [
+          32.78,
+          -96.8
+        ],
+        [
+          31.76,
+          -106.49
+        ],
+        [
+          33.45,
+          -112.07
+        ],
+        [
+          34.05,
+          -118.24
+        ]
+      ]
+    },
+    {
+      "name": "Central Transcontinental",
+      "type": "terrestrial",
+      "path": [
+        [
+          40.71,
+          -74.01
+        ],
+        [
+          41.5,
+          -81.69
+        ],
+        [
+          41.85,
+          -87.65
+        ],
+        [
+          41.26,
+          -95.93
+        ],
+        [
+          39.74,
+          -104.99
+        ],
+        [
+          40.76,
+          -111.89
+        ],
+        [
+          39.53,
+          -119.81
+        ],
+        [
+          37.77,
+          -122.42
+        ]
+      ]
+    },
+    {
+      "name": "Northern Transcontinental",
+      "type": "terrestrial",
+      "path": [
+        [
+          41.85,
+          -87.65
+        ],
+        [
+          44.98,
+          -93.27
+        ],
+        [
+          46.87,
+          -113.99
+        ],
+        [
+          47.61,
+          -122.33
+        ]
+      ]
+    },
+    {
+      "name": "Pacific Coast",
+      "type": "terrestrial",
+      "path": [
+        [
+          47.61,
+          -122.33
+        ],
+        [
+          45.52,
+          -122.68
+        ],
+        [
+          38.58,
+          -121.49
+        ],
+        [
+          37.34,
+          -121.89
+        ],
+        [
+          34.05,
+          -118.24
+        ]
+      ]
+    },
+    {
+      "name": "Desert Southwest",
+      "type": "terrestrial",
+      "path": [
+        [
+          34.05,
+          -118.24
+        ],
+        [
+          36.17,
+          -115.14
+        ],
+        [
+          40.76,
+          -111.89
+        ]
+      ]
+    },
+    {
+      "name": "Phoenix\u2013Las Vegas",
+      "type": "terrestrial",
+      "path": [
+        [
+          33.45,
+          -112.07
+        ],
+        [
+          36.17,
+          -115.14
+        ]
+      ]
+    },
+    {
+      "name": "Texas\u2013Midwest",
+      "type": "terrestrial",
+      "path": [
+        [
+          32.78,
+          -96.8
+        ],
+        [
+          39.1,
+          -94.58
+        ],
+        [
+          41.85,
+          -87.65
+        ]
+      ]
+    },
+    {
+      "name": "Gulf Spur",
+      "type": "terrestrial",
+      "path": [
+        [
+          32.78,
+          -96.8
+        ],
+        [
+          29.76,
+          -95.37
+        ]
+      ]
+    },
+    {
+      "name": "I-85 Carolinas (Ashburn\u2013Atlanta)",
+      "type": "terrestrial",
+      "path": [
+        [
+          39.04,
+          -77.49
+        ],
+        [
+          37.54,
+          -77.44
+        ],
+        [
+          35.78,
+          -78.64
+        ],
+        [
+          35.23,
+          -80.84
+        ],
+        [
+          33.75,
+          -84.39
+        ]
+      ]
+    },
+    {
+      "name": "I-80 New York\u2013Chicago (via Pittsburgh)",
+      "type": "terrestrial",
+      "path": [
+        [
+          40.71,
+          -74.01
+        ],
+        [
+          41.41,
+          -75.66
+        ],
+        [
+          40.44,
+          -79.99
+        ],
+        [
+          41.5,
+          -81.69
+        ],
+        [
+          41.85,
+          -87.65
+        ]
+      ]
+    },
+    {
+      "name": "I-65/71 Chicago\u2013Atlanta (via Nashville)",
+      "type": "terrestrial",
+      "path": [
+        [
+          41.85,
+          -87.65
+        ],
+        [
+          39.77,
+          -86.16
+        ],
+        [
+          38.25,
+          -85.76
+        ],
+        [
+          36.16,
+          -86.78
+        ],
+        [
+          33.75,
+          -84.39
+        ]
+      ]
+    },
+    {
+      "name": "I-55/44 Chicago\u2013Dallas (via St. Louis, Tulsa)",
+      "type": "terrestrial",
+      "path": [
+        [
+          41.85,
+          -87.65
+        ],
+        [
+          38.63,
+          -90.2
+        ],
+        [
+          36.15,
+          -95.99
+        ],
+        [
+          32.78,
+          -96.8
+        ]
+      ]
+    },
+    {
+      "name": "Florida Spine (Atlanta\u2013Miami)",
+      "type": "terrestrial",
+      "path": [
+        [
+          33.75,
+          -84.39
+        ],
+        [
+          30.33,
+          -81.66
+        ],
+        [
+          28.54,
+          -81.38
+        ],
+        [
+          27.95,
+          -82.46
+        ],
+        [
+          25.76,
+          -80.19
+        ]
+      ]
+    },
+    {
+      "name": "I-10 Gulf (Dallas\u2013Houston\u2013New Orleans\u2013Jacksonville)",
+      "type": "terrestrial",
+      "path": [
+        [
+          32.78,
+          -96.8
+        ],
+        [
+          29.76,
+          -95.37
+        ],
+        [
+          29.95,
+          -90.07
+        ],
+        [
+          30.69,
+          -88.04
+        ],
+        [
+          30.33,
+          -81.66
+        ]
+      ]
+    },
+    {
+      "name": "I-25/40 Denver\u2013Phoenix (via Albuquerque, El Paso)",
+      "type": "terrestrial",
+      "path": [
+        [
+          39.74,
+          -104.99
+        ],
+        [
+          35.08,
+          -106.65
+        ],
+        [
+          31.76,
+          -106.49
+        ],
+        [
+          32.22,
+          -110.97
+        ],
+        [
+          33.45,
+          -112.07
+        ]
+      ]
+    },
+    {
+      "name": "I-90 Northern (Seattle\u2013Minneapolis via Spokane)",
+      "type": "terrestrial",
+      "path": [
+        [
+          47.61,
+          -122.33
+        ],
+        [
+          47.66,
+          -117.43
+        ],
+        [
+          45.78,
+          -108.5
+        ],
+        [
+          44.98,
+          -93.27
+        ]
+      ]
+    },
+    {
+      "name": "I-80 Bay Area\u2013Salt Lake (via Sacramento, Reno)",
+      "type": "terrestrial",
+      "path": [
+        [
+          37.77,
+          -122.42
+        ],
+        [
+          38.58,
+          -121.49
+        ],
+        [
+          39.53,
+          -119.81
+        ],
+        [
+          40.76,
+          -111.89
+        ]
+      ]
+    },
+    {
+      "name": "I-84 Portland\u2013Salt Lake (via Boise)",
+      "type": "terrestrial",
+      "path": [
+        [
+          45.52,
+          -122.68
+        ],
+        [
+          43.62,
+          -116.21
+        ],
+        [
+          40.76,
+          -111.89
+        ]
+      ]
+    },
+    {
+      "name": "Memphis\u2013Dallas (via Little Rock)",
+      "type": "terrestrial",
+      "path": [
+        [
+          35.15,
+          -90.05
+        ],
+        [
+          34.75,
+          -92.29
+        ],
+        [
+          32.78,
+          -96.8
+        ]
+      ]
+    },
+    {
+      "name": "Atlanta\u2013Memphis (via Birmingham)",
+      "type": "terrestrial",
+      "path": [
+        [
+          33.75,
+          -84.39
+        ],
+        [
+          33.52,
+          -86.81
+        ],
+        [
+          35.15,
+          -90.05
+        ]
+      ]
+    },
+    {
+      "name": "I-90 Boston\u2013Cleveland (via Albany, Buffalo)",
+      "type": "terrestrial",
+      "path": [
+        [
+          42.36,
+          -71.06
+        ],
+        [
+          42.65,
+          -73.76
+        ],
+        [
+          42.89,
+          -78.88
+        ],
+        [
+          41.5,
+          -81.69
+        ]
+      ]
+    },
+    {
+      "name": "Kansas City\u2013Denver (via the Plains)",
+      "type": "terrestrial",
+      "path": [
+        [
+          39.1,
+          -94.58
+        ],
+        [
+          39.74,
+          -104.99
+        ]
+      ]
+    },
+    {
+      "name": "I-35 Kansas City\u2013Dallas (via OKC)",
+      "type": "terrestrial",
+      "path": [
+        [
+          39.1,
+          -94.58
+        ],
+        [
+          35.47,
+          -97.52
+        ],
+        [
+          32.78,
+          -96.8
+        ]
+      ]
+    },
+    {
+      "name": "Salt Lake\u2013Las Vegas\u2013Phoenix",
+      "type": "terrestrial",
+      "path": [
+        [
+          40.76,
+          -111.89
+        ],
+        [
+          36.17,
+          -115.14
+        ],
+        [
+          33.45,
+          -112.07
+        ]
+      ]
+    },
+    {
+      "name": "Omaha\u2013Kansas City\u2013St. Louis",
+      "type": "terrestrial",
+      "path": [
+        [
+          41.26,
+          -95.93
+        ],
+        [
+          39.1,
+          -94.58
+        ],
+        [
+          38.63,
+          -90.2
+        ]
+      ]
+    },
+    {
+      "name": "Ashburn\u2013Richmond\u2013Raleigh spur",
+      "type": "terrestrial",
+      "path": [
+        [
+          39.04,
+          -77.49
+        ],
+        [
+          37.54,
+          -77.44
+        ],
+        [
+          35.78,
+          -78.64
+        ]
+      ]
+    },
+    {
+      "name": "London\u2013Amsterdam\u2013Frankfurt (FLAP)",
+      "type": "terrestrial",
+      "path": [
+        [
+          51.51,
+          -0.13
+        ],
+        [
+          52.37,
+          4.9
+        ],
+        [
+          50.11,
+          8.68
+        ]
+      ]
+    },
+    {
+      "name": "Frankfurt\u2013Helsinki (C-Lion spur)",
+      "type": "terrestrial",
+      "path": [
+        [
+          50.11,
+          8.68
+        ],
+        [
+          52.52,
+          13.4
+        ],
+        [
+          59.33,
+          18.06
+        ],
+        [
+          60.17,
+          24.94
+        ]
+      ]
+    },
+    {
+      "name": "London\u2013Sines (via Iberia)",
+      "type": "terrestrial",
+      "path": [
+        [
+          51.51,
+          -0.13
+        ],
+        [
+          48.86,
+          2.35
+        ],
+        [
+          40.42,
+          -3.7
+        ],
+        [
+          37.96,
+          -8.87
+        ]
+      ]
+    },
+    {
+      "name": "Oslo\u2013Narvik (Arctic)",
+      "type": "terrestrial",
+      "path": [
+        [
+          59.91,
+          10.75
+        ],
+        [
+          63.43,
+          10.39
+        ],
+        [
+          68.44,
+          17.43
+        ]
+      ]
+    }
+  ],
+  "metros": [
+    {
+      "id": "ashburn",
+      "name": "Ashburn / Northern Virginia",
+      "lat": 39.04,
+      "lng": -77.49
+    },
+    {
+      "id": "newyork",
+      "name": "New York / New Jersey",
+      "lat": 40.71,
+      "lng": -74.01
+    },
+    {
+      "id": "boston",
+      "name": "Boston",
+      "lat": 42.36,
+      "lng": -71.06
+    },
+    {
+      "id": "chicago",
+      "name": "Chicago",
+      "lat": 41.85,
+      "lng": -87.65
+    },
+    {
+      "id": "columbus",
+      "name": "Columbus",
+      "lat": 39.96,
+      "lng": -82.99
+    },
+    {
+      "id": "atlanta",
+      "name": "Atlanta",
+      "lat": 33.75,
+      "lng": -84.39
+    },
+    {
+      "id": "charlotte",
+      "name": "Charlotte",
+      "lat": 35.23,
+      "lng": -80.84
+    },
+    {
+      "id": "nashville",
+      "name": "Nashville",
+      "lat": 36.16,
+      "lng": -86.78
+    },
+    {
+      "id": "miami",
+      "name": "Miami",
+      "lat": 25.76,
+      "lng": -80.19
+    },
+    {
+      "id": "jacksonville",
+      "name": "Jacksonville",
+      "lat": 30.33,
+      "lng": -81.66
+    },
+    {
+      "id": "dallas",
+      "name": "Dallas",
+      "lat": 32.78,
+      "lng": -96.8
+    },
+    {
+      "id": "houston",
+      "name": "Houston",
+      "lat": 29.76,
+      "lng": -95.37
+    },
+    {
+      "id": "sanantonio",
+      "name": "San Antonio",
+      "lat": 29.42,
+      "lng": -98.49
+    },
+    {
+      "id": "kansascity",
+      "name": "Kansas City",
+      "lat": 39.1,
+      "lng": -94.58
+    },
+    {
+      "id": "minneapolis",
+      "name": "Minneapolis",
+      "lat": 44.98,
+      "lng": -93.27
+    },
+    {
+      "id": "denver",
+      "name": "Denver",
+      "lat": 39.74,
+      "lng": -104.99
+    },
+    {
+      "id": "saltlake",
+      "name": "Salt Lake City",
+      "lat": 40.76,
+      "lng": -111.89
+    },
+    {
+      "id": "phoenix",
+      "name": "Phoenix",
+      "lat": 33.45,
+      "lng": -112.07
+    },
+    {
+      "id": "lasvegas",
+      "name": "Las Vegas",
+      "lat": 36.17,
+      "lng": -115.14
+    },
+    {
+      "id": "reno",
+      "name": "Reno",
+      "lat": 39.53,
+      "lng": -119.81
+    },
+    {
+      "id": "losangeles",
+      "name": "Los Angeles",
+      "lat": 34.05,
+      "lng": -118.24
+    },
+    {
+      "id": "siliconvalley",
+      "name": "Silicon Valley",
+      "lat": 37.34,
+      "lng": -121.89
+    },
+    {
+      "id": "portland",
+      "name": "Portland",
+      "lat": 45.52,
+      "lng": -122.68
+    },
+    {
+      "id": "seattle",
+      "name": "Seattle",
+      "lat": 47.61,
+      "lng": -122.33
+    },
+    {
+      "id": "richmond",
+      "name": "Richmond",
+      "lat": 37.54,
+      "lng": -77.44
+    },
+    {
+      "id": "raleigh",
+      "name": "Raleigh",
+      "lat": 35.78,
+      "lng": -78.64
+    },
+    {
+      "id": "pittsburgh",
+      "name": "Pittsburgh",
+      "lat": 40.44,
+      "lng": -79.99
+    },
+    {
+      "id": "cleveland",
+      "name": "Cleveland",
+      "lat": 41.5,
+      "lng": -81.69
+    },
+    {
+      "id": "indianapolis",
+      "name": "Indianapolis",
+      "lat": 39.77,
+      "lng": -86.16
+    },
+    {
+      "id": "louisville",
+      "name": "Louisville",
+      "lat": 38.25,
+      "lng": -85.76
+    },
+    {
+      "id": "stlouis",
+      "name": "St. Louis",
+      "lat": 38.63,
+      "lng": -90.2
+    },
+    {
+      "id": "memphis",
+      "name": "Memphis",
+      "lat": 35.15,
+      "lng": -90.05
+    },
+    {
+      "id": "omaha",
+      "name": "Omaha",
+      "lat": 41.26,
+      "lng": -95.93
+    },
+    {
+      "id": "tulsa",
+      "name": "Tulsa",
+      "lat": 36.15,
+      "lng": -95.99
+    },
+    {
+      "id": "okc",
+      "name": "Oklahoma City",
+      "lat": 35.47,
+      "lng": -97.52
+    },
+    {
+      "id": "albuquerque",
+      "name": "Albuquerque",
+      "lat": 35.08,
+      "lng": -106.65
+    },
+    {
+      "id": "elpaso",
+      "name": "El Paso",
+      "lat": 31.76,
+      "lng": -106.49
+    },
+    {
+      "id": "tucson",
+      "name": "Tucson",
+      "lat": 32.22,
+      "lng": -110.97
+    },
+    {
+      "id": "sacramento",
+      "name": "Sacramento",
+      "lat": 38.58,
+      "lng": -121.49
+    },
+    {
+      "id": "boise",
+      "name": "Boise",
+      "lat": 43.62,
+      "lng": -116.21
+    },
+    {
+      "id": "tampa",
+      "name": "Tampa",
+      "lat": 27.95,
+      "lng": -82.46
+    },
+    {
+      "id": "orlando",
+      "name": "Orlando",
+      "lat": 28.54,
+      "lng": -81.38
+    },
+    {
+      "id": "neworleans",
+      "name": "New Orleans",
+      "lat": 29.95,
+      "lng": -90.07
+    },
+    {
+      "id": "birmingham",
+      "name": "Birmingham",
+      "lat": 33.52,
+      "lng": -86.81
+    },
+    {
+      "id": "buffalo",
+      "name": "Buffalo",
+      "lat": 42.89,
+      "lng": -78.88
+    },
+    {
+      "id": "spokane",
+      "name": "Spokane",
+      "lat": 47.66,
+      "lng": -117.43
+    }
+  ],
+  "corridor_pairs": [
+    [
+      "ashburn",
+      "newyork"
+    ],
+    [
+      "ashburn",
+      "atlanta"
+    ],
+    [
+      "ashburn",
+      "chicago"
+    ],
+    [
+      "ashburn",
+      "columbus"
+    ],
+    [
+      "ashburn",
+      "charlotte"
+    ],
+    [
+      "newyork",
+      "boston"
+    ],
+    [
+      "newyork",
+      "chicago"
+    ],
+    [
+      "chicago",
+      "minneapolis"
+    ],
+    [
+      "chicago",
+      "kansascity"
+    ],
+    [
+      "chicago",
+      "columbus"
+    ],
+    [
+      "chicago",
+      "nashville"
+    ],
+    [
+      "atlanta",
+      "miami"
+    ],
+    [
+      "atlanta",
+      "dallas"
+    ],
+    [
+      "atlanta",
+      "charlotte"
+    ],
+    [
+      "atlanta",
+      "nashville"
+    ],
+    [
+      "atlanta",
+      "jacksonville"
+    ],
+    [
+      "jacksonville",
+      "miami"
+    ],
+    [
+      "dallas",
+      "houston"
+    ],
+    [
+      "dallas",
+      "sanantonio"
+    ],
+    [
+      "dallas",
+      "phoenix"
+    ],
+    [
+      "dallas",
+      "kansascity"
+    ],
+    [
+      "kansascity",
+      "denver"
+    ],
+    [
+      "denver",
+      "saltlake"
+    ],
+    [
+      "saltlake",
+      "reno"
+    ],
+    [
+      "saltlake",
+      "lasvegas"
+    ],
+    [
+      "reno",
+      "siliconvalley"
+    ],
+    [
+      "phoenix",
+      "losangeles"
+    ],
+    [
+      "phoenix",
+      "lasvegas"
+    ],
+    [
+      "lasvegas",
+      "losangeles"
+    ],
+    [
+      "losangeles",
+      "siliconvalley"
+    ],
+    [
+      "siliconvalley",
+      "portland"
+    ],
+    [
+      "portland",
+      "seattle"
+    ],
+    [
+      "minneapolis",
+      "seattle"
+    ]
+  ],
+  "power_stations": [
+    {
+      "name": "Susquehanna Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2500,
+      "lat": 41.089,
+      "lng": -76.148,
+      "note": "Behind-the-meter supply to AWS New Carlisle-area / Talen campus"
+    },
+    {
+      "name": "Beaver Valley Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1800,
+      "lat": 40.623,
+      "lng": -80.434,
+      "note": "Power-adjacent to Aligned Shippingport, PA"
+    },
+    {
+      "name": "Cardinal Power Plant",
+      "type": "fossil",
+      "fuel": "Coal",
+      "mw": 1800,
+      "lat": 40.27,
+      "lng": -80.61,
+      "note": "Ohio River; power-adjacent to Aligned Cardinal, OH"
+    },
+    {
+      "name": "Homer City Generating Station",
+      "type": "fossil",
+      "fuel": "Gas (ex-coal)",
+      "mw": 4500,
+      "lat": 40.513,
+      "lng": -79.19,
+      "note": "Retired coal converting to gas; 4.5 GW AI campus planned"
+    },
+    {
+      "name": "Palo Verde Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 3900,
+      "lat": 33.388,
+      "lng": -112.865,
+      "note": "Largest US nuclear plant; serves Phoenix metro"
+    },
+    {
+      "name": "Comanche Peak Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2400,
+      "lat": 32.298,
+      "lng": -97.785,
+      "note": "ERCOT; serves Dallas\u2013Fort Worth"
+    },
+    {
+      "name": "Vogtle Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 4500,
+      "lat": 33.142,
+      "lng": -81.762,
+      "note": "Newest US reactors (Units 3-4); serves Georgia campuses"
+    },
+    {
+      "name": "Grand Coulee Dam",
+      "type": "hydro",
+      "fuel": "Hydro",
+      "mw": 6800,
+      "lat": 47.957,
+      "lng": -118.982,
+      "note": "Columbia River; cheap hydro for Quincy/WA data centers"
+    },
+    {
+      "name": "Crusoe On-site Gas (Stargate Abilene)",
+      "type": "fossil",
+      "fuel": "Natural gas (on-site)",
+      "mw": 360,
+      "lat": 32.449,
+      "lng": -99.733,
+      "note": "Behind-the-meter generation for the Stargate campus"
+    },
+    {
+      "name": "Bath County Pumped Storage",
+      "type": "hydro",
+      "fuel": "Pumped storage",
+      "mw": 3000,
+      "lat": 38.209,
+      "lng": -79.8,
+      "note": "PJM; backstops Northern Virginia data-center load"
+    },
+    {
+      "name": "W.A. Parish (Gas/Coal)",
+      "type": "fossil",
+      "fuel": "Gas/Coal",
+      "mw": 3650,
+      "lat": 29.483,
+      "lng": -95.633,
+      "note": "ERCOT; serves Houston metro"
+    },
+    {
+      "name": "Limerick Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2300,
+      "lat": 40.226,
+      "lng": -75.586,
+      "note": "PJM; serves Philadelphia / NJ corridor"
+    },
+    {
+      "name": "Peach Bottom Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2700,
+      "lat": 39.759,
+      "lng": -76.269,
+      "note": "PJM; Susquehanna River, serves Mid-Atlantic"
+    },
+    {
+      "name": "Salem / Hope Creek Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 3500,
+      "lat": 39.463,
+      "lng": -75.536,
+      "note": "PJM; Delaware River, NJ"
+    },
+    {
+      "name": "North Anna Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1900,
+      "lat": 38.06,
+      "lng": -77.789,
+      "note": "PJM; serves Northern Virginia data centers"
+    },
+    {
+      "name": "Surry Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1700,
+      "lat": 37.165,
+      "lng": -76.698,
+      "note": "PJM; James River, Virginia"
+    },
+    {
+      "name": "Calvert Cliffs Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1800,
+      "lat": 38.433,
+      "lng": -76.442,
+      "note": "PJM; Chesapeake Bay, Maryland"
+    },
+    {
+      "name": "Crane Clean Energy (Three Mile Island)",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 840,
+      "lat": 40.153,
+      "lng": -76.725,
+      "note": "Restarting under 20-yr Microsoft PPA; PJM"
+    },
+    {
+      "name": "Braidwood Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2400,
+      "lat": 41.244,
+      "lng": -88.229,
+      "note": "PJM; serves Chicago metro"
+    },
+    {
+      "name": "Byron Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2300,
+      "lat": 42.074,
+      "lng": -89.281,
+      "note": "PJM; Rock River, northern Illinois"
+    },
+    {
+      "name": "Dresden Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1845,
+      "lat": 41.39,
+      "lng": -88.27,
+      "note": "PJM; serves Chicago metro"
+    },
+    {
+      "name": "LaSalle Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2300,
+      "lat": 41.245,
+      "lng": -88.669,
+      "note": "PJM; Illinois River"
+    },
+    {
+      "name": "Clinton Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1080,
+      "lat": 40.172,
+      "lng": -88.834,
+      "note": "MISO/PJM; central Illinois"
+    },
+    {
+      "name": "Quad Cities Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1870,
+      "lat": 41.726,
+      "lng": -90.31,
+      "note": "PJM; Mississippi River, IL/IA"
+    },
+    {
+      "name": "Davis-Besse Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 900,
+      "lat": 41.597,
+      "lng": -83.086,
+      "note": "PJM; Lake Erie, Ohio"
+    },
+    {
+      "name": "Perry Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1240,
+      "lat": 41.801,
+      "lng": -81.143,
+      "note": "PJM; Lake Erie, Ohio"
+    },
+    {
+      "name": "D.C. Cook Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2200,
+      "lat": 41.975,
+      "lng": -86.565,
+      "note": "MISO; Lake Michigan, near AWS New Carlisle IN"
+    },
+    {
+      "name": "Fermi 2 Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1100,
+      "lat": 41.963,
+      "lng": -83.257,
+      "note": "MISO; Lake Erie, Michigan"
+    },
+    {
+      "name": "Point Beach Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1200,
+      "lat": 44.281,
+      "lng": -87.537,
+      "note": "MISO; Lake Michigan, Wisconsin"
+    },
+    {
+      "name": "Browns Ferry Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 3300,
+      "lat": 34.704,
+      "lng": -87.119,
+      "note": "TVA; Tennessee River, Alabama"
+    },
+    {
+      "name": "Sequoyah Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2300,
+      "lat": 35.226,
+      "lng": -85.091,
+      "note": "TVA; Tennessee River"
+    },
+    {
+      "name": "Watts Bar Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2300,
+      "lat": 35.603,
+      "lng": -84.79,
+      "note": "TVA; newest US reactor (Unit 2, 2016)"
+    },
+    {
+      "name": "Catawba Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2300,
+      "lat": 35.051,
+      "lng": -81.07,
+      "note": "SERC; Lake Wylie, South Carolina"
+    },
+    {
+      "name": "McGuire Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2200,
+      "lat": 35.432,
+      "lng": -80.948,
+      "note": "SERC; Lake Norman, near Google Lenoir NC"
+    },
+    {
+      "name": "Turkey Point Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 3200,
+      "lat": 25.435,
+      "lng": -80.331,
+      "note": "SERC; serves Miami metro / cable hub"
+    },
+    {
+      "name": "South Texas Project Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2700,
+      "lat": 28.795,
+      "lng": -96.048,
+      "note": "ERCOT; serves Houston / South Texas"
+    },
+    {
+      "name": "Diablo Canyon Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 2240,
+      "lat": 35.211,
+      "lng": -120.856,
+      "note": "CAISO; California central coast"
+    },
+    {
+      "name": "Columbia Generating Station",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1200,
+      "lat": 46.471,
+      "lng": -119.333,
+      "note": "WECC; serves Quincy/WA data centers"
+    },
+    {
+      "name": "Grand Gulf Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1500,
+      "lat": 32.008,
+      "lng": -91.048,
+      "note": "MISO; Mississippi River, near AWS Madison County"
+    },
+    {
+      "name": "Wolf Creek Nuclear",
+      "type": "nuclear",
+      "fuel": "Nuclear",
+      "mw": 1200,
+      "lat": 38.239,
+      "lng": -95.689,
+      "note": "SPP; Kansas"
+    },
+    {
+      "name": "Hoover Dam",
+      "type": "hydro",
+      "fuel": "Hydro",
+      "mw": 2080,
+      "lat": 36.016,
+      "lng": -114.737,
+      "note": "Colorado River; serves Las Vegas / Southwest"
+    },
+    {
+      "name": "Chief Joseph Dam",
+      "type": "hydro",
+      "fuel": "Hydro",
+      "mw": 2620,
+      "lat": 47.995,
+      "lng": -119.636,
+      "note": "Columbia River, Washington"
+    },
+    {
+      "name": "John Day Dam",
+      "type": "hydro",
+      "fuel": "Hydro",
+      "mw": 2160,
+      "lat": 45.715,
+      "lng": -120.694,
+      "note": "Columbia River; near Oregon data centers"
+    },
+    {
+      "name": "Robert Moses Niagara",
+      "type": "hydro",
+      "fuel": "Hydro",
+      "mw": 2675,
+      "lat": 43.145,
+      "lng": -79.042,
+      "note": "Niagara River; powers Hut 8 Niagara Falls"
+    }
+  ],
+  "rivers": [
+    {
+      "name": "Ohio River",
+      "path": [
+        [
+          40.44,
+          -80.0
+        ],
+        [
+          40.06,
+          -80.72
+        ],
+        [
+          39.42,
+          -81.45
+        ],
+        [
+          39.1,
+          -84.51
+        ],
+        [
+          38.25,
+          -85.76
+        ],
+        [
+          37.97,
+          -87.57
+        ],
+        [
+          37.0,
+          -89.18
+        ]
+      ]
+    },
+    {
+      "name": "Columbia River",
+      "path": [
+        [
+          47.96,
+          -118.98
+        ],
+        [
+          47.42,
+          -120.31
+        ],
+        [
+          47.0,
+          -119.85
+        ],
+        [
+          45.6,
+          -121.18
+        ],
+        [
+          45.6,
+          -122.7
+        ],
+        [
+          46.25,
+          -124.08
+        ]
+      ]
+    },
+    {
+      "name": "Colorado River",
+      "path": [
+        [
+          36.01,
+          -114.74
+        ],
+        [
+          35.0,
+          -114.6
+        ],
+        [
+          34.15,
+          -114.29
+        ],
+        [
+          32.7,
+          -114.6
+        ]
+      ]
+    },
+    {
+      "name": "Mississippi River",
+      "path": [
+        [
+          44.98,
+          -93.27
+        ],
+        [
+          41.52,
+          -90.58
+        ],
+        [
+          38.63,
+          -90.2
+        ],
+        [
+          35.15,
+          -90.05
+        ],
+        [
+          30.45,
+          -91.19
+        ],
+        [
+          29.95,
+          -90.07
+        ]
+      ]
+    },
+    {
+      "name": "Tennessee River",
+      "path": [
+        [
+          35.96,
+          -83.92
+        ],
+        [
+          35.05,
+          -85.31
+        ],
+        [
+          34.73,
+          -86.59
+        ],
+        [
+          37.08,
+          -88.6
+        ]
+      ]
+    },
+    {
+      "name": "Missouri River",
+      "path": [
+        [
+          47.5,
+          -101.3
+        ],
+        [
+          41.26,
+          -95.93
+        ],
+        [
+          39.1,
+          -94.58
+        ],
+        [
+          38.81,
+          -90.7
+        ]
+      ]
+    }
+  ],
+  "_neocloud_note": "Connectivity context adapted for the neocloud map: US long-haul fiber, submarine cable landings (incl. EU landings relevant to Nscale/Nebius sites), major power stations feeding AI campuses, and cooling rivers. Approximate/illustrative, not survey-grade."
+}

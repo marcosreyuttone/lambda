@@ -54,10 +54,17 @@ from urllib.error import URLError, HTTPError
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(HERE, "data")
 CURATED_PATH = os.path.join(DATA_DIR, "neoclouds_curated.json")
+CONNECTIVITY_PATH = os.path.join(DATA_DIR, "connectivity_curated.json")
 OUTPUT_PATH = os.path.join(DATA_DIR, "neoclouds.json")
 
 # SEC asks for a descriptive User-Agent with contact info on its APIs.
 UA = "neocloud-intelligence-map (contact: marcosreyuttone@gmail.com)"
+
+# PeeringDB public API: interconnection facilities carry lat/lng plus net_count
+# (networks present) and ix_count -- a strong proxy for how well-connected a
+# location is. Free, keyless. We keep facilities with a meaningful network count.
+PEERINGDB_FAC = "https://www.peeringdb.com/api/fac?country__in=US,GB,DE,NL,PT,FR,FI,NO&limit=6000"
+IX_MIN_NETS = 20
 
 EDGAR_FACTS = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
 TREASURY_CSV = ("https://home.treasury.gov/resource-center/data-chart-center/"
@@ -257,6 +264,50 @@ def fetch_yahoo(ticker):
     }
 
 
+def fetch_peeringdb_hubs():
+    """Live interconnection facilities from PeeringDB (free, keyless).
+
+    Returns a list of {name, city, country, lat, lng, net_count, ix_count}
+    for facilities with at least IX_MIN_NETS networks present. None on failure.
+    """
+    try:
+        data = _http_json(PEERINGDB_FAC)
+    except (URLError, HTTPError, ValueError, TimeoutError) as e:
+        print(f"  ! PeeringDB: {e}")
+        return None
+    rows = data.get("data") or []
+    hubs = []
+    for f in rows:
+        nets = f.get("net_count") or 0
+        if nets < IX_MIN_NETS:
+            continue
+        try:
+            lat = float(f.get("latitude"))
+            lng = float(f.get("longitude"))
+        except (TypeError, ValueError):
+            continue
+        hubs.append({
+            "name": f.get("name"),
+            "city": f.get("city"),
+            "country": f.get("country"),
+            "lat": lat, "lng": lng,
+            "net_count": nets,
+            "ix_count": f.get("ix_count") or 0,
+        })
+    hubs.sort(key=lambda h: h["net_count"], reverse=True)
+    return hubs or None
+
+
+def load_connectivity():
+    """Curated connectivity context (cables, fiber, power stations, rivers)."""
+    try:
+        with open(CONNECTIVITY_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError) as e:
+        print(f"  ! connectivity: {e}")
+        return None
+
+
 def compute_risk_score(company, weights):
     rf = company.get("risk_factors")
     if not rf:
@@ -330,6 +381,22 @@ def build(live=True):
             annotate_bond_spreads(company, treasury)
     else:
         print("Skipping live APIs (--no-live); curated data only.")
+
+    # Connectivity context (curated: cables, fiber, power stations, rivers).
+    connectivity = load_connectivity()
+    if connectivity:
+        curated["connectivity"] = connectivity
+        print(f"  Connectivity: {len(connectivity.get('cable_landings', []))} cable landings, "
+              f"{len(connectivity.get('backbone', []))} fiber routes, "
+              f"{len(connectivity.get('power_stations', []))} power stations")
+
+    # Interconnection hubs (live PeeringDB, optional).
+    if live:
+        hubs = fetch_peeringdb_hubs()
+        if hubs:
+            curated["interconnection_hubs"] = hubs
+            print(f"  PeeringDB: {len(hubs)} interconnection hubs "
+                  f"(>= {IX_MIN_NETS} networks)")
 
     if treasury:
         curated["treasury"] = treasury

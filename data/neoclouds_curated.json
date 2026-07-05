@@ -84,7 +84,8 @@
           "country": "US",
           "lat": 40.6796,
           "lng": -74.2907,
-          "note": "Flagship converted 280k sq ft facility, ~$1.2B buildout."
+          "note": "Flagship converted 280k sq ft facility, ~$1.2B buildout.",
+          "power_mw": 36
         },
         {
           "name": "Plano, TX",
@@ -93,7 +94,8 @@
           "country": "US",
           "lat": 33.0198,
           "lng": -96.6989,
-          "note": "$1.6B facility, operational since late 2023."
+          "note": "$1.6B facility, operational since late 2023.",
+          "power_mw": 100
         },
         {
           "name": "Weehawken, NJ",
@@ -158,7 +160,8 @@
           "country": "US",
           "lat": 46.0135,
           "lng": -98.5237,
-          "note": "500MW across two Applied Digital leases (~$11B, ~15yr)."
+          "note": "500MW across two Applied Digital leases (~$11B, ~15yr).",
+          "power_mw": 500
         },
         {
           "name": "Denton / Muskogee HPC campuses (leased from Core Scientific)",
@@ -167,7 +170,8 @@
           "country": "US",
           "lat": 33.2148,
           "lng": -97.1331,
-          "note": "Part of ~590MW / 12-year, up to $10.4B Core Scientific colocation program."
+          "note": "Part of ~590MW / 12-year, up to $10.4B Core Scientific colocation program.",
+          "power_mw": 200
         }
       ],
       "sec_cik": "0001769628",
@@ -223,7 +227,8 @@
           "chip": "GB200 NVL72",
           "usd_per_hr": null
         }
-      ]
+      ],
+      "power_mw_total": 836
     },
     {
       "id": "lambda",
@@ -308,7 +313,8 @@
           "country": "US",
           "lat": 39.0997,
           "lng": -94.5786,
-          "note": "New 'AI Factory', 24MW scaling to 100MW+, targeted early 2026."
+          "note": "New 'AI Factory', 24MW scaling to 100MW+, targeted early 2026.",
+          "power_mw": 24
         }
       ],
       "pricing": [
@@ -324,7 +330,8 @@
           "chip": "GB300 NVL72",
           "usd_per_hr": null
         }
-      ]
+      ],
+      "power_mw_total": 24
     },
     {
       "id": "crusoe",
@@ -375,7 +382,8 @@
           "country": "US",
           "lat": 32.4487,
           "lng": -99.7331,
-          "note": "~1.2GW planned, 8 data halls."
+          "note": "~1.2GW planned, 8 data halls.",
+          "power_mw": 1200
         }
       ],
       "pricing": [
@@ -383,7 +391,8 @@
           "chip": "GB200 NVL72",
           "usd_per_hr": null
         }
-      ]
+      ],
+      "power_mw_total": 1200
     },
     {
       "id": "nebius",
@@ -443,7 +452,8 @@
           "country": "US",
           "lat": 39.4863,
           "lng": -75.0259,
-          "note": "New campus built for the Microsoft deal, deploying 2025-2026."
+          "note": "New campus built for the Microsoft deal, deploying 2025-2026.",
+          "power_mw": 300
         },
         {
           "name": "M\u00e4nts\u00e4l\u00e4, Finland",
@@ -452,7 +462,8 @@
           "country": "FI",
           "lat": 60.6323,
           "lng": 25.321,
-          "note": "Original Yandex-heritage data center."
+          "note": "Original Yandex-heritage data center.",
+          "power_mw": 75
         }
       ],
       "sec_cik": "0001513845",
@@ -495,7 +506,8 @@
           "chip": "H200",
           "usd_per_hr": 3.5
         }
-      ]
+      ],
+      "power_mw_total": 375
     },
     {
       "id": "together-ai",
@@ -619,7 +631,8 @@
           "country": "US",
           "lat": 34.4262,
           "lng": -100.2059,
-          "note": "60MW air-cooled Nvidia Blackwell deployment."
+          "note": "60MW air-cooled Nvidia Blackwell deployment.",
+          "power_mw": 60
         },
         {
           "name": "Mackenzie / Prince George, BC",
@@ -627,7 +640,8 @@
           "state": "BC",
           "country": "CA",
           "lat": 55.3372,
-          "lng": -123.5136
+          "lng": -123.5136,
+          "power_mw": 80
         }
       ],
       "sec_cik": "0001878848",
@@ -688,7 +702,8 @@
           "chip": "B300",
           "usd_per_hr": null
         }
-      ]
+      ],
+      "power_mw_total": 140
     },
     {
       "id": "nscale",
@@ -739,7 +754,8 @@
           "country": "US",
           "lat": 31.9686,
           "lng": -99.9018,
-          "note": "104,000 GB300 GPUs, Q3 2026, approximate location."
+          "note": "104,000 GB300 GPUs, Q3 2026, approximate location.",
+          "power_mw": 240
         },
         {
           "name": "Narvik, Norway",
@@ -748,7 +764,8 @@
           "country": "NO",
           "lat": 68.4385,
           "lng": 17.4272,
-          "note": "52,000 GPUs."
+          "note": "52,000 GPUs.",
+          "power_mw": 120
         },
         {
           "name": "Loughton, UK",
@@ -757,7 +774,8 @@
           "country": "UK",
           "lat": 51.6423,
           "lng": 0.0648,
-          "note": "23,040 GB300 GPUs, 50-90MW, Q1 2027."
+          "note": "23,040 GB300 GPUs, 50-90MW, Q1 2027.",
+          "power_mw": 70
         },
         {
           "name": "Sines, Portugal",
@@ -766,9 +784,11 @@
           "country": "PT",
           "lat": 37.9563,
           "lng": -8.8697,
-          "note": "12,600 GPUs, Q1 2026."
+          "note": "12,600 GPUs, Q1 2026.",
+          "power_mw": 40
         }
-      ]
+      ],
+      "power_mw_total": 470
     },
     {
       "id": "voltage-park",
@@ -876,7 +896,8 @@
           "country": "US",
           "lat": 43.3459,
           "lng": -78.5497,
-          "note": "Approximate -- flagship TeraWulf HPC hosting site."
+          "note": "Approximate -- flagship TeraWulf HPC hosting site.",
+          "power_mw": 200
         }
       ],
       "bonds": [
@@ -908,7 +929,8 @@
           "chip": "H200",
           "usd_per_hr": 3.29
         }
-      ]
+      ],
+      "power_mw_total": 200
     },
     {
       "id": "northern-data",
@@ -1085,7 +1107,8 @@
           "country": "US",
           "lat": 46.0135,
           "lng": -98.5237,
-          "note": "250MW + 150MW leased to CoreWeave; option on a further 150MW."
+          "note": "250MW + 150MW leased to CoreWeave; option on a further 150MW.",
+          "power_mw": 400
         }
       ],
       "sec_cik": "0001144879",
@@ -1100,7 +1123,8 @@
           "secured": false,
           "note": "$375M + $75M option, Oct 2024. Plus large project-level data-center debt not shown here."
         }
-      ]
+      ],
+      "power_mw_total": 400
     },
     {
       "id": "core-scientific",
@@ -1147,7 +1171,8 @@
           "state": "TX",
           "country": "US",
           "lat": 33.2148,
-          "lng": -97.1331
+          "lng": -97.1331,
+          "power_mw": 300
         },
         {
           "name": "Muskogee, OK (approx.)",
@@ -1155,7 +1180,8 @@
           "state": "OK",
           "country": "US",
           "lat": 35.7479,
-          "lng": -95.3697
+          "lng": -95.3697,
+          "power_mw": 200
         }
       ],
       "sec_cik": "0001839341",
@@ -1179,7 +1205,8 @@
           "secured": false,
           "note": "Dec 2024, ~$22.49 conversion price."
         }
-      ]
+      ],
+      "power_mw_total": 500
     }
   ],
   "pricing_reference": {

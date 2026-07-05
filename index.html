@@ -38,6 +38,7 @@
 
   #controls { top:64px; left:14px; width:300px; max-height:calc(100% - 100px); overflow:auto; padding:16px; }
   #controls::-webkit-scrollbar{ width:8px; } #controls::-webkit-scrollbar-thumb{ background:var(--line); border-radius:8px; }
+  .ctrl-head { display:none; }  /* only on mobile */
   .group { margin:14px 0; }
   .group:first-child { margin-top:4px; }
   .group h2 { font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 8px;
@@ -58,6 +59,7 @@
   .range-row { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:2px; }
 
   #stats { bottom:14px; left:14px; width:300px; padding:14px 16px; max-height:280px; overflow:auto; }
+  .stats-head { display:none; }  /* only on mobile */
   .stat { display:flex; justify-content:space-between; align-items:baseline; font-size:13px; padding:4px 0;
     border-bottom:1px dashed var(--line-soft); }
   .stat:last-of-type { border-bottom:0; }
@@ -178,13 +180,34 @@
     #topbar .tag { display:none; }
     #panelToggle { display:block; }
     .leaflet-bottom.leaflet-right { top:54px; bottom:auto; }
-    #controls { top:104px; left:8px; right:8px; width:auto; max-height:60%; }
-    #controls.collapsed { display:none !important; }
-    #stats { left:8px; right:8px; bottom:8px; width:auto; max-height:40%; }
-    #drawer, #leaderboard, #debtwall { top:auto; left:8px; right:8px; bottom:8px; width:auto; max-height:78%;
+
+    /* Filters open as a dismissible bottom sheet, collapsed by default */
+    #controls { top:auto; left:0; right:0; bottom:0; width:auto; max-height:82%;
+      border-radius:16px 16px 0 0; padding:0 16px 20px;
+      transform:translateY(100%); transition:transform .24s ease; }
+    #controls.open { transform:translateY(0); }
+    #controls.collapsed { transform:translateY(100%); }   /* legacy alias -> closed */
+    .ctrl-head { display:flex; justify-content:space-between; align-items:center;
+      position:sticky; top:0; z-index:2; background:rgba(18,26,36,.98);
+      margin:0 -16px 4px; padding:14px 16px; border-radius:16px 16px 0 0;
+      font-size:14px; font-weight:700; border-bottom:1px solid var(--line); }
+    #controlsClose { width:30px; height:30px; border-radius:8px; background:var(--panel-2);
+      border:1px solid var(--line); color:var(--muted); font-size:16px; cursor:pointer; }
+
+    /* Stats become a slim, collapsible bottom card (collapsed by default) */
+    #stats { left:8px; right:8px; bottom:8px; width:auto; max-height:52%; padding:0; overflow:hidden; }
+    .stats-head { display:flex; justify-content:space-between; align-items:center; cursor:pointer;
+      padding:11px 15px; font-size:13px; font-weight:600; }
+    .stats-head .chev { color:var(--muted); transition:transform .2s ease; }
+    .stats-body { padding:0 15px 14px; max-height:44vh; overflow:auto; }
+    #stats.collapsed .stats-body { display:none; }
+    #stats.collapsed .stats-head .chev { transform:rotate(180deg); }
+
+    #drawer, #leaderboard, #debtwall { top:auto; left:8px; right:8px; bottom:8px; width:auto; max-height:82%;
       transform:translateY(120%); }
     #drawer.open, #leaderboard.open, #debtwall.open { transform:translateY(0); }
     .metric-grid { grid-template-columns:1fr 1fr; }
+    #flowsLegend, #mapLegend { display:none !important; }
   }
 
   .leaflet-popup-content-wrapper, .leaflet-popup-tip { background:#10171f; color:var(--text); border:1px solid var(--line); }
@@ -216,6 +239,10 @@
 <div id="loading" class="panel">Loading neocloud intelligence…</div>
 
 <div id="controls" class="panel" style="display:none">
+  <div class="ctrl-head">
+    <span>Filters &amp; layers</span>
+    <button id="controlsClose" aria-label="Close filters">✕</button>
+  </div>
   <div class="group">
     <h2>Company type</h2>
     <label class="row"><input type="checkbox" class="f-cat" value="gpu_neocloud" checked><span class="swatch" style="background:var(--accent)"></span> GPU-owning neocloud <span class="count" data-cat="gpu_neocloud"></span></label>
@@ -240,6 +267,7 @@
     <h2>Size markers by</h2>
     <select id="sizeBy">
       <option value="risk_score">Neocloud Risk Score</option>
+      <option value="power_mw_total">Power (MW, announced)</option>
       <option value="gpu_count_est">GPU count (est.)</option>
       <option value="backlog_usd">Contracted backlog (USD)</option>
       <option value="revenue_usd">Revenue (USD)</option>
@@ -252,6 +280,7 @@
       <option value="risk_score">Neocloud Risk Score</option>
       <option value="category">Company type</option>
       <option value="chip_vendor">Chip vendor</option>
+      <option value="power">Power (MW)</option>
     </select>
   </div>
 
@@ -260,6 +289,16 @@
     <input type="range" id="minRisk" min="0" max="100" value="0" step="1">
     <div class="range-row"><span>0 (safest)</span><span id="minRiskLbl">0</span><span>100 (riskiest)</span></div>
     <div class="legend-note">Composite of customer concentration, leverage/debt, contract-vs-chip-depreciation mismatch, and chip-generation freshness. See methodology in the leaderboard panel.</div>
+  </div>
+
+  <div class="group">
+    <h2>Infrastructure layers</h2>
+    <label class="row"><input type="checkbox" id="L-power"><span class="swatch" style="background:#f472b6"></span> Power stations <span class="count" id="c-power"></span></label>
+    <label class="row"><input type="checkbox" id="L-hubs"><span class="swatch" style="background:#a78bfa"></span> Interconnection hubs <span class="count" id="c-hubs"></span></label>
+    <label class="row"><input type="checkbox" id="L-fiber"><span class="swatch" style="background:#f59e0b"></span> Fiber backbone <span class="count" id="c-fiber"></span></label>
+    <label class="row"><input type="checkbox" id="L-cables"><span class="swatch" style="background:#22d3ee"></span> Submarine cables <span class="count" id="c-cables"></span></label>
+    <label class="row"><input type="checkbox" id="L-rivers"><span class="swatch" style="background:#2dd4bf"></span> Cooling rivers <span class="count" id="c-rivers"></span></label>
+    <div class="legend-note">Power stations sized by MW &amp; colored by fuel (nuclear / gas / hydro). Interconnection hubs live from PeeringDB, sized by networks present. Fiber &amp; cables are curated long-haul routes.</div>
   </div>
 
   <div class="group">
@@ -303,10 +342,14 @@ let DATA = null;
 let markers = [];
 let map;
 let flowsLayer = null;
+const infraLayers = { power:null, hubs:null, fiber:null, cables:null, rivers:null };
 
-const state = { cats: new Set(['gpu_neocloud','landlord']), chip: '', company: '', sizeBy: 'risk_score', colorBy: 'risk_score', minRisk: 0, flows: false };
+const state = { cats: new Set(['gpu_neocloud','landlord']), chip: '', company: '', sizeBy: 'risk_score', colorBy: 'risk_score', minRisk: 0, flows: false,
+  layers: { power:false, hubs:false, fiber:false, cables:false, rivers:false } };
 
+const isMobile = () => window.matchMedia('(max-width:900px)').matches;
 function fmtPct(n, dp=1) { return n==null ? '—' : (n>0?'+':'') + n.toFixed(dp) + '%'; }
+const POWER_FUEL_COLOR = { nuclear:'#f472b6', fossil:'#fb923c', hydro:'#38bdf8' };
 
 async function boot() {
   const resp = await fetch('data/neoclouds.json');
@@ -324,6 +367,24 @@ async function boot() {
   wireControls();
   renderLegend();
   renderAll();
+  updateLayerCounts();
+
+  // Mobile: start with the filters sheet closed and the stats card collapsed
+  // so the map is fully visible on entry.
+  if (isMobile()) {
+    document.getElementById('controls').classList.remove('open');
+    document.getElementById('stats').classList.add('collapsed');
+  }
+}
+
+function updateLayerCounts() {
+  const conn = DATA.connectivity || {};
+  const set = (id, n) => { const el = document.getElementById(id); if (el) el.textContent = n || ''; };
+  set('c-power', (conn.power_stations||[]).length);
+  set('c-hubs', (DATA.interconnection_hubs||[]).length);
+  set('c-fiber', (conn.backbone||[]).length);
+  set('c-cables', (conn.cable_landings||[]).length);
+  set('c-rivers', (conn.rivers||[]).length);
 }
 
 function allSites() {
@@ -367,15 +428,28 @@ function wireControls() {
     document.getElementById('chipFilter').value=''; document.getElementById('companyFilter').value='';
     document.getElementById('minRisk').value=0; document.getElementById('minRiskLbl').textContent='0';
     document.getElementById('L-flows').checked=false;
+    Object.keys(state.layers).forEach(k => { state.layers[k]=false; const cb=document.getElementById('L-'+k); if(cb) cb.checked=false; renderInfra(k); });
     renderFlows(); renderAll();
   });
   document.getElementById('openLeaderboard').addEventListener('click', openLeaderboard);
   document.getElementById('L-flows').addEventListener('change', e => { state.flows = e.target.checked; renderFlows(); });
   document.getElementById('openDebtWall').addEventListener('click', openDebtWall);
-  document.getElementById('panelToggle').addEventListener('click', () => {
-    document.getElementById('controls').classList.toggle('collapsed');
+  ['power','hubs','fiber','cables','rivers'].forEach(k => {
+    const cb = document.getElementById('L-'+k);
+    if (cb) cb.addEventListener('change', e => { state.layers[k] = e.target.checked; renderInfra(k); });
   });
-  document.addEventListener('keydown', e => { if (e.key==='Escape') { closeDrawer(); closeLeaderboard(); closeDebtWall(); } });
+  // Mobile: ☰ opens the filters sheet; ✕ / backdrop tap closes it.
+  document.getElementById('panelToggle').addEventListener('click', () => {
+    document.getElementById('controls').classList.toggle('open');
+  });
+  document.getElementById('controlsClose').addEventListener('click', () => {
+    document.getElementById('controls').classList.remove('open');
+  });
+  document.addEventListener('keydown', e => { if (e.key==='Escape') { closeDrawer(); closeLeaderboard(); closeDebtWall(); closeControlsMobile(); } });
+}
+
+function closeControlsMobile() {
+  if (isMobile()) document.getElementById('controls').classList.remove('open');
 }
 
 function passesFilter(company) {
@@ -386,12 +460,14 @@ function passesFilter(company) {
   return true;
 }
 
+const POWER_COLOR = mw => mw>=800 ? '#f472b6' : mw>=300 ? '#c084fc' : mw>=100 ? '#818cf8' : '#60a5fa';
 function sizeFor(company) {
   const v = company[state.sizeBy];
   if (v == null) return 8;
   let scaled;
   if (state.sizeBy === 'risk_score') scaled = 6 + (v/100)*16;
   else if (state.sizeBy === 'gpu_count_est') scaled = 6 + Math.sqrt(v/2000);
+  else if (state.sizeBy === 'power_mw_total') scaled = 6 + Math.sqrt(v)*0.7;
   else scaled = 6 + Math.sqrt(v/2e8);
   return Math.max(6, Math.min(30, scaled));
 }
@@ -399,6 +475,7 @@ function colorFor(company) {
   if (state.colorBy === 'risk_score') return company.risk_score!=null ? RISK_COLOR(company.risk_score) : '#5f7388';
   if (state.colorBy === 'category') return CAT_COLOR[company.category] || '#5f7388';
   if (state.colorBy === 'chip_vendor') return CHIP_COLOR[company.chip_vendor] || '#5f7388';
+  if (state.colorBy === 'power') return company.power_mw_total ? POWER_COLOR(company.power_mw_total) : '#5f7388';
   return '#4ea1ff';
 }
 
@@ -438,6 +515,55 @@ function renderFlows() {
     `<div class="row2"><span class="ln" style="background:${v.color}${k==='invests'?';background:repeating-linear-gradient(90deg,'+v.color+' 0 4px,transparent 4px 8px)':''}"></span>${v.label}</div>`
   ).join('') + `<div class="legend-note" style="margin-top:7px">Squares = chip vendors, buyers, hosts &amp; financiers. Click a line for the deal.</div>`;
   legend.style.display = 'block';
+}
+
+// ---- Infrastructure context layers (power, hubs, fiber, cables, rivers) ----
+function buildInfra(kind) {
+  const conn = DATA.connectivity || {};
+  const g = L.layerGroup();
+  if (kind === 'power') {
+    for (const p of (conn.power_stations||[])) {
+      const col = POWER_FUEL_COLOR[p.type] || '#f472b6';
+      const r = 4 + Math.sqrt(p.mw||100)/6;
+      const m = L.circleMarker([p.lat,p.lng], { radius:r, color:'#0b0f14', weight:1, fillColor:col, fillOpacity:0.8 });
+      m.bindPopup(`<h4>${p.name}</h4><div class="mini">${p.fuel} · ${fmtNum(p.mw)} MW</div>${p.note?`<div class="mini" style="margin-top:4px">${p.note}</div>`:''}`);
+      g.addLayer(m);
+    }
+  } else if (kind === 'hubs') {
+    for (const h of (DATA.interconnection_hubs||[])) {
+      const r = 3 + Math.sqrt(h.net_count||1)/2.2;
+      const m = L.circleMarker([h.lat,h.lng], { radius:r, color:'#0b0f14', weight:0.8, fillColor:'#a78bfa', fillOpacity:0.7 });
+      m.bindPopup(`<h4>${h.name}</h4><div class="mini">${h.city||''}${h.country?', '+h.country:''}</div><div class="mini" style="margin-top:4px">${fmtNum(h.net_count)} networks · ${fmtNum(h.ix_count)} IXPs</div>`);
+      g.addLayer(m);
+    }
+  } else if (kind === 'fiber') {
+    for (const b of (conn.backbone||[])) {
+      const line = L.polyline(b.path, { color:'#f59e0b', weight:1.4, opacity:0.5 });
+      line.bindPopup(`<h4>${b.name}</h4><div class="mini">Long-haul fiber corridor (approx.)</div>`);
+      g.addLayer(line);
+    }
+  } else if (kind === 'cables') {
+    for (const c of (conn.cable_landings||[])) {
+      if (c.offshore) g.addLayer(L.polyline([[c.lat,c.lng], c.offshore], { color:'#22d3ee', weight:1.6, opacity:0.6 }));
+      const m = L.circleMarker([c.lat,c.lng], { radius:4, color:'#0b0f14', weight:1, fillColor:'#22d3ee', fillOpacity:0.85 });
+      m.bindPopup(`<h4>${c.name}</h4><div class="mini">Landing: ${(c.cables||[]).join(', ')||'submarine cables'}</div>`);
+      g.addLayer(m);
+    }
+  } else if (kind === 'rivers') {
+    for (const r of (conn.rivers||[])) {
+      const line = L.polyline(r.path, { color:'#2dd4bf', weight:1.6, opacity:0.4, dashArray:'2,4' });
+      line.bindPopup(`<h4>${r.name}</h4><div class="mini">Cooling-water context</div>`);
+      g.addLayer(line);
+    }
+  }
+  return g;
+}
+function renderInfra(kind) {
+  if (infraLayers[kind]) { map.removeLayer(infraLayers[kind]); infraLayers[kind] = null; }
+  if (state.layers[kind]) {
+    infraLayers[kind] = buildInfra(kind);
+    infraLayers[kind].addTo(map);
+  }
 }
 
 function renderAll() {
@@ -481,14 +607,22 @@ function renderAll() {
 function renderStats(seenCompanies) {
   const shown = DATA.companies.filter(c => seenCompanies.has(c.id));
   const avgRisk = shown.length ? (shown.reduce((s,c)=>s+(c.risk_score||0),0)/shown.length).toFixed(1) : '—';
+  const power = shown.reduce((s,c)=>s+(c.power_mw_total||0),0);
   const el = document.getElementById('stats');
   el.innerHTML = `
-    <div class="sec">Current filter</div>
-    <div class="stat"><span>Companies shown</span><b>${shown.length}</b></div>
-    <div class="stat"><span>Avg. Neocloud Risk Score</span><b style="color:${RISK_COLOR(avgRisk)}">${avgRisk}</b></div>
-    <div class="stat"><span>Total GPUs tracked (est.)</span><b>${fmtNum(shown.reduce((s,c)=>s+(c.gpu_count_est||0),0))}</b></div>
-    <div class="stat"><span>Total contracted backlog</span><b>${fmtUSD(shown.reduce((s,c)=>s+(c.backlog_usd||0),0))}</b></div>
-    <div class="legend-note">${DATA.disclaimer}</div>
+    <div class="stats-head" onclick="document.getElementById('stats').classList.toggle('collapsed')">
+      <span>${shown.length} shown · avg risk <b style="color:${RISK_COLOR(avgRisk)}">${avgRisk}</b></span>
+      <span class="chev">▾</span>
+    </div>
+    <div class="stats-body">
+      <div class="sec">Current filter</div>
+      <div class="stat"><span>Companies shown</span><b>${shown.length}</b></div>
+      <div class="stat"><span>Avg. Neocloud Risk Score</span><b style="color:${RISK_COLOR(avgRisk)}">${avgRisk}</b></div>
+      <div class="stat"><span>Total GPUs tracked (est.)</span><b>${fmtNum(shown.reduce((s,c)=>s+(c.gpu_count_est||0),0))}</b></div>
+      <div class="stat"><span>Announced power</span><b>${power? fmtNum(power)+' MW':'—'}</b></div>
+      <div class="stat"><span>Total contracted backlog</span><b>${fmtUSD(shown.reduce((s,c)=>s+(c.backlog_usd||0),0))}</b></div>
+      <div class="legend-note">${DATA.disclaimer}</div>
+    </div>
   `;
 }
 
@@ -501,6 +635,11 @@ function renderLegend() {
   } else if (state.colorBy === 'category') {
     rows = `<div class="row2"><span class="swatch" style="background:${CAT_COLOR.gpu_neocloud}"></span>GPU-owning neocloud</div>
             <div class="row2"><span class="swatch" style="background:${CAT_COLOR.landlord}"></span>Data-center landlord</div>`;
+  } else if (state.colorBy === 'power') {
+    rows = `<div class="row2"><span class="swatch" style="background:#f472b6"></span>800+ MW</div>
+            <div class="row2"><span class="swatch" style="background:#c084fc"></span>300–799 MW</div>
+            <div class="row2"><span class="swatch" style="background:#818cf8"></span>100–299 MW</div>
+            <div class="row2"><span class="swatch" style="background:#60a5fa"></span>&lt;100 MW</div>`;
   } else {
     rows = `<div class="row2"><span class="swatch" style="background:${CHIP_COLOR.Nvidia}"></span>Nvidia</div>
             <div class="row2"><span class="swatch" style="background:${CHIP_COLOR.AMD}"></span>AMD</div>
@@ -616,7 +755,7 @@ function flowsSection(c) {
 function openDrawer(id) {
   const c = DATA.companies.find(x => x.id === id);
   if (!c) return;
-  closeLeaderboard(); closeDebtWall();
+  closeLeaderboard(); closeDebtWall(); closeControlsMobile();
   const catLabel = c.category === 'landlord' ? 'Data-center landlord' : 'GPU-owning neocloud';
   const rf = c.risk_factors || {};
   const customers = (c.customers||[]).map(cu => `
@@ -629,7 +768,7 @@ function openDrawer(id) {
 
   const sites = (c.sites||[]).map(s => `
     <div class="site-row">
-      <div class="nm">${s.name}</div>
+      <div class="nm">${s.name}${s.power_mw?` <span class="tag2">${fmtNum(s.power_mw)} MW</span>`:''}</div>
       ${s.note ? `<div class="note">${s.note}</div>` : ''}
     </div>`).join('');
 
@@ -653,7 +792,7 @@ function openDrawer(id) {
         <div class="metric"><span>Revenue</span><b>${fmtUSD(c.revenue_usd)}</b></div>
         <div class="metric"><span>Contracted backlog</span><b>${fmtUSD(c.backlog_usd)}</b></div>
         <div class="metric"><span>Disclosed debt</span><b>${fmtUSD(c.debt_usd)}</b></div>
-        <div class="metric"><span>Funding raised</span><b>${fmtUSD(c.funding_total_usd)}</b></div>
+        <div class="metric"><span>Announced power</span><b>${c.power_mw_total? fmtNum(c.power_mw_total)+' MW':'—'}</b></div>
       </div>
       ${c.revenue_note ? `<div class="legend-note">${c.revenue_note}</div>` : ''}
       ${c.debt_note ? `<div class="legend-note">${c.debt_note}</div>` : ''}
@@ -698,7 +837,7 @@ function openDrawer(id) {
 function closeDrawer() { document.getElementById('drawer').classList.remove('open'); }
 
 function openLeaderboard(metric) {
-  closeDrawer();
+  closeDrawer(); closeControlsMobile();
   renderLeaderboard(metric || 'risk_score');
   document.getElementById('leaderboard').classList.add('open');
 }
@@ -748,7 +887,7 @@ function renderLeaderboard(metric) {
 }
 
 // ---- Debt & bond maturity wall ----
-function openDebtWall() { closeDrawer(); closeLeaderboard(); renderDebtWall(); document.getElementById('debtwall').classList.add('open'); }
+function openDebtWall() { closeDrawer(); closeLeaderboard(); closeControlsMobile(); renderDebtWall(); document.getElementById('debtwall').classList.add('open'); }
 function closeDebtWall() { document.getElementById('debtwall').classList.remove('open'); }
 function renderDebtWall() {
   // aggregate every tracked bond by maturity year, split by issuer
